@@ -8,7 +8,7 @@ namespace VirtualRealMachine
 {
     public class VirtualMemory
     {
-        Word[] memoryWords = new Word[100];
+        private Word[] memoryWords = new Word[100];
 
         public VirtualMemory()
         {

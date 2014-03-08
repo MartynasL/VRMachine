@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VirtualRealMachine
 {
-    class Word
+    public class Word
     {
         private char[] word = new char[4];
 
@@ -30,7 +30,14 @@ namespace VirtualRealMachine
         //byte number from 1 to 4. 1st is eldest byte.
         public char getWordByte(int byteNumber)
         {
-            return word[byteNumber];
+            try
+            {
+                return word[byteNumber-1];
+            }
+            catch (IndexOutOfRangeException e)
+            {
+                throw new IndexOutOfRangeException("Byte number must be from 1 to 4");
+            }
         }
 
     }
