@@ -9,16 +9,17 @@ namespace VirtualRealMachine
     public class Word
     {
         private char[] value;
+        private const int WORD_LENGTH = 4;
 
         public Word(string stringWord)
         {
-            value = new char[4];
+            value = new char[WORD_LENGTH];
             setWord(stringWord);
         }
 
         public void setWord(string stringWord)
         {
-            if (stringWord.Length == 4)
+            if (stringWord.Length == WORD_LENGTH)
             {
                 value = stringWord.ToCharArray();
             }
