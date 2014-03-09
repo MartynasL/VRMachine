@@ -8,10 +8,11 @@ namespace VirtualRealMachine
 {
     public class VirtualMemory
     {
-        private Word[] memoryWords = new Word[100];
+        private Word[] memoryWords;
 
         public VirtualMemory()
         {
+            memoryWords = new Word[100];
             for(int i = 0; i < 100; i++)
             {
                 memoryWords[i] = new Word("0000");

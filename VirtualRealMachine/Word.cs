@@ -8,10 +8,11 @@ namespace VirtualRealMachine
 {
     public class Word
     {
-        private char[] value = new char[4];
+        private char[] value;
 
         public Word(string stringWord)
         {
+            value = new char[4];
             setWord(stringWord);
         }
 
