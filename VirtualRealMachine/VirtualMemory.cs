@@ -8,14 +8,15 @@ namespace VirtualRealMachine
 {
     public class VirtualMemory
     {
-        private Word[] memoryWords;
+        private MemoryBlock[] memoryBlocks;
+        public const int NUMBER_OF_BLOCKS = 10;
 
         public VirtualMemory()
         {
-            memoryWords = new Word[100];
-            for(int i = 0; i < 100; i++)
+            memoryBlocks = new MemoryBlock[NUMBER_OF_BLOCKS];
+            for(int i = 0; i < NUMBER_OF_BLOCKS; i++)
             {
-                memoryWords[i] = new Word("0000");
+                memoryBlocks[i] = new MemoryBlock();
             }
         }
 
@@ -23,7 +24,7 @@ namespace VirtualRealMachine
         {
             try
             {
-                return memoryWords[address];
+                return memoryBlocks[address / MemoryBlock.WORDS_IN_BLOCK].getBlockWord(address % MemoryBlock.WORDS_IN_BLOCK);
             }
             catch (IndexOutOfRangeException e)
             {
@@ -35,7 +36,7 @@ namespace VirtualRealMachine
         {
             try
             {
-                memoryWords[address] = word;
+                memoryBlocks[address / MemoryBlock.WORDS_IN_BLOCK].setBlockWord(address % MemoryBlock.WORDS_IN_BLOCK, word);
             }
             catch (IndexOutOfRangeException e)
             {
