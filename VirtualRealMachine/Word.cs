@@ -8,7 +8,7 @@ namespace VirtualRealMachine
 {
     public class Word
     {
-        private char[] word = new char[4];
+        private char[] value = new char[4];
 
         public Word(string stringWord)
         {
@@ -19,7 +19,7 @@ namespace VirtualRealMachine
         {
             if (stringWord.Length == 4)
             {
-                word = stringWord.ToCharArray();
+                value = stringWord.ToCharArray();
             }
             else
             {
@@ -32,7 +32,7 @@ namespace VirtualRealMachine
         {
             try
             {
-                return word[byteNumber-1];
+                return value[byteNumber-1];
             }
             catch (IndexOutOfRangeException e)
             {
