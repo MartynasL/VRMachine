@@ -9,7 +9,7 @@ namespace VirtualRealMachine
     public class Word
     {
         private char[] value;
-        private const int WORD_LENGTH = 4;
+        public const int WORD_LENGTH = 4;
 
         public Word(string stringWord)
         {

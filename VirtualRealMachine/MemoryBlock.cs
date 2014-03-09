@@ -9,7 +9,7 @@ namespace VirtualRealMachine
     class MemoryBlock
     {
         private Word[] words;
-        private const int WORDS_IN_BLOCK = 10;
+        public const int WORDS_IN_BLOCK = 10;
 
         public MemoryBlock()
         {
