@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VirtualRealMachine
 {
-    class VirtualCPU
+    class CPU
     {
         private Register A = new Register4B();
         private Register B = new Register4B();

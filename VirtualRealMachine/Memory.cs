@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace VirtualRealMachine
 {
-    public class VirtualMemory
+    public class Memory
     {
         private MemoryBlock[] memoryBlocks;
-        public const int NUMBER_OF_BLOCKS = 10;
+        public const int NUMBER_OF_BLOCKS = 100;
 
-        public VirtualMemory()
+        public Memory()
         {
             memoryBlocks = new MemoryBlock[NUMBER_OF_BLOCKS];
             for(int i = 0; i < NUMBER_OF_BLOCKS; i++)

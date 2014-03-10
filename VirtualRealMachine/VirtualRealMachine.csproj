@@ -71,8 +71,8 @@
     <Compile Include="Register.cs" />
     <Compile Include="Register1B.cs" />
     <Compile Include="Register4B.cs" />
-    <Compile Include="VirtualCPU.cs" />
-    <Compile Include="VirtualMemory.cs" />
+    <Compile Include="CPU.cs" />
+    <Compile Include="Memory.cs" />
     <Compile Include="Word.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
