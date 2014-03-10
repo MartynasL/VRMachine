@@ -25,7 +25,7 @@ namespace VirtualRealMachine
             }
             else
             {
-                throw new FormatException("Valid word cannot be created");
+                throw new FormatException("Valid word cannot be created!");
             }
         }
 
