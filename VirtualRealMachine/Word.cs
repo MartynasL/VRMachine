@@ -38,8 +38,21 @@ namespace VirtualRealMachine
             }
             catch (IndexOutOfRangeException e)
             {
-                throw new IndexOutOfRangeException("Byte number must be from 1 to 4");
+                throw new IndexOutOfRangeException("Byte number must be from 1 to 4!");
             }
+        }
+
+        public int getIntValue()
+        {
+            try
+            {
+                int intValue = Convert.ToInt32(value);
+                return intValue;
+            }
+            catch (FormatException e)
+            {
+                throw new FormatException("Word cannot be converted into integer!");
+            }            
         }
 
     }

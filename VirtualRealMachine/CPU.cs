@@ -26,9 +26,21 @@ namespace VirtualRealMachine
         private Register K3 = new Register1B();
         private Register C = new Register1B();
 
-        private void addRegisterMemory()
+        private void addRegisterMemory(Register4B register, Word word)
         {
+            int op1, op2;
+            Word tempWord = new Word("0000");
 
+            op1 = register.getValue().getIntValue();
+            op2 = word.getIntValue();
+            op1 = op1 + op2;
+            if (op1 > 9999)
+                C.setValue('3');
+            else
+            {
+                tempWord.setWord(op1.ToString());
+                register.setValue(tempWord);
+            }
         }
 
         private void addRegisters()
