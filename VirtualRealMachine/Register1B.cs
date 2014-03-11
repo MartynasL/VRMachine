@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VirtualRealMachine
 {
-    class Register1B : Register
+    class Register1B
     {
         private char value;
 

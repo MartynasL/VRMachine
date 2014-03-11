@@ -268,27 +268,39 @@ namespace VirtualRealMachine
 
         }
 
-        private void getRegister(Register register)
+        private void getRegister4B(Register4B register)
         {
-            if (register.getValue() is Word)
-                A.setValue(register.getValue());
-            else
-            {   
-                Word word = new Word(register.getValue().ToString());
-                A.setValue(word);
-            }
+            A.setValue(register.getValue());
         }
 
-        private void setRegister(Register register)
+        private void setRegister4B(Register4B register)
         {
-            if (register.getValue() is Word)
-                register.setValue(A.getValue());
-            else
-            {
-                char ch = A.getValue().getWordByte(4);
-                register.setValue(ch);
-            }
+            register.setValue(A.getValue());
+        }
 
+        private void getRegister2B(Register2B register)
+        {
+            Word word = new Word(register.getValue().ToString());
+            A.setValue(word);
+        }
+
+        private void setRegister2B(Register2B register)
+        {
+            string str = A.getValue().getWordByte(3).ToString() + A.getValue().getWordByte(4);
+            register.setValue(str);
+
+        }
+
+        private void getRegister1B(Register1B register)
+        {
+            Word word = new Word(register.getValue().ToString());
+            A.setValue(word);
+        }
+
+        private void setRegister1B(Register1B register)
+        {
+            char ch = A.getValue().getWordByte(4);
+            register.setValue(ch);
         }
 
         private void slave()
