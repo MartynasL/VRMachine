@@ -43,49 +43,155 @@ namespace VirtualRealMachine
             }
         }
 
-        private void addRegisters()
+        private void addRegisters(Register4B register1, Register4B register2)
         {
+            int op1, op2;
+            Word tempWord = new Word("0000");
 
+            op1 = register1.getValue().getIntValue();
+            op2 = register2.getValue().getIntValue();
+            op1 = op1 + op2;
+            if (op1 > 9999)
+                C.setValue('3');
+            else
+            {
+                tempWord.setWord(op1.ToString());
+                register1.setValue(tempWord);
+            }
         }
 
-        private void subRegisterMemory()
+        private void subRegisterMemory(Register4B register, Word word)
         {
+            int op1, op2;
+            Word tempWord = new Word("0000");
 
+            op1 = register.getValue().getIntValue();
+            op2 = word.getIntValue();
+            if (op1 >= op2)
+            {
+                op1 = op1 - op2;
+                tempWord.setWord(op1.ToString());
+                register.setValue(tempWord);
+            }
+            else C.setValue('4');                
         }
 
-        private void subRegisters()
+        private void subRegisters(Register4B register1, Register4B register2)
         {
+            int op1, op2;
+            Word tempWord = new Word("0000");
 
+            op1 = register1.getValue().getIntValue();
+            op2 = register2.getValue().getIntValue();
+            if (op1 >= op2)
+            {
+                op1 = op1 - op2;
+                tempWord.setWord(op1.ToString());
+                register1.setValue(tempWord);
+            }
+            else C.setValue('4');
         }
 
-        private void mulRegisterMemory()
+        private void mulRegisterMemory(Register4B register, Word word)
         {
+            int op1, op2;
+            Word tempWord = new Word("0000");
 
+            op1 = register.getValue().getIntValue();
+            op2 = word.getIntValue();
+            op1 = op1 * op2;
+            if (op1 > 9999)
+                C.setValue('3');
+            else
+            {
+                tempWord.setWord(op1.ToString());
+                register.setValue(tempWord);
+            }
         }
 
-        private void mulRegisters()
+        private void mulRegisters(Register4B register1, Register4B register2)
         {
+            int op1, op2;
+            Word tempWord = new Word("0000");
 
+            op1 = register1.getValue().getIntValue();
+            op2 = register2.getValue().getIntValue();
+            op1 = op1 * op2;
+            if (op1 > 9999)
+                C.setValue('3');
+            else
+            {
+                tempWord.setWord(op1.ToString());
+                register1.setValue(tempWord);
+            }
         }
 
-        private void divRegisterMemory()
+        private void divRegisterMemory(Register4B register, Word word)
         {
+            int op1, op2, op3;
+            Word tempWord = new Word("0000");
 
+            op1 = register.getValue().getIntValue();
+            op2 = word.getIntValue();
+            if (op1 == 0)
+                C.setValue('2');
+            else
+            {
+                op3 = op1 % op2;
+                op1 = op1 / op2;
+                tempWord.setWord(op1.ToString());
+                A.setValue(tempWord);
+                tempWord.setWord(op3.ToString());
+                B.setValue(tempWord);
+            }
         }
 
-        private void divRegisters()
+        private void divRegisters(Register4B register1, Register4B register2)
         {
+            int op1, op2, op3;
+            Word tempWord = new Word("0000");
 
+            op1 = register1.getValue().getIntValue();
+            op2 = register2.getValue().getIntValue();
+            if (op1 == 0)
+                C.setValue('2');
+            else
+            {
+                op3 = op1 % op2;
+                op1 = op1 / op2;
+                tempWord.setWord(op1.ToString());
+                A.setValue(tempWord);
+                tempWord.setWord(op3.ToString());
+                B.setValue(tempWord);
+            }
         }
 
-        private void incRegister()
+        private void incRegister(Register4B register)
         {
-
+            Word tempWord = new Word("0000");
+            int op = register.getValue().getIntValue();
+            if (op == 9999)
+                C.setValue('3');
+            else
+            {
+                op++;
+                tempWord.setWord(op.ToString());
+                register.setValue(tempWord);
+            }
         }
 
-        private void decRegister()
+        private void decRegister(Register4B register)
         {
-
+            Word tempWord = new Word("0000");
+            int op = register.getValue().getIntValue();
+            if (op == 0)
+                C.setValue('4');
+            else
+            {
+                op--;
+                tempWord.setWord(op.ToString());
+                register.setValue(tempWord);
+            }
         }
 
         private void loadRegister()
