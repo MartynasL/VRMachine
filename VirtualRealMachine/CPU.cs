@@ -8,23 +8,23 @@ namespace VirtualRealMachine
 {
     class CPU
     {
-        private Register A = new Register4B();
-        private Register B = new Register4B();
-        private Register IC = new Register4B();
-        private Register SP = new Register4B();
-        private Register PR = new Register4B();
-        private Register TIMER = new Register2B();
-        private Register RC = new Register1B();
-        private Register M = new Register1B();
-        private Register PI = new Register1B();
-        private Register SI = new Register1B();
-        private Register IOI = new Register1B();
-        private Register TI = new Register1B();
-        private Register MODE = new Register1B();
-        private Register K1 = new Register1B();
-        private Register K2 = new Register1B();
-        private Register K3 = new Register1B();
-        private Register C = new Register1B();
+        private Register4B A = new Register4B();
+        private Register4B B = new Register4B();
+        private Register4B IC = new Register4B();
+        private Register4B SP = new Register4B();
+        private Register4B PR = new Register4B();
+        private Register2B TIMER = new Register2B();
+        private Register1B RC = new Register1B();
+        private Register1B M = new Register1B();
+        private Register1B PI = new Register1B();
+        private Register1B SI = new Register1B();
+        private Register1B IOI = new Register1B();
+        private Register1B TI = new Register1B();
+        private Register1B MODE = new Register1B();
+        private Register1B K1 = new Register1B();
+        private Register1B K2 = new Register1B();
+        private Register1B K3 = new Register1B();
+        private Register1B C = new Register1B();
 
         private void addRegisterMemory(Register4B register, Word word)
         {
@@ -35,7 +35,7 @@ namespace VirtualRealMachine
             op2 = word.getIntValue();
             op1 = op1 + op2;
             if (op1 > 9999)
-                C.setValue('3');
+                PI.setValue('3');
             else
             {
                 tempWord.setWord(op1.ToString());
@@ -52,7 +52,7 @@ namespace VirtualRealMachine
             op2 = register2.getValue().getIntValue();
             op1 = op1 + op2;
             if (op1 > 9999)
-                C.setValue('3');
+                PI.setValue('3');
             else
             {
                 tempWord.setWord(op1.ToString());
@@ -73,7 +73,8 @@ namespace VirtualRealMachine
                 tempWord.setWord(op1.ToString());
                 register.setValue(tempWord);
             }
-            else C.setValue('4');                
+            else 
+                PI.setValue('4');                
         }
 
         private void subRegisters(Register4B register1, Register4B register2)
@@ -89,7 +90,8 @@ namespace VirtualRealMachine
                 tempWord.setWord(op1.ToString());
                 register1.setValue(tempWord);
             }
-            else C.setValue('4');
+            else 
+                PI.setValue('4');
         }
 
         private void mulRegisterMemory(Register4B register, Word word)
@@ -101,7 +103,7 @@ namespace VirtualRealMachine
             op2 = word.getIntValue();
             op1 = op1 * op2;
             if (op1 > 9999)
-                C.setValue('3');
+                PI.setValue('3');
             else
             {
                 tempWord.setWord(op1.ToString());
@@ -118,7 +120,7 @@ namespace VirtualRealMachine
             op2 = register2.getValue().getIntValue();
             op1 = op1 * op2;
             if (op1 > 9999)
-                C.setValue('3');
+                PI.setValue('3');
             else
             {
                 tempWord.setWord(op1.ToString());
@@ -134,7 +136,7 @@ namespace VirtualRealMachine
             op1 = register.getValue().getIntValue();
             op2 = word.getIntValue();
             if (op1 == 0)
-                C.setValue('2');
+                PI.setValue('2');
             else
             {
                 op3 = op1 % op2;
@@ -154,7 +156,7 @@ namespace VirtualRealMachine
             op1 = register1.getValue().getIntValue();
             op2 = register2.getValue().getIntValue();
             if (op1 == 0)
-                C.setValue('2');
+                PI.setValue('2');
             else
             {
                 op3 = op1 % op2;
@@ -171,7 +173,7 @@ namespace VirtualRealMachine
             Word tempWord = new Word("0000");
             int op = register.getValue().getIntValue();
             if (op == 9999)
-                C.setValue('3');
+                PI.setValue('3');
             else
             {
                 op++;
@@ -185,7 +187,7 @@ namespace VirtualRealMachine
             Word tempWord = new Word("0000");
             int op = register.getValue().getIntValue();
             if (op == 0)
-                C.setValue('4');
+                PI.setValue('4');
             else
             {
                 op--;
@@ -194,34 +196,56 @@ namespace VirtualRealMachine
             }
         }
 
-        private void loadRegister()
+        private void loadRegister(Register4B register, Word word)
         {
-
+            register.setValue(word);
         }
 
-        private void saveRegister()
+        private void saveRegister(Register4B register, Memory memory, int address)
         {
-
+            register.setValue(memory.getWordAtAddress(address));
         }
 
-        private void copyRegister()
+        private void copyRegister(Register4B register1, Register4B register2)
         {
-
+            register1.setValue(register2.getValue());
         }
 
-        private void compRegisterMemory()
+        private void compRegisterMemory(Register4B register, Word word)
         {
+            int op1, op2;
 
+            op1 = register.getValue().getIntValue();
+            op2 = word.getIntValue();
+            if (op1 > op2)
+                C.setValue('1');
+            else
+                if (op1 < op2)
+                    C.setValue('2');
+                else
+                    C.setValue('0');
+            
         }
 
-        private void compRegisters()
+        private void compRegisters(Register4B register1, Register4B register2)
         {
+            int op1, op2;
 
+            op1 = register1.getValue().getIntValue();
+            op2 = register2.getValue().getIntValue();
+            if (op1 > op2)
+                C.setValue('1');
+            else
+                if (op1 < op2)
+                    C.setValue('2');
+                else
+                    C.setValue('0');
         }
 
-        private void jump()
+        private void jump(int address)
         {
-
+            Word word = new Word(address.ToString());
+            IC.setValue(word);
         }
 
         private void input()
@@ -244,13 +268,26 @@ namespace VirtualRealMachine
 
         }
 
-        private void getRegister()
+        private void getRegister(Register register)
         {
-
+            if (register.getValue() is Word)
+                A.setValue(register.getValue());
+            else
+            {   
+                Word word = new Word(register.getValue().ToString());
+                A.setValue(word);
+            }
         }
 
-        private void setRegister()
+        private void setRegister(Register register)
         {
+            if (register.getValue() is Word)
+                register.setValue(A.getValue());
+            else
+            {
+                char ch = A.getValue().getWordByte(4);
+                register.setValue(ch);
+            }
 
         }
 
@@ -261,12 +298,15 @@ namespace VirtualRealMachine
 
         private void halt()
         {
-
+            SI.setValue('3');
         }
 
-        private void changeMode()
+        private void changeMode(int address)
         {
-
+            if (MODE.getValue() == 'S')
+                MODE.setValue('V');
+            else
+                MODE.setValue('S');
         }
 
         private void exchange()

@@ -49,7 +49,7 @@ namespace VirtualRealMachine
                 int intValue = Convert.ToInt32(value);
                 return intValue;
             }
-            catch (FormatException e)
+            catch (FormatException)
             {
                 throw new FormatException("Word cannot be converted into integer!");
             }            
