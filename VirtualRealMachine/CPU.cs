@@ -201,9 +201,9 @@ namespace VirtualRealMachine
             register.setValue(word);
         }
 
-        private void saveRegister(ref Register4B register, Memory memory, int address)
+        private void saveRegister(Register4B register, ref Memory memory, int address)
         {
-            register.setValue(memory.getWordAtAddress(address));
+            memory.setWordAtAddress(address, register.getValue());
         }
 
         private void copyRegister(ref Register4B register1, Register4B register2)
