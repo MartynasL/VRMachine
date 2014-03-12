@@ -19,9 +19,10 @@ namespace VirtualRealMachine
 
         public void setWord(string stringWord)
         {
-            if (stringWord.Length == WORD_LENGTH)
+            if (stringWord.Length <= WORD_LENGTH)
             {
-                value = stringWord.ToCharArray();
+                //value = stringWord.ToCharArray();
+                stringWord.CopyTo(0, value, WORD_LENGTH - stringWord.Length, stringWord.Length);
             }
             else
             {
@@ -36,7 +37,7 @@ namespace VirtualRealMachine
             {
                 return value[byteNumber-1];
             }
-            catch (IndexOutOfRangeException e)
+            catch (IndexOutOfRangeException)
             {
                 throw new IndexOutOfRangeException("Byte number must be from 1 to 4!");
             }
@@ -46,12 +47,12 @@ namespace VirtualRealMachine
         {
             try
             {
-                int intValue = Convert.ToInt32(value);
+                int intValue = int.Parse(Encoding.ASCII.GetString(Encoding.ASCII.GetBytes(value)));
                 return intValue;
             }
-            catch (FormatException)
+            catch
             {
-                throw new FormatException("Word cannot be converted into integer!");
+                throw new Exception("Word cannot be converted into integer!");
             }            
         }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VirtualRealMachine
 {
-    class MemoryBlock
+    public class MemoryBlock
     {
         private Word[] words;
         public const int WORDS_IN_BLOCK = 10;
@@ -26,7 +26,7 @@ namespace VirtualRealMachine
             {
                 return words[position];
             }
-            catch (IndexOutOfRangeException e)
+            catch (IndexOutOfRangeException)
             {
                 throw new IndexOutOfRangeException("There is no such position in block");
             }        
@@ -38,7 +38,7 @@ namespace VirtualRealMachine
             {
                 words[position] = word;
             }
-            catch (IndexOutOfRangeException e)
+            catch (IndexOutOfRangeException)
             {
                 throw new IndexOutOfRangeException("There is no such position in block");
             }   

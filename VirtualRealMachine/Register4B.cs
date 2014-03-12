@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VirtualRealMachine
 {
-    class Register4B
+    public class Register4B
     {
         private Word value = new Word("0000");
 

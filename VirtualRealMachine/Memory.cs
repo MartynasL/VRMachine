@@ -26,7 +26,7 @@ namespace VirtualRealMachine
             {
                 return memoryBlocks[address / MemoryBlock.WORDS_IN_BLOCK].getBlockWord(address % MemoryBlock.WORDS_IN_BLOCK);
             }
-            catch (IndexOutOfRangeException e)
+            catch (IndexOutOfRangeException)
             {
                 throw new IndexOutOfRangeException("There is no such address in memory");
             }            
@@ -38,7 +38,7 @@ namespace VirtualRealMachine
             {
                 memoryBlocks[address / MemoryBlock.WORDS_IN_BLOCK].setBlockWord(address % MemoryBlock.WORDS_IN_BLOCK, word);
             }
-            catch (IndexOutOfRangeException e)
+            catch (IndexOutOfRangeException)
             {
                 throw new IndexOutOfRangeException("There is no such address in memory");
             }   
