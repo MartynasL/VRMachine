@@ -26,7 +26,7 @@ namespace VirtualRealMachine
         private Register1B K3 = new Register1B();
         private Register1B C = new Register1B();
 
-        private void addRegisterMemory(Register4B register, Word word)
+        private void addRegisterMemory(ref Register4B register, Word word)
         {
             int op1, op2;
             Word tempWord = new Word("0000");
@@ -43,7 +43,7 @@ namespace VirtualRealMachine
             }
         }
 
-        private void addRegisters(Register4B register1, Register4B register2)
+        private void addRegisters(ref Register4B register1, Register4B register2)
         {
             int op1, op2;
             Word tempWord = new Word("0000");
@@ -60,7 +60,7 @@ namespace VirtualRealMachine
             }
         }
 
-        private void subRegisterMemory(Register4B register, Word word)
+        private void subRegisterMemory(ref Register4B register, Word word)
         {
             int op1, op2;
             Word tempWord = new Word("0000");
@@ -77,7 +77,7 @@ namespace VirtualRealMachine
                 PI.setValue('4');                
         }
 
-        private void subRegisters(Register4B register1, Register4B register2)
+        private void subRegisters(ref Register4B register1, Register4B register2)
         {
             int op1, op2;
             Word tempWord = new Word("0000");
@@ -94,7 +94,7 @@ namespace VirtualRealMachine
                 PI.setValue('4');
         }
 
-        private void mulRegisterMemory(Register4B register, Word word)
+        private void mulRegisterMemory(ref Register4B register, Word word)
         {
             int op1, op2;
             Word tempWord = new Word("0000");
@@ -111,7 +111,7 @@ namespace VirtualRealMachine
             }
         }
 
-        private void mulRegisters(Register4B register1, Register4B register2)
+        private void mulRegisters(ref Register4B register1, Register4B register2)
         {
             int op1, op2;
             Word tempWord = new Word("0000");
@@ -128,7 +128,7 @@ namespace VirtualRealMachine
             }
         }
 
-        private void divRegisterMemory(ref Register4B register, ref Word word)
+        private void divRegisterMemory(Register4B register, Word word)
         {
             int op1, op2, op3;
             Word tempWord = new Word("0000");
@@ -148,7 +148,7 @@ namespace VirtualRealMachine
             }
         }
 
-        private void divRegisters(ref Register4B register1, ref Register4B register2)
+        private void divRegisters(Register4B register1, Register4B register2)
         {
             int op1, op2, op3;
             Word tempWord = new Word("0000");
@@ -196,22 +196,22 @@ namespace VirtualRealMachine
             }
         }
 
-        private void loadRegister(ref Register4B register, ref Word word)
+        private void loadRegister(ref Register4B register, Word word)
         {
             register.setValue(word);
         }
 
-        private void saveRegister(ref Register4B register, ref Memory memory, int address)
+        private void saveRegister(ref Register4B register, Memory memory, int address)
         {
             register.setValue(memory.getWordAtAddress(address));
         }
 
-        private void copyRegister(ref Register4B register1, ref Register4B register2)
+        private void copyRegister(ref Register4B register1, Register4B register2)
         {
             register1.setValue(register2.getValue());
         }
 
-        private void compRegisterMemory(ref Register4B register, ref Word word)
+        private void compRegisterMemory(ref Register4B register, Word word)
         {
             int op1, op2;
 
@@ -227,7 +227,7 @@ namespace VirtualRealMachine
             
         }
 
-        private void compRegisters(ref Register4B register1, ref Register4B register2)
+        private void compRegisters(Register4B register1, Register4B register2)
         {
             int op1, op2;
 
@@ -268,7 +268,7 @@ namespace VirtualRealMachine
 
         }
 
-        private void getRegister4B(ref Register4B register)
+        private void getRegister4B(Register4B register)
         {
             A.setValue(register.getValue());
         }
@@ -278,7 +278,7 @@ namespace VirtualRealMachine
             register.setValue(A.getValue());
         }
 
-        private void getRegister2B(ref Register2B register)
+        private void getRegister2B(Register2B register)
         {
             Word word = new Word(register.getValue().ToString());
             A.setValue(word);
@@ -291,7 +291,7 @@ namespace VirtualRealMachine
 
         }
 
-        private void getRegister1B(ref Register1B register)
+        private void getRegister1B(Register1B register)
         {
             Word word = new Word(register.getValue().ToString());
             A.setValue(word);
