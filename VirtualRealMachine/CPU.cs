@@ -31,8 +31,8 @@ namespace VirtualRealMachine
             int op1, op2;
             Word tempWord = new Word("0000");
 
-            op1 = register.getValue().getIntValue();
-            op2 = word.getIntValue();
+            op1 = register.getValue().toInt();
+            op2 = word.toInt();
             op1 = op1 + op2;
             if (op1 > 9999)
                 PI.setValue('3');
@@ -48,8 +48,8 @@ namespace VirtualRealMachine
             int op1, op2;
             Word tempWord = new Word("0000");
 
-            op1 = register1.getValue().getIntValue();
-            op2 = register2.getValue().getIntValue();
+            op1 = register1.getValue().toInt();
+            op2 = register2.getValue().toInt();
             op1 = op1 + op2;
             if (op1 > 9999)
                 PI.setValue('3');
@@ -65,8 +65,8 @@ namespace VirtualRealMachine
             int op1, op2;
             Word tempWord = new Word("0000");
 
-            op1 = register.getValue().getIntValue();
-            op2 = word.getIntValue();
+            op1 = register.getValue().toInt();
+            op2 = word.toInt();
             if (op1 >= op2)
             {
                 op1 = op1 - op2;
@@ -82,8 +82,8 @@ namespace VirtualRealMachine
             int op1, op2;
             Word tempWord = new Word("0000");
 
-            op1 = register1.getValue().getIntValue();
-            op2 = register2.getValue().getIntValue();
+            op1 = register1.getValue().toInt();
+            op2 = register2.getValue().toInt();
             if (op1 >= op2)
             {
                 op1 = op1 - op2;
@@ -99,8 +99,8 @@ namespace VirtualRealMachine
             int op1, op2;
             Word tempWord = new Word("0000");
 
-            op1 = register.getValue().getIntValue();
-            op2 = word.getIntValue();
+            op1 = register.getValue().toInt();
+            op2 = word.toInt();
             op1 = op1 * op2;
             if (op1 > 9999)
                 PI.setValue('3');
@@ -116,8 +116,8 @@ namespace VirtualRealMachine
             int op1, op2;
             Word tempWord = new Word("0000");
 
-            op1 = register1.getValue().getIntValue();
-            op2 = register2.getValue().getIntValue();
+            op1 = register1.getValue().toInt();
+            op2 = register2.getValue().toInt();
             op1 = op1 * op2;
             if (op1 > 9999)
                 PI.setValue('3');
@@ -133,8 +133,8 @@ namespace VirtualRealMachine
             int op1, op2, op3;
             Word tempWord = new Word("0000");
 
-            op1 = register.getValue().getIntValue();
-            op2 = word.getIntValue();
+            op1 = register.getValue().toInt();
+            op2 = word.toInt();
             if (op1 == 0)
                 PI.setValue('2');
             else
@@ -153,8 +153,8 @@ namespace VirtualRealMachine
             int op1, op2, op3;
             Word tempWord = new Word("0000");
 
-            op1 = register1.getValue().getIntValue();
-            op2 = register2.getValue().getIntValue();
+            op1 = register1.getValue().toInt();
+            op2 = register2.getValue().toInt();
             if (op1 == 0)
                 PI.setValue('2');
             else
@@ -171,7 +171,7 @@ namespace VirtualRealMachine
         private void incRegister(ref Register4B register)
         {
             Word tempWord = new Word("0000");
-            int op = register.getValue().getIntValue();
+            int op = register.getValue().toInt();
             if (op == 9999)
                 PI.setValue('3');
             else
@@ -185,7 +185,7 @@ namespace VirtualRealMachine
         private void decRegister(ref Register4B register)
         {
             Word tempWord = new Word("0000");
-            int op = register.getValue().getIntValue();
+            int op = register.getValue().toInt();
             if (op == 0)
                 PI.setValue('4');
             else
@@ -215,8 +215,8 @@ namespace VirtualRealMachine
         {
             int op1, op2;
 
-            op1 = register.getValue().getIntValue();
-            op2 = word.getIntValue();
+            op1 = register.getValue().toInt();
+            op2 = word.toInt();
             if (op1 > op2)
                 C.setValue('1');
             else
@@ -231,8 +231,8 @@ namespace VirtualRealMachine
         {
             int op1, op2;
 
-            op1 = register1.getValue().getIntValue();
-            op2 = register2.getValue().getIntValue();
+            op1 = register1.getValue().toInt();
+            op2 = register2.getValue().toInt();
             if (op1 > op2)
                 C.setValue('1');
             else
@@ -258,14 +258,40 @@ namespace VirtualRealMachine
 
         }
 
-        private void push()
+        private void push(Register4B register, ref Memory memory)
         {
-
+            saveRegister(register, ref memory, SP.getValue().toInt());
+            incRegister(ref SP);
         }
 
-        private void pop()
+        private void push(Register2B register, ref Memory memory)
         {
+            memory.setWordAtAddress(SP.getValue().toInt(), new Word(register.getValue().ToString()));
+            incRegister(ref SP);
+        }
 
+        private void push(Register1B register, ref Memory memory)
+        {
+            memory.setWordAtAddress(SP.getValue().toInt(), new Word(register.getValue().ToString()));
+            incRegister(ref SP);
+        }
+
+        private void pop(ref Register4B register, ref Memory memory)
+        {
+            decRegister(ref SP);
+            loadRegister(ref register, memory.getWordAtAddress(SP.getValue().toInt()));
+        }
+
+        private void pop(ref Register2B register, ref Memory memory)
+        {
+            decRegister(ref SP);
+            register.setValue(memory.getWordAtAddress(SP.getValue().toInt()).ToString());
+        }
+
+        private void pop(ref Register1B register, ref Memory memory)
+        {
+            decRegister(ref SP);
+            register.setValue(memory.getWordAtAddress(SP.getValue().toInt()).getWordByte(4));
         }
 
         private void getRegister4B(Register4B register)

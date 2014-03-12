@@ -43,7 +43,7 @@ namespace VirtualRealMachine
             }
         }
 
-        public int getIntValue()
+        public int toInt()
         {
             try
             {

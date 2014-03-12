@@ -12,9 +12,9 @@ namespace VirtualRealMachine
 
         public void setValue(string value)
         {
-            if (value.Length == 2)
+            if (value.Length <= Word.WORD_LENGTH)
             {
-                this.value = value.ToCharArray();
+                value.CopyTo(value.Length - 2, this.value, 2 - value.Length, value.Length);
             }
             else
             {
@@ -26,5 +26,7 @@ namespace VirtualRealMachine
         {
             return value;
         }
+
+
     }
 }
