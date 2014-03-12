@@ -9,10 +9,11 @@ namespace VirtualRealMachine
     public class Memory
     {
         private MemoryBlock[] memoryBlocks;
-        public const int NUMBER_OF_BLOCKS = 100;
+        public readonly int NUMBER_OF_BLOCKS;
 
-        public Memory()
+        public Memory(int numberOfBlocks)
         {
+            NUMBER_OF_BLOCKS = numberOfBlocks;
             memoryBlocks = new MemoryBlock[NUMBER_OF_BLOCKS];
             for(int i = 0; i < NUMBER_OF_BLOCKS; i++)
             {
