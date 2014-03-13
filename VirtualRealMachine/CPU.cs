@@ -354,6 +354,33 @@ namespace VirtualRealMachine
 
         private void test()
         {
+            if (PI.getValue() != '0')
+                handlePI();
+            if (SI.getValue() != '0')
+                handleSI();
+            if (IOI.getValue() != '0')
+                handleIOI();
+            if (TI.getValue() != '0')
+                handleTI();
+        }
+
+        private void handlePI()
+        {
+
+        }
+
+        private void handleSI()
+        {
+
+        }
+
+        private void handleIOI()
+        {
+
+        }
+
+        private void handleTI()
+        {
 
         }
     }
