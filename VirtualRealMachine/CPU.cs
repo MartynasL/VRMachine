@@ -329,9 +329,17 @@ namespace VirtualRealMachine
             register.setValue(ch);
         }
 
-        private void slave()
+        private void slave(ref Memory memory)
         {
+            memory.setWordAtAddress(M.getIntValue() * 10, A.getValue());
+            memory.setWordAtAddress(M.getIntValue() * 10 + 1, B.getValue());
+            memory.setWordAtAddress(M.getIntValue() * 10 + 2, new Word(C.getValue().ToString()));
+            memory.setWordAtAddress(M.getIntValue() * 10 + 3, PR.getValue());
+            memory.setWordAtAddress(M.getIntValue() * 10 + 4, SP.getValue());
 
+            Word increasedIC = new Word((IC.getValue().toInt() + 1).ToString()); 
+
+            memory.setWordAtAddress(M.getIntValue() * 10 + 5, increasedIC);
         }
 
         private void halt()

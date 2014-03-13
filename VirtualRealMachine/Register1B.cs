@@ -19,5 +19,18 @@ namespace VirtualRealMachine
         {
             return value;
         }
+
+        public int getIntValue()
+        {
+            int intValue = (int) Char.GetNumericValue(value);
+            if (intValue != -1)
+            {
+                return intValue;
+            }
+            else
+            {
+                throw new FormatException("Value of register is not a number");
+            }
+        }
     }
 }
