@@ -355,33 +355,124 @@ namespace VirtualRealMachine
         private void test()
         {
             if (PI.getValue() != '0')
+            {
+                PI.setValue('0');
                 handlePI();
+            }
             if (SI.getValue() != '0')
+            {
+                SI.setValue('0');
                 handleSI();
+            }
             if (IOI.getValue() != '0')
+            {
+                IOI.setValue('0');
                 handleIOI();
+            }
             if (TI.getValue() != '0')
+            {
+                TI.setValue('0');
                 handleTI();
+            }
         }
 
         private void handlePI()
         {
+            Word word = new Word("0000");
+            char ch = PI.getValue();
 
+            switch (ch)
+            {
+                case '1':
+                    word.setWord("0140");
+                    IC.setValue(word);
+                    break;
+                case '2':
+                    word.setWord("0150");
+                    IC.setValue(word);
+                    break;
+                case '3':
+                    word.setWord("0160");
+                    IC.setValue(word);
+                    break;
+                case '4':
+                    word.setWord("0170");
+                    IC.setValue(word);
+                    break;
+                case '5':
+                    word.setWord("0180");
+                    IC.setValue(word);
+                    break;
+            }
         }
 
         private void handleSI()
         {
+            Word word = new Word("0000");
+            char ch = SI.getValue();
 
+            switch (ch)
+            {
+                case '1':
+                    word.setWord("0190");
+                    IC.setValue(word);
+                    break;
+                case '2':
+                    word.setWord("0200");
+                    IC.setValue(word);
+                    break;
+                case '3':
+                    word.setWord("0210");
+                    IC.setValue(word);
+                    break;
+            }
         }
 
         private void handleIOI()
         {
+            Word word = new Word("0000");
+            char ch = IOI.getValue();
 
+            switch (ch)
+            {
+                case '1':
+                    word.setWord("0220");
+                    IC.setValue(word);
+                    break;
+                case '2':
+                    word.setWord("0230");
+                    IC.setValue(word);
+                    break;
+                case '3':
+                    word.setWord("0240");
+                    IC.setValue(word);
+                    break;
+                case '4':
+                    word.setWord("0250");
+                    IC.setValue(word);
+                    break;
+                case '5':
+                    word.setWord("0260");
+                    IC.setValue(word);
+                    break;
+                case '6':
+                    word.setWord("0270");
+                    IC.setValue(word);
+                    break;
+                case '7':
+                    word.setWord("0280");
+                    IC.setValue(word);
+                    break;
+
+            }
         }
 
         private void handleTI()
         {
+            Word word = new Word("0000");
 
+            word.setWord("0290");
+            IC.setValue(word);
         }
     }
 }
