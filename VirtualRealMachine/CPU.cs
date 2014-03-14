@@ -248,14 +248,24 @@ namespace VirtualRealMachine
             IC.setValue(word);
         }
 
-        private void input()
+        private void input(Memory memory, InputDevice inputDevice, int blockNumber)
         {
-
+            if (exchange(K1) == true)
+            {
+                K1.setValue('1');
+                memory.setBlock(blockNumber, inputDevice.getInput());
+                K1.setValue('0');
+            }
         }
 
-        private void output()
+        private void output(Memory memory, OutputDevice outputDevice, int blockNumber)
         {
-
+            if (exchange(K2) == true)
+            {
+                K2.setValue('1');
+                outputDevice.setOutput(memory.getBlock(blockNumber));
+                K2.setValue('0');
+            }
         }
 
         private void push(Register4B register, ref Memory memory)
@@ -355,9 +365,16 @@ namespace VirtualRealMachine
                 MODE.setValue('S');
         }
 
-        private void exchange()
+        private bool exchange(Register1B channel)
         {
-
+            if (channel.getIntValue() == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private void test()

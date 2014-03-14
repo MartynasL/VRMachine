@@ -44,5 +44,29 @@ namespace VirtualRealMachine
                 throw new IndexOutOfRangeException("There is no such address in memory");
             }   
         }
+
+        public MemoryBlock getBlock(int blockNumber)
+        {
+            try
+            {
+                return memoryBlocks[blockNumber];
+            }
+            catch (IndexOutOfRangeException)
+            {
+                throw new IndexOutOfRangeException("There is no such block in memory");
+            }   
+        }
+
+        public void setBlock(int blockNumber, MemoryBlock block)
+        {
+            try
+            {
+                memoryBlocks[blockNumber] = block;
+            }
+            catch (IndexOutOfRangeException)
+            {
+                throw new IndexOutOfRangeException("There is no such block in memory");
+            }
+        }
     }
 }
