@@ -10,6 +10,11 @@ namespace VirtualRealMachine
     {
         Queue<MemoryBlock> outputQueue;
 
+        public OutputDevice()
+        {
+            outputQueue = new Queue<MemoryBlock>();
+        }
+
         public void setOutput(MemoryBlock block)
         {
             outputQueue.Enqueue(block);
