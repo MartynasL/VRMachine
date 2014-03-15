@@ -53,8 +53,12 @@ namespace VirtualRealMachine
             catch
             {
                 throw new Exception("Word cannot be converted into integer!");
-            }            
+            }
         }
 
+        public override String ToString()
+        {
+            return new String(value);
+        }
     }
 }
