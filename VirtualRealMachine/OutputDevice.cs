@@ -14,5 +14,17 @@ namespace VirtualRealMachine
         {
             outputQueue.Enqueue(block);
         }
+
+        public MemoryBlock getOutput()
+        {
+            try
+            {
+                return outputQueue.Dequeue();
+            }
+            catch (InvalidOperationException)
+            {
+                throw new InvalidOperationException("Output is empty");
+            }
+        }
     }
 }

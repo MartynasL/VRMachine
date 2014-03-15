@@ -250,11 +250,18 @@ namespace VirtualRealMachine
 
         private void input(Memory memory, InputDevice inputDevice, int blockNumber)
         {
-            if (exchange(K1) == true)
+            try
             {
-                K1.setValue('1');
-                memory.setBlock(blockNumber, inputDevice.getInput());
-                K1.setValue('0');
+                if (exchange(K1) == true)
+                {
+                    K1.setValue('1');
+                    memory.setBlock(blockNumber, inputDevice.getInput());
+                    K1.setValue('0');
+                }
+            }
+            catch (InvalidOperationException e)
+            {
+                throw e;
             }
         }
 

@@ -23,9 +23,13 @@ namespace VirtualRealMachine
             }
             catch (InvalidOperationException)
             {
-                //wait for input. Needs to be implemented when there will be GUI
-                return null;
+                throw new InvalidOperationException("There is no input in queue");
             }
+        }
+
+        public void enqueueInput(MemoryBlock block)
+        {
+            inputQueue.Enqueue(block);
         }
     }
 }
