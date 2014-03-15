@@ -10,7 +10,7 @@ namespace VirtualRealMachine
     {
         Queue<MemoryBlock> inputQueue;
 
-        public void InputDevice()
+        public InputDevice()
         {
             inputQueue = new Queue<MemoryBlock>();
         }
