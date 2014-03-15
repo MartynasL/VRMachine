@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HDDManager.cs" />
     <Compile Include="InputDevice.cs" />
     <Compile Include="MemoryBlock.cs" />
     <Compile Include="Form1.cs">
