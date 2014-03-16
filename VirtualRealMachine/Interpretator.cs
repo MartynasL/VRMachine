@@ -66,7 +66,7 @@ namespace VirtualRealMachine
                     caseT(word);
                     break;
                 default:
-                    caseDefault();
+                    notFound();
                     break;
 
             }
@@ -74,85 +74,103 @@ namespace VirtualRealMachine
 
         private void casePlus(Word word)
         {
+            char ch1 = word.getWordByte(2);
+            char ch2 = word.getWordByte(3);
 
+
+            if ((ch2 < 58) && (ch2 > 47))
+            {
+                char ch3 = word.getWordByte(4);
+                int address = Convert.ToInt32(String.Concat(ch2, ch3));
+
+                if (ch1 == 65)
+                {
+                    
+            }
+            
         }
 
-        private void casePlus(Word word)
+        private void caseMinus(Word word)
         {
 
         }
 
-        private void casePlus(Word word)
+        private void caseMul(Word word)
         {
 
         }
 
-        private void casePlus(Word word)
+        private void caseDiv(Word word)
         {
 
         }
 
-        private void casePlus(Word word)
+        private void caseI(Word word)
         {
 
         }
 
-        private void casePlus(Word word)
+        private void caseD(Word word)
         {
 
         }
 
-        private void casePlus(Word word)
+        private void caseL(Word word)
         {
 
         }
 
-        private void casePlus(Word word)
+        private void caseS(Word word)
         {
 
         }
 
-        private void casePlus(Word word)
+        private void caseC(Word word)
         {
 
         }
 
-        private void casePlus(Word word)
+        private void caseJ(Word word)
         {
 
         }
 
-        private void casePlus(Word word)
+        private void caseO(Word word)
         {
 
         }
 
-        private void casePlus(Word word)
+        private void caseP(Word word)
         {
 
         }
 
-        private void casePlus(Word word)
+        private void caseG(Word word)
         {
 
         }
 
-        private void casePlus(Word word)
+        private void caseH(Word word)
         {
 
         }
 
-        private void casePlus(Word word)
+        private void caseM(Word word)
         {
 
         }
 
-        private void casePlus(Word word)
+        private void caseX(Word word)
         {
 
         }
 
-        private void casePlus(Word word)
+        private void caseT(Word word)
+        {
+
+        }
+
+        private void notFound()
         {
 
         }
