@@ -103,7 +103,7 @@ namespace VirtualRealMachine
 
                 return new Word(wordNode.InnerText);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new Exception("Cannot read from HDD");
             }

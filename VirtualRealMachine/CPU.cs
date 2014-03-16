@@ -275,6 +275,33 @@ namespace VirtualRealMachine
             }
         }
 
+        private void input(Memory memory, HDDManager hddManager, int memoryWordAddress, int hddWordAddress)
+        {
+            try
+            {
+                if (exchange(K3) == true)
+                {
+                    K3.setValue('1');
+                    memory.setWordAtAddress(memoryWordAddress, hddManager.getWordAtAddress(hddWordAddress));
+                    K3.setValue('0');
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
+        private void output(Memory memory, HDDManager hddManager, int memoryWordAddress, int hddWordAddress)
+        {
+            if (exchange(K3) == true)
+            {
+                K3.setValue('1');
+                hddManager.setWordAtAddress(hddWordAddress, memory.getWordAtAddress(memoryWordAddress));
+                K3.setValue('0');
+            }
+        }
+
         private void push(Register4B register, ref Memory memory)
         {
             saveRegister(register, ref memory, SP.getValue().toInt());
