@@ -60,7 +60,7 @@ namespace VirtualRealMachine
             }
         }
 
-        private void subRegisterMemory(ref Register4B register, Word word)
+        public void subRegisterMemory(ref Register4B register, Word word)
         {
             int op1, op2;
             Word tempWord = new Word("0000");
@@ -77,7 +77,7 @@ namespace VirtualRealMachine
                 PI.setValue('4');                
         }
 
-        private void subRegisters(ref Register4B register1, Register4B register2)
+        public void subRegisters(ref Register4B register1, Register4B register2)
         {
             int op1, op2;
             Word tempWord = new Word("0000");
@@ -94,7 +94,7 @@ namespace VirtualRealMachine
                 PI.setValue('4');
         }
 
-        private void mulRegisterMemory(ref Register4B register, Word word)
+        public void mulRegisterMemory(ref Register4B register, Word word)
         {
             int op1, op2;
             Word tempWord = new Word("0000");
@@ -111,7 +111,7 @@ namespace VirtualRealMachine
             }
         }
 
-        private void mulRegisters(ref Register4B register1, Register4B register2)
+        public void mulRegisters(ref Register4B register1, Register4B register2)
         {
             int op1, op2;
             Word tempWord = new Word("0000");

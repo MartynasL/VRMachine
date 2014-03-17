@@ -83,9 +83,9 @@ namespace VirtualRealMachine
 
         private Register4B whichWorkRegister(char ch)
         {
-            if (ch == 65)
+            if (ch == 'A')
                 return cpu.A;
-            else if (ch == 66)
+            else if (ch == 'B')
                 return cpu.B;
             else
                 notFound();
@@ -98,9 +98,9 @@ namespace VirtualRealMachine
 
         private Boolean isAdress(char ch3, char ch4)
         {
-            if ((ch3 < 58) && (ch3 > 47))
+            if ((ch3 <= '9') && (ch3 >= '0'))
             {
-                if ((ch4 < 58) && (ch4 > 47))
+                if ((ch4 <= '9') && (ch4 >= '0'))
                     return true;
                 else
                     return false;
@@ -120,9 +120,9 @@ namespace VirtualRealMachine
             {
                 int address = Convert.ToInt32(String.Concat(ch3, ch4));
 
-                if (ch2 == 65)
+                if (ch2 == 'A')
                     cpu.addRegisterMemory(ref cpu.A, memory.getWordAtAddress(address));
-                else if (ch2 == 66)
+                else if (ch2 == 'B')
                     cpu.addRegisterMemory(ref cpu.B, memory.getWordAtAddress(address));
                 else
                     notFound();
@@ -165,7 +165,55 @@ namespace VirtualRealMachine
 
         private void caseMinus(Word word)
         {
+            char ch2 = word.getWordByte(2);
+            char ch3 = word.getWordByte(3);
+            char ch4 = word.getWordByte(4);
 
+            //+rx1x2
+            if (isAdress(ch3, ch4))
+            {
+                int address = Convert.ToInt32(String.Concat(ch3, ch4));
+
+                if (ch2 == 65)
+                    cpu.subRegisterMemory(ref cpu.A, memory.getWordAtAddress(address));
+                else if (ch2 == 66)
+                    cpu.subRegisterMemory(ref cpu.B, memory.getWordAtAddress(address));
+                else
+                    notFound();
+            }
+            //+r1r20
+            else
+            {
+                if (ch4 == 0)
+                {
+                    if (ch2 == 65)
+                    {
+                        if (ch3 == 65)
+                        {
+                            cpu.subRegisters(ref cpu.A, cpu.A);
+                        }
+                        else if (ch3 == 66)
+                            cpu.subRegisters(ref cpu.A, cpu.B);
+                        else
+                            notFound();
+                    }
+                    else if (ch2 == 66)
+                    {
+                        if (ch3 == 65)
+                        {
+                            cpu.subRegisters(ref cpu.B, cpu.A);
+                        }
+                        else if (ch3 == 66)
+                            cpu.subRegisters(ref cpu.B, cpu.B);
+                        else
+                            notFound();
+                    }
+                    else
+                        notFound();
+                }
+                else
+                    notFound();
+            }
         }
 
         private void caseMul(Word word)
