@@ -81,14 +81,14 @@ namespace VirtualRealMachine
             }
         }
 
-        private Boolean isWorkRegister(char ch)
+        private Register4B whichWorkRegister(char ch)
         {
             if (ch == 65)
-                return true;
+                return cpu.A;
             else if (ch == 66)
-                return true;
+                return cpu.B;
             else
-                return false;
+                notFound();
         }
 
         private Boolean isOtherRegister(char ch)
@@ -116,19 +116,14 @@ namespace VirtualRealMachine
             char ch4 = word.getWordByte(4);
 
             //+rx1x2
-            if ((ch3 < 58) && (ch3 > 47))
+            if (isAdress(ch3, ch4))
             {
-                if ((ch4 < 58) && (ch4 > 47))
-                {
-                    int address = Convert.ToInt32(String.Concat(ch3, ch4));
+                int address = Convert.ToInt32(String.Concat(ch3, ch4));
 
-                    if (ch2 == 65)
-                        cpu.addRegisterMemory(ref cpu.A, memory.getWordAtAddress(address));
-                    else if (ch2 == 66)
-                        cpu.addRegisterMemory(ref cpu.B, memory.getWordAtAddress(address));
-                    else
-                        notFound();
-                }
+                if (ch2 == 65)
+                    cpu.addRegisterMemory(ref cpu.A, memory.getWordAtAddress(address));
+                else if (ch2 == 66)
+                    cpu.addRegisterMemory(ref cpu.B, memory.getWordAtAddress(address));
                 else
                     notFound();
             }
@@ -139,18 +134,31 @@ namespace VirtualRealMachine
                 {
                     if (ch2 == 65)
                     {
-                        if (ch3 == 65) 
-                        { 
+                        if (ch3 == 65)
+                        {
+                            cpu.addRegisters(ref cpu.A, cpu.A);
                         }
+                        else if (ch3 == 66)
+                            cpu.addRegisters(ref cpu.A, cpu.B);
+                        else
+                            notFound();
                     }
                     else if (ch2 == 66)
                     {
-
+                        if (ch3 == 65)
+                        {
+                            cpu.addRegisters(ref cpu.B, cpu.A);
+                        }
+                        else if (ch3 == 66)
+                            cpu.addRegisters(ref cpu.B, cpu.B);
+                        else
+                            notFound();
                     }
                     else
                         notFound();
-
                 }
+                else
+                    notFound();
             }
             
         }
