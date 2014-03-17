@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace VirtualRealMachine
 {
     public class CPU
-    {
+    {        
         private Register4B A = new Register4B();
         private Register4B B = new Register4B();
         private Register4B IC = new Register4B();
@@ -26,7 +26,7 @@ namespace VirtualRealMachine
         private Register1B K3 = new Register1B();
         private Register1B C = new Register1B();
 
-        private void addRegisterMemory(ref Register4B register, Word word)
+        public void addRegisterMemory(ref Register4B register, Word word)
         {
             int op1, op2;
             Word tempWord = new Word("0000");
@@ -43,7 +43,7 @@ namespace VirtualRealMachine
             }
         }
 
-        private void addRegisters(ref Register4B register1, Register4B register2)
+        public void addRegisters(ref Register4B register1, Register4B register2)
         {
             int op1, op2;
             Word tempWord = new Word("0000");
