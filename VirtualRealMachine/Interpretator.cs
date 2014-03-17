@@ -8,77 +8,81 @@ namespace VirtualRealMachine
 {
     class Interpretator
     {
+        private CPU cpu;
+        private Memory memory;
+
         public Interpretator(ref CPU cpu, ref Memory memory)
         {
             this.cpu = cpu;
             this.memory = memory;
         }
 
-        CPU cpu;
-        Memory memory;
-
         public void interpretate(Word word)
         {
-            char ch = word.getWordByte(1);
+            char ch1 = word.getWordByte(1);
+            char ch2 = word.getWordByte(2);
+            char ch3 = word.getWordByte(3);
+            char ch4 = word.getWordByte(4);
 
-            switch (ch)
+            switch (ch1)
             {
                 case '+': 
-                    casePlus(word);
+                    casePlus(ch2, ch3, ch4);
                     break;
                 case '-':
-                    caseMinus(word);
+                    caseMinus(ch2, ch3, ch4);
                     break;
                 case '*':
-                    caseMul(word);
+                    caseMul(ch2, ch3, ch4);
                     break;
                 case '/':
-                    caseDiv(word);
+                    caseDiv(ch2, ch3, ch4);
                     break;
                 case 'I':
-                    caseI(word);
+                    caseI(ch2, ch3, ch4);
                     break;
                 case 'D':
-                    caseD(word);
+                    caseD(ch2, ch3, ch4);
                     break;
                 case 'L':
-                    caseL(word);
+                    caseL(ch2, ch3, ch4);
                     break;
                 case 'S':
-                    caseS(word);
+                    caseS(ch2, ch3, ch4);
                     break;
                 case 'C':
-                    caseC(word);
+                    caseC(ch2, ch3, ch4);
                     break;
                 case 'J':
-                    caseJ(word);
+                    caseJ(ch2, ch3, ch4);
                     break;
                 case 'O':
-                    caseO(word);
+                    caseO(ch2, ch3, ch4);
                     break;
                 case 'P':
-                    caseP(word);
+                    caseP(ch2, ch3, ch4);
                     break;
                 case 'G':
-                    caseG(word);
+                    caseG(ch2, ch3, ch4);
                     break;
                 case 'H':
-                    caseH(word);
+                    caseH(ch2, ch3, ch4);
                     break;
                 case 'M':
-                    caseM(word);
+                    caseM(ch2, ch3, ch4);
                     break;
                 case 'X':
-                    caseX(word);
+                    caseX(ch2, ch3, ch4);
                     break;
                 case 'T':
-                    caseT(word);
+                    caseT(ch2, ch3, ch4);
                     break;
                 default:
                     notFound();
                     break;
 
             }
+            //IC increment
         }
 
         private Register4B whichWorkRegister(char ch)
@@ -109,12 +113,8 @@ namespace VirtualRealMachine
                 return false;
         }
 
-        private void casePlus(Word word)
+        private void casePlus(char ch2, char ch3, char ch4)
         {
-            char ch2 = word.getWordByte(2);
-            char ch3 = word.getWordByte(3);
-            char ch4 = word.getWordByte(4);
-
             //+rx1x2
             if (isAdress(ch3, ch4))
             {
@@ -130,26 +130,26 @@ namespace VirtualRealMachine
             //+r1r20
             else
             {
-                if (ch4 == 0)
+                if (ch4 == '0')
                 {
-                    if (ch2 == 65)
+                    if (ch2 == 'A')
                     {
-                        if (ch3 == 65)
+                        if (ch3 == 'A')
                         {
                             cpu.addRegisters(ref cpu.A, cpu.A);
                         }
-                        else if (ch3 == 66)
+                        else if (ch3 == 'B')
                             cpu.addRegisters(ref cpu.A, cpu.B);
                         else
                             notFound();
                     }
-                    else if (ch2 == 66)
+                    else if (ch2 == 'B')
                     {
-                        if (ch3 == 65)
+                        if (ch3 == 'A')
                         {
                             cpu.addRegisters(ref cpu.B, cpu.A);
                         }
-                        else if (ch3 == 66)
+                        else if (ch3 == 'B')
                             cpu.addRegisters(ref cpu.B, cpu.B);
                         else
                             notFound();
@@ -163,12 +163,8 @@ namespace VirtualRealMachine
             
         }
 
-        private void caseMinus(Word word)
+        private void caseMinus(char ch2, char ch3, char ch4)
         {
-            char ch2 = word.getWordByte(2);
-            char ch3 = word.getWordByte(3);
-            char ch4 = word.getWordByte(4);
-
             //+rx1x2
             if (isAdress(ch3, ch4))
             {
@@ -216,84 +212,136 @@ namespace VirtualRealMachine
             }
         }
 
-        private void caseMul(Word word)
+        private void caseMul(char ch2, char ch3, char ch4)
         {
 
         }
 
-        private void caseDiv(Word word)
+        private void caseDiv(char ch2, char ch3, char ch4)
         {
 
         }
 
-        private void caseI(Word word)
+        private void caseI(char ch2, char ch3, char ch4)
         {
 
         }
 
-        private void caseD(Word word)
+        private void caseD(char ch2, char ch3, char ch4)
+        {
+            if ((ch2 == 'E') && (ch3 == 'C'))
+            {
+                if (ch4 == 'A')
+                    cpu.decRegister(ref cpu.A);
+                else if (ch4 == 'B')
+                    cpu.decRegister(ref cpu.B);
+                else
+                    notFound();
+            }
+            else
+                notFound();
+        }
+
+        private void caseL(char ch2, char ch3, char ch4)
+        {
+            if (isAdress(ch3, ch4))
+            {
+                int address = Convert.ToInt32(String.Concat(ch3, ch4));
+
+                if (ch2 == 'A')
+                {
+                    cpu.loadRegister(ref cpu.A, memory.getWordAtAddress(address));
+                }
+                else if (ch2 == 'B')
+                {
+                    cpu.loadRegister(ref cpu.B, memory.getWordAtAddress(address));
+                }
+                else if (ch3 == 'I')
+                {
+                    cpu.loadRegister(ref cpu.IC, memory.getWordAtAddress(address));
+                }
+                else
+                    notFound();
+            }
+            else
+                notFound();
+        }
+
+        private void caseS(char ch2, char ch3, char ch4)
         {
 
         }
 
-        private void caseL(Word word)
+        private void caseC(char ch2, char ch3, char ch4)
         {
 
         }
 
-        private void caseS(Word word)
+        private void caseJ(char ch2, char ch3, char ch4)
         {
 
         }
 
-        private void caseC(Word word)
+        private void caseO(char ch2, char ch3, char ch4)
         {
 
         }
 
-        private void caseJ(Word word)
+        private void caseP(char ch2, char ch3, char ch4)
         {
 
         }
 
-        private void caseO(Word word)
+        private void caseG(char ch2, char ch3, char ch4)
         {
 
         }
 
-        private void caseP(Word word)
+        private void caseH(char ch2, char ch3, char ch4)
         {
-
+            if ((ch2 == 'A') && (ch3 == 'L') && (ch4 == 'T'))
+                cpu.halt();
+            else
+                notFound();
         }
 
-        private void caseG(Word word)
+        private void caseM(char ch2, char ch3, char ch4)
         {
+            if (isAdress(ch3, ch4))
+            {
+                int address = Convert.ToInt32(String.Concat(ch3, ch4));
 
+                if (ch2 == 'O')
+                {
+                    cpu.changeMode(address);
+                    cpu.loadRegister(ref cpu.IC, memory.getWordAtAddress(address));
+                }                
+                else
+                    notFound();
+            }
+            else
+                notFound();
+        }
+//???
+        private void caseX(char ch2, char ch3, char ch4)
+        {
+            if ((ch2 == 'C') && (ch3 == 'H') && (ch4 == 'G'))
+                cpu.exchange();
+            else
+                notFound();
         }
 
-        private void caseH(Word word)
+        private void caseT(char ch2, char ch3, char ch4)
         {
-
-        }
-
-        private void caseM(Word word)
-        {
-
-        }
-
-        private void caseX(Word word)
-        {
-
-        }
-
-        private void caseT(Word word)
-        {
-
+            if ((ch2 == 'E') && (ch3 == 'S') && (ch4 == 'T'))
+                cpu.test();
+            else
+                notFound();
         }
 
         private void notFound()
         {
-
+            cpu.PI.setValue('1');
         }
     }
 }

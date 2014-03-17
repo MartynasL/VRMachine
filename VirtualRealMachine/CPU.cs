@@ -11,12 +11,12 @@ namespace VirtualRealMachine
         public Register4B A = new Register4B();
         public Register4B B = new Register4B();
         public Register4B IC = new Register4B();
-        public Register4B SP = new Register4B();
-        public Register4B PR = new Register4B();
+        private Register4B SP = new Register4B();
+        private Register4B PR = new Register4B();
         private Register2B TIMER = new Register2B();
         private Register1B RC = new Register1B();
         private Register1B M = new Register1B();
-        private Register1B PI = new Register1B();
+        public Register1B PI = new Register1B();
         private Register1B SI = new Register1B();
         private Register1B IOI = new Register1B();
         private Register1B TI = new Register1B();
@@ -182,7 +182,7 @@ namespace VirtualRealMachine
             }
         }
 
-        private void decRegister(ref Register4B register)
+        public void decRegister(ref Register4B register)
         {
             Word tempWord = new Word("0000");
             int op = register.getValue().toInt();
@@ -196,7 +196,7 @@ namespace VirtualRealMachine
             }
         }
 
-        private void loadRegister(ref Register4B register, Word word)
+        public void loadRegister(ref Register4B register, Word word)
         {
             register.setValue(word);
         }
@@ -400,20 +400,21 @@ namespace VirtualRealMachine
             memory.setWordAtAddress(M.getIntValue() * 10 + 5, increasedIC);
         }
 
-        private void halt()
+        public void halt()
         {
             SI.setValue('3');
         }
 
-        private void changeMode(int address)
+        public void changeMode(int address)
         {
             if (MODE.getValue() == 'S')
                 MODE.setValue('V');
             else
                 MODE.setValue('S');
+            loadRegister(ref IC, memory.getWordAtAddress(address));                 //??????
         }
 
-        private bool exchange(Register1B channel)
+        public bool exchange(Register1B channel)
         {
             if (channel.getIntValue() == 0)
             {
@@ -425,7 +426,7 @@ namespace VirtualRealMachine
             }
         }
 
-        private void test()
+        public void test()
         {
             if (PI.getValue() != '0')
             {
