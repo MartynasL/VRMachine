@@ -259,19 +259,26 @@ namespace VirtualRealMachine
                     K1.setValue('0');
                 }
             }
-            catch (InvalidOperationException e)
+            catch (Exception)
             {
-                throw e;
+                IOI.setValue((char)(IOI.getIntValue() + 1 + '0')); 
             }
         }
 
         private void output(Memory memory, OutputDevice outputDevice, int blockNumber)
         {
-            if (exchange(K2) == true)
+            try
             {
-                K2.setValue('1');
-                outputDevice.setOutput(memory.getBlock(blockNumber));
-                K2.setValue('0');
+                if (exchange(K2) == true)
+                {
+                    K2.setValue('1');
+                    outputDevice.setOutput(memory.getBlock(blockNumber));
+                    K2.setValue('0');
+                }
+            }
+            catch(Exception)
+            {
+                IOI.setValue((char)(IOI.getIntValue() + 2 + '0')); 
             }
         }
 
@@ -286,19 +293,26 @@ namespace VirtualRealMachine
                     K3.setValue('0');
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                IOI.setValue((char)(IOI.getIntValue() + 4 + '0')); 
             }
         }
 
         private void output(Memory memory, HDDManager hddManager, int memoryWordAddress, int hddWordAddress)
         {
-            if (exchange(K3) == true)
+            try
             {
-                K3.setValue('1');
-                hddManager.setWordAtAddress(hddWordAddress, memory.getWordAtAddress(memoryWordAddress));
-                K3.setValue('0');
+                if (exchange(K3) == true)
+                {
+                    K3.setValue('1');
+                    hddManager.setWordAtAddress(hddWordAddress, memory.getWordAtAddress(memoryWordAddress));
+                    K3.setValue('0');
+                }
+            }
+            catch (Exception)
+            {
+                IOI.setValue((char)(IOI.getIntValue() + 4 + '0')); 
             }
         }
 
