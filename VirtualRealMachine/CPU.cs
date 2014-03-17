@@ -8,11 +8,11 @@ namespace VirtualRealMachine
 {
     public class CPU
     {        
-        private Register4B A = new Register4B();
-        private Register4B B = new Register4B();
-        private Register4B IC = new Register4B();
-        private Register4B SP = new Register4B();
-        private Register4B PR = new Register4B();
+        public Register4B A = new Register4B();
+        public Register4B B = new Register4B();
+        public Register4B IC = new Register4B();
+        public Register4B SP = new Register4B();
+        public Register4B PR = new Register4B();
         private Register2B TIMER = new Register2B();
         private Register1B RC = new Register1B();
         private Register1B M = new Register1B();

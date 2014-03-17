@@ -8,6 +8,15 @@ namespace VirtualRealMachine
 {
     class Interpretator
     {
+        public Interpretator(ref CPU cpu, ref Memory memory)
+        {
+            this.cpu = cpu;
+            this.memory = memory;
+        }
+
+        CPU cpu;
+        Memory memory;
+
         public void interpretate(Word word)
         {
             char ch = word.getWordByte(1);
@@ -72,20 +81,76 @@ namespace VirtualRealMachine
             }
         }
 
+        private Boolean isWorkRegister(char ch)
+        {
+            if (ch == 65)
+                return true;
+            else if (ch == 66)
+                return true;
+            else
+                return false;
+        }
+
+        private Boolean isOtherRegister(char ch)
+        {
+
+        }
+
+        private Boolean isAdress(char ch3, char ch4)
+        {
+            if ((ch3 < 58) && (ch3 > 47))
+            {
+                if ((ch4 < 58) && (ch4 > 47))
+                    return true;
+                else
+                    return false;
+            }
+            else
+                return false;
+        }
+
         private void casePlus(Word word)
         {
-            char ch1 = word.getWordByte(2);
-            char ch2 = word.getWordByte(3);
+            char ch2 = word.getWordByte(2);
+            char ch3 = word.getWordByte(3);
+            char ch4 = word.getWordByte(4);
 
-
-            if ((ch2 < 58) && (ch2 > 47))
+            //+rx1x2
+            if ((ch3 < 58) && (ch3 > 47))
             {
-                char ch3 = word.getWordByte(4);
-                int address = Convert.ToInt32(String.Concat(ch2, ch3));
-
-                if (ch1 == 65)
+                if ((ch4 < 58) && (ch4 > 47))
                 {
-                    
+                    int address = Convert.ToInt32(String.Concat(ch3, ch4));
+
+                    if (ch2 == 65)
+                        cpu.addRegisterMemory(ref cpu.A, memory.getWordAtAddress(address));
+                    else if (ch2 == 66)
+                        cpu.addRegisterMemory(ref cpu.B, memory.getWordAtAddress(address));
+                    else
+                        notFound();
+                }
+                else
+                    notFound();
+            }
+            //+r1r20
+            else
+            {
+                if (ch4 == 0)
+                {
+                    if (ch2 == 65)
+                    {
+                        if (ch3 == 65) 
+                        { 
+                        }
+                    }
+                    else if (ch2 == 66)
+                    {
+
+                    }
+                    else
+                        notFound();
+
+                }
             }
             
         }
