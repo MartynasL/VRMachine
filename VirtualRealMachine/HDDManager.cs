@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,33 +22,36 @@ namespace VirtualRealMachine
                 WORDS_IN_BLOCK = wordsInBlockNumber;
                 NUMBER_OF_BLOCKS = numberOfBlocks;
 
-                XmlWriterSettings hddCreatorSettings = new XmlWriterSettings();
-                hddCreatorSettings.Indent = true;
-                hddCreatorSettings.IndentChars = "\t";
-                XmlWriter hddCreator = XmlWriter.Create(fileName, hddCreatorSettings);
-
-                hddCreator.WriteStartDocument();
-                hddCreator.WriteStartElement("HDD");
-                hddCreator.WriteStartElement("Blocks");
-
-                for (int i = 0; i < NUMBER_OF_BLOCKS; i++)
+                if (!File.Exists(fileName))
                 {
-                    hddCreator.WriteStartElement("Block");
-                    hddCreator.WriteAttributeString("number", i.ToString());
+                    XmlWriterSettings hddCreatorSettings = new XmlWriterSettings();
+                    hddCreatorSettings.Indent = true;
+                    hddCreatorSettings.IndentChars = "\t";
+                    XmlWriter hddCreator = XmlWriter.Create(fileName, hddCreatorSettings);
 
-                    for (int j = 0; j < WORDS_IN_BLOCK; j++)
+                    hddCreator.WriteStartDocument();
+                    hddCreator.WriteStartElement("HDD");
+                    hddCreator.WriteStartElement("Blocks");
+
+                    for (int i = 0; i < NUMBER_OF_BLOCKS; i++)
                     {
-                        hddCreator.WriteStartElement("Word");
-                        hddCreator.WriteAttributeString("number", j.ToString());
-                        hddCreator.WriteString("0000");
+                        hddCreator.WriteStartElement("Block");
+                        hddCreator.WriteAttributeString("number", i.ToString());
+
+                        for (int j = 0; j < WORDS_IN_BLOCK; j++)
+                        {
+                            hddCreator.WriteStartElement("Word");
+                            hddCreator.WriteAttributeString("number", j.ToString());
+                            hddCreator.WriteString("0000");
+                            hddCreator.WriteEndElement();
+                        }
+
                         hddCreator.WriteEndElement();
                     }
 
-                    hddCreator.WriteEndElement();
+                    hddCreator.WriteEndDocument();
+                    hddCreator.Close();
                 }
-
-                hddCreator.WriteEndDocument();
-                hddCreator.Close();
             }
             catch (Exception)
             {
