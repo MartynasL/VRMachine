@@ -206,12 +206,12 @@ namespace VirtualRealMachine
             memory.setWordAtAddress(address, register.getValue());
         }
 
-        private void copyRegister(ref Register4B register1, Register4B register2)
+        public void copyRegister(ref Register4B register1, Register4B register2)
         {
             register1.setValue(register2.getValue());
         }
 
-        private void compRegisterMemory(ref Register4B register, Word word)
+        public void compRegisterMemory(ref Register4B register, Word word)
         {
             int op1, op2;
 
@@ -227,7 +227,7 @@ namespace VirtualRealMachine
             
         }
 
-        private void compRegisters(Register4B register1, Register4B register2)
+        public void compRegisters(Register4B register1, Register4B register2)
         {
             int op1, op2;
 

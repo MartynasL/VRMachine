@@ -71,12 +71,12 @@ namespace VirtualRealMachine
                 case 'M':
                     caseM(ch2, ch3, ch4);
                     break;
-                case 'X':
-                    caseX(ch2, ch3, ch4);
-                    break;
-                case 'T':
-                    caseT(ch2, ch3, ch4);
-                    break;
+                //case 'X':
+                //    caseX(ch2, ch3, ch4);
+                //    break;
+                //case 'T':
+                //    caseT(ch2, ch3, ch4);
+                //    break;
                 default:
                     notFound();
                     break;
@@ -85,22 +85,7 @@ namespace VirtualRealMachine
             //IC increment
         }
 
-        private Register4B whichWorkRegister(char ch)
-        {
-            if (ch == 'A')
-                return cpu.A;
-            else if (ch == 'B')
-                return cpu.B;
-            else
-                return null;
-        }
-
-        private Boolean isOtherRegister(char ch)
-        {
-            return false;
-        }
-
-        private Boolean isAdress(char ch3, char ch4)
+        private bool isAddress(char ch3, char ch4)
         {
             if ((ch3 <= '9') && (ch3 >= '0'))
             {
@@ -116,7 +101,7 @@ namespace VirtualRealMachine
         private void casePlus(char ch2, char ch3, char ch4)
         {
             //+rx1x2
-            if (isAdress(ch3, ch4))
+            if (isAddress(ch3, ch4))
             {
                 int address = Convert.ToInt32(String.Concat(ch3, ch4));
 
@@ -165,7 +150,7 @@ namespace VirtualRealMachine
         private void caseMinus(char ch2, char ch3, char ch4)
         {
             //+rx1x2
-            if (isAdress(ch3, ch4))
+            if (isAddress(ch3, ch4))
             {
                 int address = Convert.ToInt32(String.Concat(ch3, ch4));
 
@@ -214,7 +199,7 @@ namespace VirtualRealMachine
         private void caseMul(char ch2, char ch3, char ch4)
         {
             //+rx1x2
-            if (isAdress(ch3, ch4))
+            if (isAddress(ch3, ch4))
             {
                 int address = Convert.ToInt32(String.Concat(ch3, ch4));
 
@@ -263,7 +248,7 @@ namespace VirtualRealMachine
         private void caseDiv(char ch2, char ch3, char ch4)
         {
             //+rx1x2
-            if (isAdress(ch3, ch4))
+            if (isAddress(ch3, ch4))
             {
                 int address = Convert.ToInt32(String.Concat(ch3, ch4));
 
@@ -331,7 +316,7 @@ namespace VirtualRealMachine
 
         private void caseL(char ch2, char ch3, char ch4)
         {
-            if (isAdress(ch3, ch4))
+            if (isAddress(ch3, ch4))
             {
                 int address = Convert.ToInt32(String.Concat(ch3, ch4));
 
@@ -354,12 +339,68 @@ namespace VirtualRealMachine
                 notFound();
         }
 
-        private void caseS(char ch2, char ch3, char ch4)
+        private void caseC(char ch2, char ch3, char ch4)
         {
-
+            switch (ch2)
+            {
+                case 'P':
+                    if (ch3 == 'Y')
+                    {
+                        if (ch4 == 'A')
+                        {
+                            cpu.copyRegister(ref cpu.A, cpu.B);
+                        }
+                        else if (ch4 == 'B')
+                        {
+                            cpu.copyRegister(ref cpu.B, cpu.A);
+                        }
+                        else
+                            notFound();
+                    }
+                    else
+                        notFound();
+                    break;
+                case 'A':
+                    if (isAddress(ch3, ch4))
+                    {
+                        int address = Convert.ToInt32(String.Concat(ch3, ch4));
+                        cpu.compRegisterMemory(ref cpu.A, memory.getWordAtAddress(address));
+                    }
+                    else if ((ch3 == 'A') && (ch4 == '0'))
+                    {
+                        cpu.compRegisters(cpu.A, cpu.A);
+                    }
+                    else if ((ch3 == 'B') && (ch4 == '0'))
+                    {
+                        cpu.compRegisters(cpu.A, cpu.B);
+                    }
+                    else 
+                        notFound();
+                    break;
+                case 'B':
+                    if (isAddress(ch3, ch4))
+                    {
+                        int address = Convert.ToInt32(String.Concat(ch3, ch4));
+                        cpu.compRegisterMemory(ref cpu.B, memory.getWordAtAddress(address));
+                    }
+                    else if ((ch3 == 'A') && (ch4 == '0'))
+                    {
+                        cpu.compRegisters(cpu.B, cpu.A);
+                    }
+                    else if ((ch3 == 'B') && (ch4 == '0'))
+                    {
+                        cpu.compRegisters(cpu.B, cpu.B);
+                    }
+                    else 
+                        notFound();
+                    break;                    
+                default:
+                    notFound();
+                    break;
+            }
         }
 
-        private void caseC(char ch2, char ch3, char ch4)
+        private void caseS(char ch2, char ch3, char ch4)
         {
 
         }
@@ -394,7 +435,7 @@ namespace VirtualRealMachine
 
         private void caseM(char ch2, char ch3, char ch4)
         {
-            if (isAdress(ch3, ch4))
+            if (isAddress(ch3, ch4))
             {
                 int address = Convert.ToInt32(String.Concat(ch3, ch4));
 
