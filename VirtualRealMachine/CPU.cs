@@ -387,7 +387,7 @@ namespace VirtualRealMachine
             register.setValue(ch);
         }
 
-        private void slave(ref Memory memory)
+        public void slave(ref Memory memory)
         {
             memory.setWordAtAddress(M.getIntValue() * 10, A.getValue());
             memory.setWordAtAddress(M.getIntValue() * 10 + 1, B.getValue());
