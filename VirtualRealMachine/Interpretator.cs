@@ -422,6 +422,71 @@ namespace VirtualRealMachine
 
         private void caseG(char ch2, char ch3, char ch4)
         {
+            if (ch2 == 'T')
+                switch (ch3)
+                {
+                    case 'I':
+                        if (ch4 == 'C')
+                            cpu.getRegister(cpu.IC);
+                        else if (ch4 == 'O')
+                            cpu.getRegister(cpu.IOI);
+                        else
+                            notFound();
+                        break;
+                    case 'P':
+                        if (ch4 == 'R')
+                            cpu.getRegister(cpu.PR);
+                        else if (ch4 == 'I')
+                            cpu.getRegister(cpu.PI);
+                        else
+                            notFound();
+                        break;
+                    case 'S':
+                        if (ch4 == 'P')
+                            cpu.getRegister(cpu.SP);
+                        else if (ch4 == 'I')
+                            cpu.getRegister(cpu.SI);
+                        else
+                            notFound();
+                        break;
+                    case 'T':
+                        if (ch4 == 'I')
+                            cpu.getRegister(cpu.TI);
+                        else if (ch4 == 'M')
+                            cpu.getRegister(cpu.TIMER);
+                        else
+                            notFound();
+                        break;
+                    case 'M':
+                        if (ch4 == '0')
+                            cpu.getRegister(cpu.M);
+                        else if (ch4 == 'O')
+                            cpu.getRegister(cpu.MODE);
+                        else
+                            notFound();
+                        break;
+                    case 'R':
+                        if (ch4 == 'C')
+                            cpu.getRegister(cpu.RC);
+                        else
+                            notFound();
+                        break;
+                    case 'K':
+                        if (ch4 == '1')
+                            cpu.getRegister(cpu.K1);
+                        else if (ch4 == '2')
+                            cpu.getRegister(cpu.K2);
+                        else if (ch4 == '3')
+                            cpu.getRegister(cpu.K3);
+                        else
+                            notFound();                        
+                        break;
+                    default:
+                        notFound();
+                        break;
+                }
+            else 
+                notFound();
 
         }
 

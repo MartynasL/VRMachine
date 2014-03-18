@@ -11,20 +11,20 @@ namespace VirtualRealMachine
         public Register4B A = new Register4B();
         public Register4B B = new Register4B();
         public Register4B IC = new Register4B();
-        private Register4B SP = new Register4B();
-        private Register4B PR = new Register4B();
-        private Register2B TIMER = new Register2B();
-        private Register1B RC = new Register1B();
-        private Register1B M = new Register1B();
+        public Register4B SP = new Register4B();
+        public Register4B PR = new Register4B();
+        public Register2B TIMER = new Register2B();
+        public Register1B RC = new Register1B();
+        public Register1B M = new Register1B();
         public Register1B PI = new Register1B();
-        private Register1B SI = new Register1B();
-        private Register1B IOI = new Register1B();
-        private Register1B TI = new Register1B();
-        private Register1B MODE = new Register1B();
-        private Register1B K1 = new Register1B();
-        private Register1B K2 = new Register1B();
-        private Register1B K3 = new Register1B();
-        private Register1B C = new Register1B();
+        public Register1B SI = new Register1B();
+        public Register1B IOI = new Register1B();
+        public Register1B TI = new Register1B();
+        public Register1B MODE = new Register1B();
+        public Register1B K1 = new Register1B();
+        public Register1B K2 = new Register1B();
+        public Register1B K3 = new Register1B();
+        public Register1B C = new Register1B();
 
         public void addRegisterMemory(ref Register4B register, Word word)
         {
@@ -352,36 +352,36 @@ namespace VirtualRealMachine
             register.setValue(memory.getWordAtAddress(SP.getValue().toInt()).getWordByte(4));
         }
 
-        private void getRegister4B(Register4B register)
+        public void getRegister(Register4B register)
         {
             A.setValue(register.getValue());
         }
 
-        private void setRegister4B(ref Register4B register)
+        public void setRegister(ref Register4B register)
         {
             register.setValue(A.getValue());
         }
 
-        private void getRegister2B(Register2B register)
+        public void getRegister(Register2B register)
         {
             Word word = new Word(register.getValue().ToString());
             A.setValue(word);
         }
 
-        private void setRegister2B(ref Register2B register)
+        public void setRegister(ref Register2B register)
         {
             string str = A.getValue().getWordByte(3).ToString() + A.getValue().getWordByte(4);
             register.setValue(str);
 
         }
 
-        private void getRegister1B(Register1B register)
+        public void getRegister(Register1B register)
         {
             Word word = new Word(register.getValue().ToString());
             A.setValue(word);
         }
 
-        private void setRegister1B(ref Register1B register)
+        public void setRegister(ref Register1B register)
         {
             char ch = A.getValue().getWordByte(4);
             register.setValue(ch);
