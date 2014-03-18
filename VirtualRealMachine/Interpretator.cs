@@ -92,12 +92,12 @@ namespace VirtualRealMachine
             else if (ch == 'B')
                 return cpu.B;
             else
-                notFound();
+                return null;
         }
 
         private Boolean isOtherRegister(char ch)
         {
-
+            return false;
         }
 
         private Boolean isAdress(char ch3, char ch4)
@@ -159,8 +159,7 @@ namespace VirtualRealMachine
                 }
                 else
                     notFound();
-            }
-            
+            }            
         }
 
         private void caseMinus(char ch2, char ch3, char ch4)
@@ -170,9 +169,9 @@ namespace VirtualRealMachine
             {
                 int address = Convert.ToInt32(String.Concat(ch3, ch4));
 
-                if (ch2 == 65)
+                if (ch2 == 'A')
                     cpu.subRegisterMemory(ref cpu.A, memory.getWordAtAddress(address));
-                else if (ch2 == 66)
+                else if (ch2 == 'B')
                     cpu.subRegisterMemory(ref cpu.B, memory.getWordAtAddress(address));
                 else
                     notFound();
@@ -180,26 +179,26 @@ namespace VirtualRealMachine
             //+r1r20
             else
             {
-                if (ch4 == 0)
+                if (ch4 == '0')
                 {
-                    if (ch2 == 65)
+                    if (ch2 == 'A')
                     {
-                        if (ch3 == 65)
+                        if (ch3 == 'A')
                         {
                             cpu.subRegisters(ref cpu.A, cpu.A);
                         }
-                        else if (ch3 == 66)
+                        else if (ch3 == 'B')
                             cpu.subRegisters(ref cpu.A, cpu.B);
                         else
                             notFound();
                     }
-                    else if (ch2 == 66)
+                    else if (ch2 == 'B')
                     {
-                        if (ch3 == 65)
+                        if (ch3 == 'A')
                         {
                             cpu.subRegisters(ref cpu.B, cpu.A);
                         }
-                        else if (ch3 == 66)
+                        else if (ch3 == 'B')
                             cpu.subRegisters(ref cpu.B, cpu.B);
                         else
                             notFound();
@@ -209,17 +208,105 @@ namespace VirtualRealMachine
                 }
                 else
                     notFound();
-            }
+            }            
         }
 
         private void caseMul(char ch2, char ch3, char ch4)
         {
+            //+rx1x2
+            if (isAdress(ch3, ch4))
+            {
+                int address = Convert.ToInt32(String.Concat(ch3, ch4));
 
+                if (ch2 == 'A')
+                    cpu.mulRegisterMemory(ref cpu.A, memory.getWordAtAddress(address));
+                else if (ch2 == 'B')
+                    cpu.mulRegisterMemory(ref cpu.B, memory.getWordAtAddress(address));
+                else
+                    notFound();
+            }
+            //+r1r20
+            else
+            {
+                if (ch4 == '0')
+                {
+                    if (ch2 == 'A')
+                    {
+                        if (ch3 == 'A')
+                        {
+                            cpu.mulRegisters(ref cpu.A, cpu.A);
+                        }
+                        else if (ch3 == 'B')
+                            cpu.mulRegisters(ref cpu.A, cpu.B);
+                        else
+                            notFound();
+                    }
+                    else if (ch2 == 'B')
+                    {
+                        if (ch3 == 'A')
+                        {
+                            cpu.mulRegisters(ref cpu.B, cpu.A);
+                        }
+                        else if (ch3 == 'B')
+                            cpu.mulRegisters(ref cpu.B, cpu.B);
+                        else
+                            notFound();
+                    }
+                    else
+                        notFound();
+                }
+                else
+                    notFound();
+            }            
         }
 
         private void caseDiv(char ch2, char ch3, char ch4)
         {
+            //+rx1x2
+            if (isAdress(ch3, ch4))
+            {
+                int address = Convert.ToInt32(String.Concat(ch3, ch4));
 
+                if (ch2 == 'A')
+                    cpu.divRegisterMemory(cpu.A, memory.getWordAtAddress(address));
+                else if (ch2 == 'B')
+                    cpu.divRegisterMemory(cpu.B, memory.getWordAtAddress(address));
+                else
+                    notFound();
+            }
+            //+r1r20
+            else
+            {
+                if (ch4 == '0')
+                {
+                    if (ch2 == 'A')
+                    {
+                        if (ch3 == 'A')
+                        {
+                            cpu.divRegisters(cpu.A, cpu.A);
+                        }
+                        else if (ch3 == 'B')
+                            cpu.divRegisters(cpu.A, cpu.B);
+                        else
+                            notFound();
+                    }
+                    else if (ch2 == 'B')
+                    {
+                        if (ch3 == 'A')
+                        {
+                            cpu.divRegisters(cpu.B, cpu.A);
+                        }
+                        else if (ch3 == 'B')
+                            cpu.divRegisters(cpu.B, cpu.B);
+                        else
+                            notFound();
+                    }
+                    else
+                        notFound();
+                }
+                else
+                    notFound();
+            }            
         }
 
         private void caseI(char ch2, char ch3, char ch4)
@@ -313,8 +400,7 @@ namespace VirtualRealMachine
 
                 if (ch2 == 'O')
                 {
-                    cpu.changeMode(address);
-                    cpu.loadRegister(ref cpu.IC, memory.getWordAtAddress(address));
+                    cpu.changeMode(address, memory);
                 }                
                 else
                     notFound();
@@ -322,22 +408,22 @@ namespace VirtualRealMachine
             else
                 notFound();
         }
-//???
-        private void caseX(char ch2, char ch3, char ch4)
-        {
-            if ((ch2 == 'C') && (ch3 == 'H') && (ch4 == 'G'))
-                cpu.exchange();
-            else
-                notFound();
-        }
+////???
+//        private void caseX(char ch2, char ch3, char ch4)
+//        {
+//            if ((ch2 == 'C') && (ch3 == 'H') && (ch4 == 'G'))
+//                cpu.exchange();
+//            else
+//                notFound();
+//        }
 
-        private void caseT(char ch2, char ch3, char ch4)
-        {
-            if ((ch2 == 'E') && (ch3 == 'S') && (ch4 == 'T'))
-                cpu.test();
-            else
-                notFound();
-        }
+        //private void caseT(char ch2, char ch3, char ch4)
+        //{
+        //    if ((ch2 == 'E') && (ch3 == 'S') && (ch4 == 'T'))
+        //        cpu.test();
+        //    else
+        //        notFound();
+        //}
 
         private void notFound()
         {

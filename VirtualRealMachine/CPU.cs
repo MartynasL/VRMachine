@@ -128,7 +128,7 @@ namespace VirtualRealMachine
             }
         }
 
-        private void divRegisterMemory(Register4B register, Word word)
+        public void divRegisterMemory(Register4B register, Word word)
         {
             int op1, op2, op3;
             Word tempWord = new Word("0000");
@@ -148,7 +148,7 @@ namespace VirtualRealMachine
             }
         }
 
-        private void divRegisters(Register4B register1, Register4B register2)
+        public void divRegisters(Register4B register1, Register4B register2)
         {
             int op1, op2, op3;
             Word tempWord = new Word("0000");
@@ -405,13 +405,13 @@ namespace VirtualRealMachine
             SI.setValue('3');
         }
 
-        public void changeMode(int address)
+        public void changeMode(int address, Memory memory)
         {
             if (MODE.getValue() == 'S')
                 MODE.setValue('V');
             else
                 MODE.setValue('S');
-            loadRegister(ref IC, memory.getWordAtAddress(address));                 //??????
+            loadRegister(ref IC, memory.getWordAtAddress(address));
         }
 
         public bool exchange(Register1B channel)
@@ -453,15 +453,13 @@ namespace VirtualRealMachine
         private void handleInterrupt(int address)
         {
             Word tempWord = new Word("0000");
+
             if (MODE.getValue() != 'S')
             {
-                changeMode(address);
-            }
-            else
-            {
-                tempWord.setWord(address.ToString());
-                IC.setValue(tempWord);
-            }
+                MODE.setValue('S');
+            }            
+            tempWord.setWord(address.ToString());
+            IC.setValue(tempWord);            
         }
 
         private void handlePI()
