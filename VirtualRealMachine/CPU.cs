@@ -242,10 +242,29 @@ namespace VirtualRealMachine
                     C.setValue('0');
         }
 
-        private void jump(int address)
+        public void jump(int address)
         {
             Word word = new Word(address.ToString());
             IC.setValue(word);
+        }
+
+        public void conditionalJump(int address, char ch)
+        {
+            switch (ch)
+            {
+                case 'E':
+                    if (C.getValue() == '0')
+                        jump(address);
+                    break;
+                case 'G':
+                    if (C.getValue() == '1')
+                        jump(address);
+                    break;
+                case 'L':
+                    if (C.getValue() == '2')
+                        jump(address);
+                    break;
+            }
         }
 
         public void input(Memory memory, InputDevice inputDevice, int blockNumber)
