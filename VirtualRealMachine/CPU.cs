@@ -316,37 +316,37 @@ namespace VirtualRealMachine
             }
         }
 
-        private void push(Register4B register, ref Memory memory)
+        public void push(Register4B register, ref Memory memory)
         {
             saveRegister(register, ref memory, SP.getValue().toInt());
             incRegister(ref SP);
         }
 
-        private void push(Register2B register, ref Memory memory)
+        public void push(Register2B register, ref Memory memory)
         {
             memory.setWordAtAddress(SP.getValue().toInt(), new Word(register.getValue().ToString()));
             incRegister(ref SP);
         }
 
-        private void push(Register1B register, ref Memory memory)
+        public void push(Register1B register, ref Memory memory)
         {
             memory.setWordAtAddress(SP.getValue().toInt(), new Word(register.getValue().ToString()));
             incRegister(ref SP);
         }
 
-        private void pop(ref Register4B register, ref Memory memory)
+        public void pop(ref Register4B register, ref Memory memory)
         {
             decRegister(ref SP);
             loadRegister(ref register, memory.getWordAtAddress(SP.getValue().toInt()));
         }
 
-        private void pop(ref Register2B register, ref Memory memory)
+        public void pop(ref Register2B register, ref Memory memory)
         {
             decRegister(ref SP);
             register.setValue(memory.getWordAtAddress(SP.getValue().toInt()).ToString());
         }
 
-        private void pop(ref Register1B register, ref Memory memory)
+        public void pop(ref Register1B register, ref Memory memory)
         {
             decRegister(ref SP);
             register.setValue(memory.getWordAtAddress(SP.getValue().toInt()).getWordByte(4));
