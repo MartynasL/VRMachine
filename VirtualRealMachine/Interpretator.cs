@@ -10,11 +10,19 @@ namespace VirtualRealMachine
     {
         private CPU cpu;
         private Memory memory;
+        private InputDevice inputDevice;
+        private OutputDevice outputDevice;
+        private HDDManager hddManager;
 
-        public Interpretator(ref CPU cpu, ref Memory memory)
+        public Interpretator(ref CPU cpu, ref Memory memory,
+            ref InputDevice inputDevice, ref OutputDevice outputDevice,
+            ref HDDManager hddManager)
         {
             this.cpu = cpu;
             this.memory = memory;
+            this.inputDevice = inputDevice;
+            this.outputDevice = outputDevice;
+            this.hddManager = hddManager;
         }
 
         public void interpretate(Word word)
@@ -149,7 +157,7 @@ namespace VirtualRealMachine
 
         private void caseMinus(char ch2, char ch3, char ch4)
         {
-            //+rx1x2
+            //-rx1x2
             if (isAddress(ch3, ch4))
             {
                 int address = Convert.ToInt32(String.Concat(ch3, ch4));
@@ -161,7 +169,7 @@ namespace VirtualRealMachine
                 else
                     notFound();
             }
-            //+r1r20
+            //-r1r20
             else
             {
                 if (ch4 == '0')
@@ -198,7 +206,7 @@ namespace VirtualRealMachine
 
         private void caseMul(char ch2, char ch3, char ch4)
         {
-            //+rx1x2
+            //*rx1x2
             if (isAddress(ch3, ch4))
             {
                 int address = Convert.ToInt32(String.Concat(ch3, ch4));
@@ -210,7 +218,7 @@ namespace VirtualRealMachine
                 else
                     notFound();
             }
-            //+r1r20
+            //*r1r20
             else
             {
                 if (ch4 == '0')
@@ -247,7 +255,7 @@ namespace VirtualRealMachine
 
         private void caseDiv(char ch2, char ch3, char ch4)
         {
-            //+rx1x2
+            // /rx1x2
             if (isAddress(ch3, ch4))
             {
                 int address = Convert.ToInt32(String.Concat(ch3, ch4));
@@ -259,7 +267,7 @@ namespace VirtualRealMachine
                 else
                     notFound();
             }
-            //+r1r20
+            // /r1r20
             else
             {
                 if (ch4 == '0')
@@ -296,7 +304,42 @@ namespace VirtualRealMachine
 
         private void caseI(char ch2, char ch3, char ch4)
         {
-
+            if (ch2 == 'N')
+            {
+                if (ch3 == 'C')
+                {
+                    if (ch4 == 'A')
+                    {
+                        cpu.A.setValue(new Word((cpu.A.getValue().toInt() + 1).ToString()));
+                    }
+                    else if (ch4 == 'B')
+                    {
+                        cpu.A.setValue(new Word((cpu.B.getValue().toInt() + 1).ToString()));
+                    }
+                    else
+                    {
+                        notFound();
+                    }
+                }
+                else if(isAddress(ch3, ch4))
+                {
+                    cpu.SI.setValue('1');
+                    cpu.input(memory, inputDevice, (int)(ch3 - '0'));
+                }
+                else if (ch3 == 'H' & ch4 == 'A')
+                {
+                    cpu.SI.setValue('1');
+                    cpu.input(memory, hddManager, cpu.A.getValue().toInt() % 100, cpu.B.getValue().toInt() % 100);
+                }
+                else
+                {
+                    notFound();
+                }
+            }
+            else
+            {
+                notFound();
+            }
         }
 
         private void caseD(char ch2, char ch3, char ch4)
@@ -482,7 +525,27 @@ namespace VirtualRealMachine
 
         private void caseO(char ch2, char ch3, char ch4)
         {
-
+            if (ch2 == 'U')
+            {
+                if (isAddress(ch3, ch4))
+                {
+                    cpu.SI.setValue('2');
+                    cpu.output(memory, outputDevice, (int)(ch3 - '0')); 
+                }
+                else if(ch3 == 'H' & ch4 == 'A') 
+                {
+                    cpu.SI.setValue('2');
+                    cpu.output(memory, hddManager, cpu.B.getValue().toInt() % 100, cpu.A.getValue().toInt() % 100);
+                }
+                else
+                {
+                    notFound();
+                }
+            }
+            else
+            {
+                notFound();
+            }
         }
 
         private void caseP(char ch2, char ch3, char ch4)

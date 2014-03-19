@@ -248,7 +248,7 @@ namespace VirtualRealMachine
             IC.setValue(word);
         }
 
-        private void input(Memory memory, InputDevice inputDevice, int blockNumber)
+        public void input(Memory memory, InputDevice inputDevice, int blockNumber)
         {
             try
             {
@@ -265,7 +265,7 @@ namespace VirtualRealMachine
             }
         }
 
-        private void output(Memory memory, OutputDevice outputDevice, int blockNumber)
+        public void output(Memory memory, OutputDevice outputDevice, int blockNumber)
         {
             try
             {
@@ -282,7 +282,7 @@ namespace VirtualRealMachine
             }
         }
 
-        private void input(Memory memory, HDDManager hddManager, int memoryWordAddress, int hddWordAddress)
+        public void input(Memory memory, HDDManager hddManager, int memoryWordAddress, int hddWordAddress)
         {
             try
             {
@@ -299,7 +299,7 @@ namespace VirtualRealMachine
             }
         }
 
-        private void output(Memory memory, HDDManager hddManager, int memoryWordAddress, int hddWordAddress)
+        public void output(Memory memory, HDDManager hddManager, int memoryWordAddress, int hddWordAddress)
         {
             try
             {
