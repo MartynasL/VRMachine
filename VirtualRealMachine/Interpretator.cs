@@ -330,7 +330,6 @@ namespace VirtualRealMachine
                 }
                 else if (ch3 == 'H' & ch4 == 'A')
                 {
-                    cpu.SI.setValue('1');
                     cpu.input(memory, hddManager, cpu.A.getValue().toInt() % 100, cpu.B.getValue().toInt() % 100);
                 }
                 else
@@ -567,7 +566,6 @@ namespace VirtualRealMachine
                 }
                 else if(ch3 == 'H' & ch4 == 'A') 
                 {
-                    cpu.SI.setValue('2');
                     cpu.output(memory, hddManager, cpu.B.getValue().toInt() % 100, cpu.A.getValue().toInt() % 100);
                 }
                 else
