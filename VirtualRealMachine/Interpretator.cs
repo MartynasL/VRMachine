@@ -525,7 +525,35 @@ namespace VirtualRealMachine
 
         private void caseJ(char ch2, char ch3, char ch4)
         {
+            if (isAddress(ch3, ch4))
+            {
+                int address = Convert.ToInt32(String.Concat(ch3, ch4));
 
+                switch (ch2)
+                {
+                    case 'P':
+                        cpu.jump(address);
+                        incIC = false;
+                        break;
+                    case 'E':
+                        cpu.conditionalJump(address, ch2);
+                        incIC = false;
+                        break;
+                    case 'G':
+                        cpu.conditionalJump(address, ch2);
+                        incIC = false;
+                        break;
+                    case 'L':
+                        cpu.conditionalJump(address, ch2);
+                        incIC = false;
+                        break;
+                    default:
+                        notFound();
+                        break;
+                }
+            }
+            else
+                notFound();
         }
 
         private void caseO(char ch2, char ch3, char ch4)
