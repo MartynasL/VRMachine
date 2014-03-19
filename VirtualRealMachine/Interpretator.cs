@@ -452,7 +452,10 @@ namespace VirtualRealMachine
                 {
                     case 'I':
                         if (ch4 == 'C')
+                        {
                             cpu.setRegister(ref cpu.IC);
+                            incIC = false;
+                        }
                         else if (ch4 == 'O')
                             cpu.setRegister(ref cpu.IOI);
                         else
