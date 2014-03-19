@@ -326,7 +326,8 @@ namespace VirtualRealMachine
                 else if(isAddress(ch3, ch4))
                 {
                     cpu.SI.setValue('1');
-                    cpu.input(memory, inputDevice, (int)(ch3 - '0'));
+                    string address = new string(ch3, ch4);
+                    cpu.B.setValue(new Word(address));
                 }
                 else if (ch3 == 'H' & ch4 == 'A')
                 {
@@ -562,7 +563,6 @@ namespace VirtualRealMachine
                 if (isAddress(ch3, ch4))
                 {
                     cpu.SI.setValue('2');
-                    cpu.output(memory, outputDevice, (int)(ch3 - '0')); 
                 }
                 else if(ch3 == 'H' & ch4 == 'A') 
                 {
@@ -777,14 +777,25 @@ namespace VirtualRealMachine
             else
                 notFound();
         }
-////???
-//        private void caseX(char ch2, char ch3, char ch4)
-//        {
-//            if ((ch2 == 'C') && (ch3 == 'H') && (ch4 == 'G'))
-//                cpu.exchange();
-//            else
-//                notFound();
-//        }
+        
+        private void caseX(char ch2, char ch3, char ch4)
+        {
+            if ((ch2 == 'C') && (ch3 == 'H') && (ch4 == 'G'))
+            {
+                if (cpu.SI.getValue() == '1')
+                {
+                    cpu.input(memory, inputDevice, (int)(cpu.B.getValue().getWordByte(3) - '0')); 
+                }
+                else if (cpu.SI.getValue() == '2')
+                {
+                    cpu.output(memory, outputDevice, (int)(cpu.B.getValue().getWordByte(3) - '0')); 
+                }
+            }
+            else
+            {
+                notFound();
+            }
+        }
 
         //private void caseT(char ch2, char ch3, char ch4)
         //{
