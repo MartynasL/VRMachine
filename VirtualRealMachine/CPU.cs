@@ -559,5 +559,15 @@ namespace VirtualRealMachine
         {
             handleInterrupt(240);
         }
+
+        public int getRealAddress(ref Memory memory, int virtualAddress)
+        {
+            int a3 = PR.getValue().toInt() / 10 % 10;
+            int a4 = PR.getValue().toInt() % 10;
+            int x1 = virtualAddress / 10;
+            int x2 = virtualAddress % 10;
+
+            return 10 * memory.getWordAtAddress(10 * (10 * a3 + a4) + x1).toInt() + x2;
+        }
     }
 }
