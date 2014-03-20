@@ -10,6 +10,11 @@ namespace VirtualRealMachine
     {
         private char value;
 
+        public Register1B()
+        {
+            setValue('0');
+        }
+
         public void setValue(char c)
         {
             value = c;

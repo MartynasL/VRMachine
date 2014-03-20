@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VirtualRealMachine
 {
-    class Interpretator
+    public class Interpretator
     {
         private CPU cpu;
         public Memory memory;

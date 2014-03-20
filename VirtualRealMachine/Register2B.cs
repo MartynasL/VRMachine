@@ -8,7 +8,13 @@ namespace VirtualRealMachine
 {
     public class Register2B
     {
-        private char[] value = new char[2];
+        private char[] value;
+
+        public Register2B()
+        {
+            value = new char[2];
+            setValue("00");
+        }
 
         public void setValue(string value)
         {
