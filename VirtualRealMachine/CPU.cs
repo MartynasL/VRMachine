@@ -25,13 +25,25 @@ namespace VirtualRealMachine
         public Register1B K2 = new Register1B();
         public Register1B K3 = new Register1B();
         public Register1B C = new Register1B();
+        private bool needTest = false;
 
         public void execute(Interpretator interpretator)
         {
-            Word command = interpretator.memory.getWordAtAddress(IC.getValue().toInt());
-            interpretator.interpretate(command);
-            test();
-            incRegister(ref IC);
+            if (!needTest)
+            {
+                Word command = interpretator.memory.getWordAtAddress(IC.getValue().toInt());
+                interpretator.interpretate(command);
+                needTest = true;
+            }
+            else
+            {
+                test();
+                needTest = false;
+                if (interpretator.incIC)
+                {
+                    incRegister(ref IC);
+                }
+            }
         }
 
         public void addRegisterMemory(ref Register4B register, Word word)

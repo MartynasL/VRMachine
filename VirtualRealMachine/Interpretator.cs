@@ -14,7 +14,7 @@ namespace VirtualRealMachine
         private OutputDevice outputDevice;
         private HDDManager hddManager;
         private int stackSize;
-        private bool incIC = true;
+        public bool incIC = true;
 
         public Interpretator(ref CPU cpu, ref Memory memory,
             ref InputDevice inputDevice, ref OutputDevice outputDevice,
@@ -797,13 +797,13 @@ namespace VirtualRealMachine
             }
         }
 
-        //private void caseT(char ch2, char ch3, char ch4)
-        //{
-        //    if ((ch2 == 'E') && (ch3 == 'S') && (ch4 == 'T'))
-        //        cpu.test();
-        //    else
-        //        notFound();
-        //}
+        private void caseT(char ch2, char ch3, char ch4)
+        {
+            if ((ch2 == 'E') && (ch3 == 'S') && (ch4 == 'T'))
+                cpu.test();
+            else
+                notFound();
+        }
 
         private void notFound()
         {
