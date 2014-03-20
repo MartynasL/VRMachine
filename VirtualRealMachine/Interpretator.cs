@@ -9,7 +9,7 @@ namespace VirtualRealMachine
     class Interpretator
     {
         private CPU cpu;
-        private Memory memory;
+        public Memory memory;
         private InputDevice inputDevice;
         private OutputDevice outputDevice;
         private HDDManager hddManager;
