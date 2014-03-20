@@ -12,7 +12,7 @@ namespace VirtualRealMachine
 
         public void setValue(Word word)
         {
-            value = word;
+            value.setWord(word.ToString());
         }
 
         public Word getValue()
