@@ -72,7 +72,7 @@ namespace VirtualRealMachine
             supervisorMemory = new Memory(40);
             inputDevice = new InputDevice();
             outputDevice = new OutputDevice();
-            hddManager = new HDDManager("C:\\Users\\Martynas\\Desktop\\hdd.txt", 100, 10);
+            hddManager = new HDDManager("hdd.txt", 100, 10);
             interpretator = new Interpretator(ref cpu, ref supervisorMemory, ref inputDevice,
                 ref outputDevice, ref hddManager);
 
