@@ -45,6 +45,27 @@ namespace VirtualRealMachine
             K3Text.Text = cpu.K3.getValue().ToString();
         }
 
+        private void initializeListBox()
+        {
+            listView1.View = View.Details;
+
+            listView1.Columns.Add("Address");
+            listView1.Columns.Add("Value");
+
+            updateListBox();
+        }
+
+        private void updateListBox()
+        {
+            listView1.Items.Clear();
+
+            for (int i = 0; i < supervisorMemory.NUMBER_OF_BLOCKS * 10; i++)
+            {
+                listView1.Items.Add(new ListViewItem(new string[] {i.ToString(),
+                    supervisorMemory.getWordAtAddress(i).ToString() }));
+            }
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             cpu = new CPU();
@@ -54,13 +75,19 @@ namespace VirtualRealMachine
             hddManager = new HDDManager("C:\\Users\\Martynas\\Desktop\\hdd.txt", 100, 10);
             interpretator = new Interpretator(ref cpu, ref supervisorMemory, ref inputDevice,
                 ref outputDevice, ref hddManager);
+
+            supervisorMemory.setWordAtAddress(0, new Word("-A01"));
+            supervisorMemory.setWordAtAddress(1, new Word("0002"));
+
             updateTextBox();
+            initializeListBox();
         }
 
         private void executeButton_Click(object sender, EventArgs e)
         {
-            cpu.A.setValue(new Word("00AA"));
+            cpu.execute(interpretator);
             updateTextBox();
+            updateListBox();
         }
     }
 }

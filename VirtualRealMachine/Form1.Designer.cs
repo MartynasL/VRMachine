@@ -62,8 +62,8 @@
             this.label17 = new System.Windows.Forms.Label();
             this.TIMERText = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
             this.executeButton = new System.Windows.Forms.Button();
+            this.listView1 = new System.Windows.Forms.ListView();
             this.SuspendLayout();
             // 
             // AText
@@ -355,14 +355,6 @@
             this.label18.TabIndex = 35;
             this.label18.Text = "TIMER";
             // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(383, 22);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(227, 303);
-            this.listBox1.TabIndex = 36;
-            // 
             // executeButton
             // 
             this.executeButton.Location = new System.Drawing.Point(54, 320);
@@ -373,13 +365,21 @@
             this.executeButton.UseVisualStyleBackColor = true;
             this.executeButton.Click += new System.EventHandler(this.executeButton_Click);
             // 
+            // listView1
+            // 
+            this.listView1.Location = new System.Drawing.Point(421, 29);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(189, 330);
+            this.listView1.TabIndex = 38;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(622, 371);
+            this.Controls.Add(this.listView1);
             this.Controls.Add(this.executeButton);
-            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.TIMERText);
             this.Controls.Add(this.label13);
@@ -458,8 +458,8 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.TextBox TIMERText;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button executeButton;
+        private System.Windows.Forms.ListView listView1;
     }
 }
 
