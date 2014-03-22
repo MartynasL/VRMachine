@@ -679,7 +679,7 @@ namespace VirtualRealMachine
                 {
                     case 'A':
                         if (ch4 == '0')
-                            if (stackSize[] != 0)
+                            if (stackSize[machine] != 0)
                                 cpu.pop(ref cpu.A, ref memory);
                             else
                                 cpu.PI.setValue('4');
