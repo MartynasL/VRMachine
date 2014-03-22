@@ -76,10 +76,14 @@ namespace VirtualRealMachine
             interpretator = new Interpretator(ref cpu, ref supervisorMemory, ref inputDevice,
                 ref outputDevice, ref hddManager);
 
-            supervisorMemory.setWordAtAddress(0, new Word("LA03"));
+            cpu.MODE.setValue('S');
+            cpu.PR.setValue(new Word("0010"));
+            supervisorMemory.setWordAtAddress(0, new Word("MO99"));
             supervisorMemory.setWordAtAddress(1, new Word("/A02"));
             supervisorMemory.setWordAtAddress(2, new Word("0003"));
             supervisorMemory.setWordAtAddress(3, new Word("0010"));
+            supervisorMemory.setWordAtAddress(100, new Word("0022"));
+            supervisorMemory.setWordAtAddress(223, new Word("AAAA"));
 
             updateTextBox();
             initializeListBox();

@@ -112,7 +112,7 @@ namespace VirtualRealMachine
         {
             if (cpu.MODE.getValue() == 'S')
             {
-                return 100 * cpu.RC.getIntValue();
+                return 100 * cpu.RC.getIntValue() + address;
             }
             else
             {
