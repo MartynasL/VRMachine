@@ -69,9 +69,9 @@ namespace VirtualRealMachine
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            cpu = new CPU();
-            memory = new Memory(100);
             supervisorMemory = new Memory(40);
+            cpu = new CPU(ref supervisorMemory);
+            memory = new Memory(100);            
             inputDevice = new InputDevice();
             outputDevice = new OutputDevice();
             hddManager = new HDDManager("hdd.txt", 100, 10);

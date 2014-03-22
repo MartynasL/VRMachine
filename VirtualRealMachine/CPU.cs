@@ -25,7 +25,13 @@ namespace VirtualRealMachine
         public Register1B K2 = new Register1B();
         public Register1B K3 = new Register1B();
         public Register1B C = new Register1B();
+        private Memory supervisorMemory;
         private bool needTest = false;
+
+        public CPU(ref Memory supervisorMemory)
+        {
+            this.supervisorMemory = supervisorMemory;
+        }
 
         public void execute(Interpretator interpretator)
         {
@@ -582,7 +588,7 @@ namespace VirtualRealMachine
         private void handleInterrupt(int address)
         {
             Word tempWord = new Word("0000");
-
+            slave(ref supervisorMemory);
             if (MODE.getValue() != 'S')
             {
                 MODE.setValue('S');
