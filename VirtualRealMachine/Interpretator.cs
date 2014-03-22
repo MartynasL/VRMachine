@@ -10,6 +10,7 @@ namespace VirtualRealMachine
     {
         private CPU cpu;
         public Memory memory;
+        public Memory supervisorMemory;
         private InputDevice inputDevice;
         private OutputDevice outputDevice;
         private HDDManager hddManager;
@@ -354,11 +355,12 @@ namespace VirtualRealMachine
                     address = interpretateAddress(address);
 
                     string addressString = address.ToString();
+                    cpu.getRegister(cpu.MODE);
                     cpu.B.setValue(new Word(addressString));
                 }
                 else if (ch3 == 'H' && ch4 == 'A' && isSupervisorMode())
                 {
-                    cpu.input(memory, hddManager, cpu.A.getValue().toInt() % 1000, cpu.B.getValue().toInt() % 1000);
+                    cpu.input(supervisorMemory, hddManager, cpu.A.getValue().toInt() % 1000, cpu.B.getValue().toInt() % 1000);
                 }
                 else
                 {
@@ -603,12 +605,12 @@ namespace VirtualRealMachine
                     address = interpretateAddress(address);
 
                     string addressString = address.ToString();
-
+                    cpu.getRegister(cpu.MODE);
                     cpu.B.setValue(new Word(addressString));
                 }
                 else if (ch3 == 'H' && ch4 == 'A' && isSupervisorMode()) 
                 {
-                    cpu.output(memory, hddManager, cpu.B.getValue().toInt() % 1000, cpu.A.getValue().toInt() % 1000);
+                    cpu.output(supervisorMemory, hddManager, cpu.B.getValue().toInt() % 1000, cpu.A.getValue().toInt() % 1000);
                 }
                 else
                 {
@@ -836,8 +838,7 @@ namespace VirtualRealMachine
                     cpu.B.getValue().getWordByte(3)));
 
                 if (cpu.SI.getValue() == '1')
-                {
-                    
+                {                    
                     cpu.input(memory, inputDevice, address); 
                 }
                 else if (cpu.SI.getValue() == '2')
