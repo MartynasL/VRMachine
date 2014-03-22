@@ -36,18 +36,19 @@ namespace VirtualRealMachine
                 needTest = true;
             }
             else
-            {
-                test();
-                needTest = false;
+            {                
                 if (interpretator.incIC)
                 {
+                    if (IC.getValue().toInt() == 999)
+                        PI.setValue('5');
                     incRegister(ref IC);
                 }
                 else
                 {
                     interpretator.incIC = true;
                 }
-
+                test();
+                needTest = false;
             }
         }
 
