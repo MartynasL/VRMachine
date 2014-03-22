@@ -43,6 +43,11 @@ namespace VirtualRealMachine
                 {
                     incRegister(ref IC);
                 }
+                else
+                {
+                    interpretator.incIC = true;
+                }
+
             }
         }
 

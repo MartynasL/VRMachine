@@ -120,6 +120,14 @@ namespace VirtualRealMachine
             }
         }
 
+        private bool isSupervisorMode()
+        {
+            if (cpu.MODE.getValue() == 'S')
+                return true;
+            else
+                return false;
+        }
+
         private void casePlus(char ch2, char ch3, char ch4)
         {
             //+rx1x2
@@ -348,7 +356,7 @@ namespace VirtualRealMachine
                     string addressString = address.ToString();
                     cpu.B.setValue(new Word(addressString));
                 }
-                else if (ch3 == 'H' & ch4 == 'A')
+                else if (ch3 == 'H' && ch4 == 'A' && isSupervisorMode())
                 {
                     cpu.input(memory, hddManager, cpu.A.getValue().toInt() % 1000, cpu.B.getValue().toInt() % 1000);
                 }
@@ -474,57 +482,60 @@ namespace VirtualRealMachine
             if (ch2 == 'T')
                 switch (ch3)
                 {
+                    case 'C':
+                        cpu.setRegister(ref cpu.C);
+                        break;
                     case 'I':
                         if (ch4 == 'C')
                         {
                             cpu.setRegister(ref cpu.IC);
                             incIC = false;
                         }
-                        else if (ch4 == 'O')
+                        else if (ch4 == 'O' && isSupervisorMode())
                             cpu.setRegister(ref cpu.IOI);
                         else
                             notFound();
                         break;
                     case 'P':
-                        if (ch4 == 'R')
+                        if (ch4 == 'R' && isSupervisorMode())
                             cpu.setRegister(ref cpu.PR);
-                        else if (ch4 == 'I')
+                        else if (ch4 == 'I' && isSupervisorMode())
                             cpu.setRegister(ref cpu.PI);
                         else
                             notFound();
                         break;
                     case 'S':
-                        if (ch4 == 'P')
+                        if (ch4 == 'P' && isSupervisorMode())
                             cpu.setRegister(ref cpu.SP);
-                        else if (ch4 == 'I')
+                        else if (ch4 == 'I' && isSupervisorMode())
                             cpu.setRegister(ref cpu.SI);
                         else
                             notFound();
                         break;
                     case 'T':
-                        if (ch4 == 'I')
+                        if (ch4 == 'I' && isSupervisorMode())
                             cpu.setRegister(ref cpu.TI);
-                        else if (ch4 == 'M')
+                        else if (ch4 == 'M' && isSupervisorMode())
                             cpu.setRegister(ref cpu.TIMER);
                         else
                             notFound();
                         break;
                     case 'M':
-                        if (ch4 == '0')
+                        if (ch4 == '0' && isSupervisorMode())
                             cpu.setRegister(ref cpu.M);
-                        else if (ch4 == 'O')
+                        else if (ch4 == 'O' && isSupervisorMode())
                             cpu.setRegister(ref cpu.MODE);
                         else
                             notFound();
                         break;
                     case 'R':
-                        if (ch4 == 'C')
+                        if (ch4 == 'C' && isSupervisorMode())
                             cpu.setRegister(ref cpu.RC);
                         else
                             notFound();
                         break;
                     case 'K':
-                        if (ch4 == '1')
+                        if (ch4 == '1' && isSupervisorMode())
                             cpu.setRegister(ref cpu.K1);
                         else if (ch4 == '2')
                             cpu.setRegister(ref cpu.K2);
@@ -595,7 +606,7 @@ namespace VirtualRealMachine
 
                     cpu.B.setValue(new Word(addressString));
                 }
-                else if(ch3 == 'H' & ch4 == 'A') 
+                else if (ch3 == 'H' && ch4 == 'A' && isSupervisorMode()) 
                 {
                     cpu.output(memory, hddManager, cpu.B.getValue().toInt() % 1000, cpu.A.getValue().toInt() % 1000);
                 }
@@ -722,58 +733,64 @@ namespace VirtualRealMachine
                     case 'I':
                         if (ch4 == 'C')
                             cpu.getRegister(cpu.IC);
-                        else if (ch4 == 'O')
+                        else if (ch4 == 'O' && isSupervisorMode())
                             cpu.getRegister(cpu.IOI);
                         else
                             notFound();
                         break;
                     case 'P':
-                        if (ch4 == 'R')
+                        if (ch4 == 'R' && isSupervisorMode())
                             cpu.getRegister(cpu.PR);
-                        else if (ch4 == 'I')
+                        else if (ch4 == 'I' && isSupervisorMode())
                             cpu.getRegister(cpu.PI);
                         else
                             notFound();
                         break;
                     case 'S':
-                        if (ch4 == 'P')
+                        if (ch4 == 'P' && isSupervisorMode())
                             cpu.getRegister(cpu.SP);
-                        else if (ch4 == 'I')
+                        else if (ch4 == 'I' && isSupervisorMode())
                             cpu.getRegister(cpu.SI);
                         else
                             notFound();
                         break;
                     case 'T':
-                        if (ch4 == 'I')
+                        if (ch4 == 'I' && isSupervisorMode())
                             cpu.getRegister(cpu.TI);
-                        else if (ch4 == 'M')
+                        else if (ch4 == 'M' && isSupervisorMode())
                             cpu.getRegister(cpu.TIMER);
                         else
                             notFound();
                         break;
                     case 'M':
-                        if (ch4 == '0')
+                        if (ch4 == '0' && isSupervisorMode())
                             cpu.getRegister(cpu.M);
-                        else if (ch4 == 'O')
+                        else if (ch4 == 'O' && isSupervisorMode())
                             cpu.getRegister(cpu.MODE);
                         else
                             notFound();
                         break;
                     case 'R':
-                        if (ch4 == 'C')
+                        if (ch4 == 'C' && isSupervisorMode())
                             cpu.getRegister(cpu.RC);
                         else
                             notFound();
                         break;
                     case 'K':
-                        if (ch4 == '1')
+                        if (ch4 == '1' && isSupervisorMode())
                             cpu.getRegister(cpu.K1);
-                        else if (ch4 == '2')
+                        else if (ch4 == '2' && isSupervisorMode())
                             cpu.getRegister(cpu.K2);
-                        else if (ch4 == '3')
+                        else if (ch4 == '3' && isSupervisorMode())
                             cpu.getRegister(cpu.K3);
                         else
                             notFound();                        
+                        break;
+                    case 'C':
+                        if (ch4 == '0')
+                            cpu.getRegister(cpu.C);
+                        else
+                            notFound();
                         break;
                     default:
                         notFound();
@@ -799,7 +816,7 @@ namespace VirtualRealMachine
                 int address = Convert.ToInt32(String.Concat(ch3, ch4));
                 address = interpretateAddress(address);
 
-                if (ch2 == 'O')
+                if (ch2 == 'O' && isSupervisorMode())
                 {
                     cpu.changeMode(address, memory);
                 }                
@@ -812,7 +829,7 @@ namespace VirtualRealMachine
         
         private void caseX(char ch2, char ch3, char ch4)
         {
-            if ((ch2 == 'C') && (ch3 == 'H') && (ch4 == 'G'))
+            if (ch2 == 'C' && ch3 == 'H' && ch4 == 'G' && isSupervisorMode())
             {
                 int address = Convert.ToInt32(new String(cpu.B.getValue().getWordByte(2),
                     cpu.B.getValue().getWordByte(3)));
@@ -835,7 +852,7 @@ namespace VirtualRealMachine
 
         private void caseT(char ch2, char ch3, char ch4)
         {
-            if ((ch2 == 'E') && (ch3 == 'S') && (ch4 == 'T'))
+            if (ch2 == 'E' && ch3 == 'S' && ch4 == 'T' && isSupervisorMode())
                 cpu.test();
             else
                 notFound();
