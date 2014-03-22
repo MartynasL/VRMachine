@@ -14,6 +14,7 @@ namespace VirtualRealMachine
     {
         private CPU cpu;
         private Memory supervisorMemory;
+        private Memory memory;
         private InputDevice inputDevice;
         private OutputDevice outputDevice;
         private Interpretator interpretator;
@@ -69,11 +70,12 @@ namespace VirtualRealMachine
         private void Form1_Load(object sender, EventArgs e)
         {
             cpu = new CPU();
+            memory = new Memory(100);
             supervisorMemory = new Memory(40);
             inputDevice = new InputDevice();
             outputDevice = new OutputDevice();
             hddManager = new HDDManager("hdd.txt", 100, 10);
-            interpretator = new Interpretator(ref cpu, ref supervisorMemory, ref inputDevice,
+            interpretator = new Interpretator(ref cpu, ref memory, ref supervisorMemory, ref inputDevice,
                 ref outputDevice, ref hddManager);
 
             cpu.MODE.setValue('S');

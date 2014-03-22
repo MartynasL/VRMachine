@@ -9,23 +9,30 @@ namespace VirtualRealMachine
     public class Interpretator
     {
         private CPU cpu;
-        public Memory memory;
+        public Memory ram;
         public Memory supervisorMemory;
         private InputDevice inputDevice;
         private OutputDevice outputDevice;
         private HDDManager hddManager;
         private int[] stackSize = new int[10];
         public bool incIC = true;
+        public Memory memory;
 
-        public Interpretator(ref CPU cpu, ref Memory memory,
+        public Interpretator(ref CPU cpu, ref Memory ram, ref Memory supervisorMemory,
             ref InputDevice inputDevice, ref OutputDevice outputDevice,
             ref HDDManager hddManager)
         {
             this.cpu = cpu;
-            this.memory = memory;
+            this.ram = ram;
+            this.supervisorMemory = supervisorMemory;
             this.inputDevice = inputDevice;
             this.outputDevice = outputDevice;
             this.hddManager = hddManager;
+
+            if (cpu.MODE.getValue() == 'S')
+                memory = supervisorMemory;
+            else
+                memory = ram; 
         }
 
         public void interpretate(Word word)
@@ -34,6 +41,11 @@ namespace VirtualRealMachine
             char ch2 = word.getWordByte(2);
             char ch3 = word.getWordByte(3);
             char ch4 = word.getWordByte(4);
+
+            if (cpu.MODE.getValue() == 'S')
+                memory = supervisorMemory;
+            else
+                memory = ram;
 
             switch (ch1)
             {
@@ -117,7 +129,7 @@ namespace VirtualRealMachine
             }
             else
             {
-                return cpu.getRealAddress(ref memory, address);
+                return cpu.getRealAddress(ref ram, address);
             }
         }
 
