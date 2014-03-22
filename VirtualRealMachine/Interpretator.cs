@@ -81,9 +81,9 @@ namespace VirtualRealMachine
                 case 'M':
                     caseM(ch2, ch3, ch4);
                     break;
-                //case 'X':
-                //    caseX(ch2, ch3, ch4);
-                //    break;
+                case 'X':
+                    caseX(ch2, ch3, ch4);
+                    break;
                 //case 'T':
                 //    caseT(ch2, ch3, ch4);
                 //    break;
@@ -108,12 +108,25 @@ namespace VirtualRealMachine
                 return false;
         }
 
+        private int interpretateAddress(int address)
+        {
+            if (cpu.MODE.getValue() == 'S')
+            {
+                return 100 * cpu.RC.getIntValue();
+            }
+            else
+            {
+                return cpu.getRealAddress(ref memory, address);
+            }
+        }
+
         private void casePlus(char ch2, char ch3, char ch4)
         {
             //+rx1x2
             if (isAddress(ch3, ch4))
             {
                 int address = Convert.ToInt32(String.Concat(ch3, ch4));
+                address = interpretateAddress(address);
 
                 if (ch2 == 'A')
                     cpu.addRegisterMemory(ref cpu.A, memory.getWordAtAddress(address));
@@ -163,6 +176,7 @@ namespace VirtualRealMachine
             if (isAddress(ch3, ch4))
             {
                 int address = Convert.ToInt32(String.Concat(ch3, ch4));
+                address = interpretateAddress(address);
 
                 if (ch2 == 'A')
                     cpu.subRegisterMemory(ref cpu.A, memory.getWordAtAddress(address));
@@ -212,6 +226,7 @@ namespace VirtualRealMachine
             if (isAddress(ch3, ch4))
             {
                 int address = Convert.ToInt32(String.Concat(ch3, ch4));
+                address = interpretateAddress(address);
 
                 if (ch2 == 'A')
                     cpu.mulRegisterMemory(ref cpu.A, memory.getWordAtAddress(address));
@@ -261,6 +276,7 @@ namespace VirtualRealMachine
             if (isAddress(ch3, ch4))
             {
                 int address = Convert.ToInt32(String.Concat(ch3, ch4));
+                address = interpretateAddress(address);
 
                 if (ch2 == 'A')
                     cpu.divRegisterMemory(cpu.A, memory.getWordAtAddress(address));
@@ -326,12 +342,15 @@ namespace VirtualRealMachine
                 else if(isAddress(ch3, ch4))
                 {
                     cpu.SI.setValue('1');
-                    string address = new string(ch3, ch4);
-                    cpu.B.setValue(new Word(address));
+                    int address = Convert.ToInt32(new String(ch3, ch4));
+                    address = interpretateAddress(address);
+
+                    string addressString = address.ToString();
+                    cpu.B.setValue(new Word(addressString));
                 }
                 else if (ch3 == 'H' & ch4 == 'A')
                 {
-                    cpu.input(memory, hddManager, cpu.A.getValue().toInt() % 100, cpu.B.getValue().toInt() % 100);
+                    cpu.input(memory, hddManager, cpu.A.getValue().toInt() % 1000, cpu.B.getValue().toInt() % 1000);
                 }
                 else
                 {
@@ -364,6 +383,7 @@ namespace VirtualRealMachine
             if (isAddress(ch3, ch4))
             {
                 int address = Convert.ToInt32(String.Concat(ch3, ch4));
+                address = interpretateAddress(address);
 
                 if (ch2 == 'A')
                 {
@@ -409,6 +429,8 @@ namespace VirtualRealMachine
                     if (isAddress(ch3, ch4))
                     {
                         int address = Convert.ToInt32(String.Concat(ch3, ch4));
+                        address = interpretateAddress(address);
+
                         cpu.compRegisterMemory(ref cpu.A, memory.getWordAtAddress(address));
                     }
                     else if ((ch3 == 'A') && (ch4 == '0'))
@@ -426,6 +448,8 @@ namespace VirtualRealMachine
                     if (isAddress(ch3, ch4))
                     {
                         int address = Convert.ToInt32(String.Concat(ch3, ch4));
+                        address = interpretateAddress(address);
+
                         cpu.compRegisterMemory(ref cpu.B, memory.getWordAtAddress(address));
                     }
                     else if ((ch3 == 'A') && (ch4 == '0'))
@@ -528,6 +552,7 @@ namespace VirtualRealMachine
             if (isAddress(ch3, ch4))
             {
                 int address = Convert.ToInt32(String.Concat(ch3, ch4));
+                address = interpretateAddress(address);
 
                 switch (ch2)
                 {
@@ -563,10 +588,16 @@ namespace VirtualRealMachine
                 if (isAddress(ch3, ch4))
                 {
                     cpu.SI.setValue('2');
+                    int address = Convert.ToInt32(new String(ch3, ch4));
+                    address = interpretateAddress(address);
+
+                    string addressString = address.ToString();
+
+                    cpu.B.setValue(new Word(addressString));
                 }
                 else if(ch3 == 'H' & ch4 == 'A') 
                 {
-                    cpu.output(memory, hddManager, cpu.B.getValue().toInt() % 100, cpu.A.getValue().toInt() % 100);
+                    cpu.output(memory, hddManager, cpu.B.getValue().toInt() % 1000, cpu.A.getValue().toInt() % 1000);
                 }
                 else
                 {
@@ -766,6 +797,7 @@ namespace VirtualRealMachine
             if (isAddress(ch3, ch4))
             {
                 int address = Convert.ToInt32(String.Concat(ch3, ch4));
+                address = interpretateAddress(address);
 
                 if (ch2 == 'O')
                 {
@@ -782,13 +814,17 @@ namespace VirtualRealMachine
         {
             if ((ch2 == 'C') && (ch3 == 'H') && (ch4 == 'G'))
             {
+                int address = Convert.ToInt32(new String(cpu.B.getValue().getWordByte(2),
+                    cpu.B.getValue().getWordByte(3)));
+
                 if (cpu.SI.getValue() == '1')
                 {
-                    cpu.input(memory, inputDevice, (int)(cpu.B.getValue().getWordByte(3) - '0')); 
+                    
+                    cpu.input(memory, inputDevice, address); 
                 }
                 else if (cpu.SI.getValue() == '2')
                 {
-                    cpu.output(memory, outputDevice, (int)(cpu.B.getValue().getWordByte(3) - '0')); 
+                    cpu.output(memory, outputDevice, address); 
                 }
             }
             else
