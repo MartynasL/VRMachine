@@ -13,7 +13,7 @@ namespace VirtualRealMachine
         private InputDevice inputDevice;
         private OutputDevice outputDevice;
         private HDDManager hddManager;
-        private int stackSize;
+        private int[] stackSize = new int[10];
         public bool incIC = true;
 
         public Interpretator(ref CPU cpu, ref Memory memory,
@@ -623,49 +623,50 @@ namespace VirtualRealMachine
 
         private void caseP(char ch2, char ch3, char ch4)
         {
+            int machine = cpu.M.getIntValue();
             if (ch2 == 'U')
             {
                 switch (ch3)
                 {
                     case 'A':
                         if (ch4 == '0')
-                            if (stackSize != 20)
+                            if (stackSize[machine] != 20)
                                 cpu.push(cpu.A, ref memory);
                             else
                                 cpu.PI.setValue('3');
                         else
                             notFound();
-                        stackSize++;
+                        stackSize[machine]++;
                         break;
                     case 'B':
                         if (ch4 == '0')
-                            if (stackSize != 20)
+                            if (stackSize[machine] != 20)
                                 cpu.push(cpu.B, ref memory);
                             else
                                 cpu.PI.setValue('3');
                         else
                             notFound();
-                        stackSize++;
+                        stackSize[machine]++;
                         break;
                     case 'C':
                         if (ch4 == '0')
-                            if (stackSize != 20)
+                            if (stackSize[machine] != 20)
                                 cpu.push(cpu.C, ref memory);
                             else
                                 cpu.PI.setValue('3');
                         else
                             notFound();
-                        stackSize++;
+                        stackSize[machine]++;
                         break;
                     case 'I':
                         if (ch4 == 'C')
-                            if (stackSize != 20)
+                            if (stackSize[machine] != 20)
                                 cpu.push(cpu.IC, ref memory);
                             else
                                 cpu.PI.setValue('3');
                         else
                             notFound();
-                        stackSize++;
+                        stackSize[machine]++;
                         break;
                     default:
                         notFound();
@@ -678,43 +679,43 @@ namespace VirtualRealMachine
                 {
                     case 'A':
                         if (ch4 == '0')
-                            if (stackSize != 0)
+                            if (stackSize[] != 0)
                                 cpu.pop(ref cpu.A, ref memory);
                             else
                                 cpu.PI.setValue('4');
                         else
                             notFound();
-                        stackSize--;
+                        stackSize[machine]--;
                         break;
                     case 'B':
                         if (ch4 == '0')
-                            if (stackSize != 0)
+                            if (stackSize[machine] != 0)
                                 cpu.pop(ref cpu.B, ref memory);
                             else
                                 cpu.PI.setValue('4');
                         else
                             notFound();
-                        stackSize--;
+                        stackSize[machine]--;
                         break;
                     case 'C':
                         if (ch4 == '0')
-                            if (stackSize != 0)
+                            if (stackSize[machine] != 0)
                                 cpu.pop(ref cpu.C, ref memory);
                             else
                                 cpu.PI.setValue('4');
                         else
                             notFound();
-                        stackSize--;
+                        stackSize[machine]--;
                         break;
                     case 'I':
                         if (ch4 == 'C')
-                            if (stackSize != 0)
+                            if (stackSize[machine] != 0)
                                 cpu.pop(ref cpu.IC, ref memory);
                             else
                                 cpu.PI.setValue('4');
                         else
                             notFound();
-                        stackSize--;
+                        stackSize[machine]--;
                         break;
                     default:
                         notFound();
