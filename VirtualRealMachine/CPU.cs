@@ -685,5 +685,19 @@ namespace VirtualRealMachine
 
             return 10 * memory.getWordAtAddress(10 * (10 * a3 + a4) + x1).toInt() + x2;
         }
+
+        private void decTIMER(int value)
+        {
+            int timer = Convert.ToInt32(TIMER.getValue());
+            if (MODE.getValue() == 'V')
+                if (timer > value)
+                    timer = timer - value;
+                else
+                {
+                    timer = 0;
+                    TI.setValue('1');
+                }
+            TIMER.setValue(timer.ToString());
+        }
     }
 }
