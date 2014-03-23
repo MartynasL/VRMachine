@@ -14,6 +14,7 @@ namespace VirtualRealMachine
         public Word(string stringWord)
         {
             value = new char[WORD_LENGTH];
+            value = "0000".ToCharArray();
             setWord(stringWord);
         }
 

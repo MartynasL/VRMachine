@@ -532,7 +532,7 @@ namespace VirtualRealMachine
             memory.setWordAtAddress(M.getIntValue() * 10 + 3, PR.getValue());
             memory.setWordAtAddress(M.getIntValue() * 10 + 4, SP.getValue());
 
-            Word increasedIC = new Word((IC.getValue().toInt() + 1).ToString()); 
+            Word increasedIC = new Word((IC.getValue().toInt()).ToString()); 
 
             memory.setWordAtAddress(M.getIntValue() * 10 + 5, increasedIC);
         }
