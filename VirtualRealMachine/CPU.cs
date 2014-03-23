@@ -53,7 +53,7 @@ namespace VirtualRealMachine
                 else
                 {
                     interpretator.incIC = true;
-                }                
+                }
                 test();
                 needTest = false;
             }
@@ -689,7 +689,7 @@ namespace VirtualRealMachine
 
         private void decTIMER(int value)
         {
-            int timer = Convert.ToInt32(TIMER.getValue());
+            int timer = Int32.Parse(new String(TIMER.getValue()));
             if (MODE.getValue() == 'V')
                 if (timer > value)
                     timer = timer - value;
