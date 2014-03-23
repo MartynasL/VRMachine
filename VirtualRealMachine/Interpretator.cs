@@ -29,11 +29,15 @@ namespace VirtualRealMachine
             this.inputDevice = inputDevice;
             this.outputDevice = outputDevice;
             this.hddManager = hddManager;
+            this.memory = supervisorMemory;
+        }
 
-            if (cpu.MODE.getValue() == 'S')
-                memory = supervisorMemory;
-            else
-                memory = ram; 
+        public void changeInterpretatorMemory()
+        {
+           if (cpu.MODE.getValue() == 'S')
+               this.memory = this.supervisorMemory;
+           else
+               this.memory = this.ram;
         }
 
         public int interpretate(Word word)
@@ -43,11 +47,6 @@ namespace VirtualRealMachine
             char ch2 = word.getWordByte(2);
             char ch3 = word.getWordByte(3);
             char ch4 = word.getWordByte(4);
-
-            if (cpu.MODE.getValue() == 'S')
-                memory = supervisorMemory;
-            else
-                memory = ram;
 
             switch (ch1)
             {

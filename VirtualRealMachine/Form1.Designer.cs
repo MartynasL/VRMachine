@@ -64,6 +64,9 @@
             this.label18 = new System.Windows.Forms.Label();
             this.executeButton = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
+            this.label14 = new System.Windows.Forms.Label();
+            this.listView2 = new System.Windows.Forms.ListView();
+            this.label19 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // AText
@@ -367,17 +370,46 @@
             // 
             // listView1
             // 
-            this.listView1.Location = new System.Drawing.Point(421, 29);
+            this.listView1.Location = new System.Drawing.Point(297, 25);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(189, 330);
+            this.listView1.Size = new System.Drawing.Size(145, 330);
             this.listView1.TabIndex = 38;
             this.listView1.UseCompatibleStateImageBehavior = false;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(294, 9);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(97, 13);
+            this.label14.TabIndex = 39;
+            this.label14.Text = "Supervisor Memory";
+            // 
+            // listView2
+            // 
+            this.listView2.Location = new System.Drawing.Point(448, 25);
+            this.listView2.Name = "listView2";
+            this.listView2.Size = new System.Drawing.Size(151, 330);
+            this.listView2.TabIndex = 40;
+            this.listView2.UseCompatibleStateImageBehavior = false;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(448, 9);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(69, 13);
+            this.label19.TabIndex = 41;
+            this.label19.Text = "User Memory";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(622, 371);
+            this.Controls.Add(this.label19);
+            this.Controls.Add(this.listView2);
+            this.Controls.Add(this.label14);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.executeButton);
             this.Controls.Add(this.label18);
@@ -460,6 +492,9 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Button executeButton;
         private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ListView listView2;
+        private System.Windows.Forms.Label label19;
     }
 }
 

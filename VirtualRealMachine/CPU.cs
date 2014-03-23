@@ -37,6 +37,7 @@ namespace VirtualRealMachine
         {
             if (!needTest)
             {
+                interpretator.changeInterpretatorMemory();
                 Word command = interpretator.memory.getWordAtAddress(IC.getValue().toInt());
                 int decTimerValue = interpretator.interpretate(command);
                 decTIMER(decTimerValue);
