@@ -122,6 +122,16 @@ namespace VirtualRealMachine
                 return false;
         }
 
+        private bool isAddress(string str)
+        {
+            int address = Convert.ToInt32(str);
+
+            if ((address > -1) && (address < 100))
+                return true;
+            else
+                return false;
+        }
+
         private int interpretateAddress(int address)
         {
             if (cpu.MODE.getValue() == 'S')
@@ -497,66 +507,86 @@ namespace VirtualRealMachine
         private void caseS(char ch2, char ch3, char ch4)
         {
             if (ch2 == 'T')
+            {
+                string valueA = cpu.A.getValue().ToString();
                 switch (ch3)
                 {
                     case 'C':
-                        cpu.setRegister(ref cpu.C);
+                        if ((ch4 == '0') && ((valueA == "0") || (valueA == "1") || (valueA == "2")))
+                            cpu.setRegister(ref cpu.C);
+                        else
+                            notFound();
                         break;
                     case 'I':
-                        if (ch4 == 'C')
+                        if ((ch4 == 'C') && (isAddress(valueA)))
                         {
                             cpu.setRegister(ref cpu.IC);
                             incIC = false;
                         }
-                        else if (ch4 == 'O' && isSupervisorMode())
+                        else if ((ch4 == 'O' && isSupervisorMode()) && 
+                                ((valueA == "0") || (valueA == "1") || (valueA == "2") ||
+                                (valueA == "3") || (valueA == "4") || (valueA == "5") ||
+                                (valueA == "6") || (valueA == "7")))
                             cpu.setRegister(ref cpu.IOI);
                         else
                             notFound();
                         break;
                     case 'P':
-                        if (ch4 == 'R' && isSupervisorMode())
+                        if ((ch4 == 'R' && isSupervisorMode()) && (isAddress(valueA)))
                             cpu.setRegister(ref cpu.PR);
-                        else if (ch4 == 'I' && isSupervisorMode())
+                        else if (ch4 == 'I' && isSupervisorMode() && 
+                                ((valueA == "0") || (valueA == "1") || (valueA == "2") ||
+                                (valueA == "3") || (valueA == "4") || (valueA == "5")))
                             cpu.setRegister(ref cpu.PI);
                         else
                             notFound();
                         break;
                     case 'S':
-                        if (ch4 == 'P' && isSupervisorMode())
+                        if ((ch4 == 'P' && isSupervisorMode()) && (isAddress(valueA)))
                             cpu.setRegister(ref cpu.SP);
-                        else if (ch4 == 'I' && isSupervisorMode())
+                        else if (ch4 == 'I' && isSupervisorMode() && 
+                                ((valueA == "0") || (valueA == "1") || (valueA == "2") ||
+                                (valueA == "3")))
                             cpu.setRegister(ref cpu.SI);
                         else
                             notFound();
                         break;
                     case 'T':
-                        if (ch4 == 'I' && isSupervisorMode())
+                        if (ch4 == 'I' && isSupervisorMode() && ((valueA == "0") || (valueA == "1")))
                             cpu.setRegister(ref cpu.TI);
-                        else if (ch4 == 'M' && isSupervisorMode())
+                        else if ((ch4 == 'M' && isSupervisorMode()) && (isAddress(valueA)))
                             cpu.setRegister(ref cpu.TIMER);
                         else
                             notFound();
                         break;
                     case 'M':
-                        if (ch4 == '0' && isSupervisorMode())
+                        if (ch4 == '0' && isSupervisorMode() && 
+                                ((valueA == "0") || (valueA == "1") || (valueA == "2") ||
+                                (valueA == "3") || (valueA == "4") || (valueA == "5") ||
+                                (valueA == "6") || (valueA == "7") || (valueA == "8") || 
+                                (valueA == "9")))
                             cpu.setRegister(ref cpu.M);
-                        else if (ch4 == 'O' && isSupervisorMode())
+                        else if (ch4 == 'O' && isSupervisorMode() && ((valueA == "S") || (valueA == "V")))
                             cpu.setRegister(ref cpu.MODE);
                         else
                             notFound();
                         break;
                     case 'R':
-                        if (ch4 == 'C' && isSupervisorMode())
+                        if (ch4 == 'C' && isSupervisorMode() && 
+                                ((valueA == "0") || (valueA == "1") || (valueA == "2") ||
+                                (valueA == "3") || (valueA == "4") || (valueA == "5") ||
+                                (valueA == "6") || (valueA == "7") || (valueA == "8") || 
+                                (valueA == "9")))
                             cpu.setRegister(ref cpu.RC);
                         else
                             notFound();
                         break;
                     case 'K':
-                        if (ch4 == '1' && isSupervisorMode())
+                        if (ch4 == '1' && isSupervisorMode() && ((valueA == "0") || (valueA == "1")))
                             cpu.setRegister(ref cpu.K1);
-                        else if (ch4 == '2')
+                        else if (ch4 == '2' && ((valueA == "0") || (valueA == "1")))
                             cpu.setRegister(ref cpu.K2);
-                        else if (ch4 == '3')
+                        else if (ch4 == '3' && ((valueA == "0") || (valueA == "1")))
                             cpu.setRegister(ref cpu.K3);
                         else
                             notFound();
@@ -571,6 +601,7 @@ namespace VirtualRealMachine
                         notFound();
                         break;
                 }
+            }
             else
                 notFound();
         }
