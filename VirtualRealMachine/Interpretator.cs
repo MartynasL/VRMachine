@@ -17,6 +17,7 @@ namespace VirtualRealMachine
         private int[] stackSize = new int[10];
         public bool incIC = true;
         public Memory memory;
+        private int decTimerValue = 1;
 
         public Interpretator(ref CPU cpu, ref Memory ram, ref Memory supervisorMemory,
             ref InputDevice inputDevice, ref OutputDevice outputDevice,
@@ -35,8 +36,9 @@ namespace VirtualRealMachine
                 memory = ram; 
         }
 
-        public void interpretate(Word word)
+        public int interpretate(Word word)
         {
+            decTimerValue = 1;
             char ch1 = word.getWordByte(1);
             char ch2 = word.getWordByte(2);
             char ch3 = word.getWordByte(3);
@@ -105,7 +107,7 @@ namespace VirtualRealMachine
                     break;
 
             }
-            //IC increment
+            return decTimerValue;
         }
 
         private bool isAddress(char ch3, char ch4)
@@ -369,10 +371,12 @@ namespace VirtualRealMachine
                     string addressString = address.ToString();
                     cpu.getRegister(cpu.MODE);
                     cpu.B.setValue(new Word(addressString));
+                    decTimerValue = 3;
                 }
                 else if (ch3 == 'H' && ch4 == 'A' && isSupervisorMode())
                 {
                     cpu.input(supervisorMemory, hddManager, cpu.A.getValue().toInt() % 1000, cpu.B.getValue().toInt() % 1000);
+                    decTimerValue = 3;
                 }
                 else
                 {
@@ -619,10 +623,12 @@ namespace VirtualRealMachine
                     string addressString = address.ToString();
                     cpu.getRegister(cpu.MODE);
                     cpu.B.setValue(new Word(addressString));
+                    decTimerValue = 3;
                 }
                 else if (ch3 == 'H' && ch4 == 'A' && isSupervisorMode()) 
                 {
                     cpu.output(supervisorMemory, hddManager, cpu.B.getValue().toInt() % 1000, cpu.A.getValue().toInt() % 1000);
+                    decTimerValue = 3;
                 }
                 else
                 {

@@ -38,7 +38,8 @@ namespace VirtualRealMachine
             if (!needTest)
             {
                 Word command = interpretator.memory.getWordAtAddress(IC.getValue().toInt());
-                interpretator.interpretate(command);
+                int decTimerValue = interpretator.interpretate(command);
+                decTIMER(decTimerValue);
                 needTest = true;
             }
             else
@@ -52,7 +53,7 @@ namespace VirtualRealMachine
                 else
                 {
                     interpretator.incIC = true;
-                }
+                }                
                 test();
                 needTest = false;
             }
