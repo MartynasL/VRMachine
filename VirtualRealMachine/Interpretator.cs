@@ -644,15 +644,18 @@ namespace VirtualRealMachine
                         break;
                     case 'E':
                         cpu.conditionalJump(address, ch2);
-                        incIC = false;
+                        if (cpu.C.getValue() == 0)
+                            incIC = false;
                         break;
                     case 'G':
                         cpu.conditionalJump(address, ch2);
-                        incIC = false;
+                        if (cpu.C.getValue() == 1)
+                            incIC = false;
                         break;
                     case 'L':
                         cpu.conditionalJump(address, ch2);
-                        incIC = false;
+                        if (cpu.C.getValue() == 2)
+                            incIC = false;
                         break;
                     default:
                         notFound();

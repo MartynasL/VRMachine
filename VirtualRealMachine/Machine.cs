@@ -43,6 +43,17 @@ namespace VirtualRealMachine
             cpu.MODE.setValue('V');
             cpu.TIMER.setValue("99");
             cpu.PR.setValue(new Word("0010"));
+            cpu.C.setValue('1');
+            memory.setWordAtAddress(100, new Word("0000"));
+            memory.setWordAtAddress(101, new Word("0001"));
+            memory.setWordAtAddress(102, new Word("0002"));
+            memory.setWordAtAddress(103, new Word("0003"));
+            memory.setWordAtAddress(104, new Word("0004"));
+            memory.setWordAtAddress(105, new Word("0005"));
+            memory.setWordAtAddress(106, new Word("0006"));
+            memory.setWordAtAddress(107, new Word("0007"));
+            memory.setWordAtAddress(108, new Word("0008"));
+            memory.setWordAtAddress(109, new Word("0009"));
 
             supervisorMemory.setWordAtAddress(0, new Word("LA08"));
             supervisorMemory.setWordAtAddress(1, new Word("LB09"));
@@ -58,7 +69,7 @@ namespace VirtualRealMachine
 
             //vykdoma komanda
             supervisorMemory.setWordAtAddress(2, new Word("SLAV"));
-            memory.setWordAtAddress(2, new Word("SLAV"));
+            memory.setWordAtAddress(2, new Word("JE13"));
             //------
             supervisorMemory.setWordAtAddress(10, new Word("AAAA"));
             supervisorMemory.setWordAtAddress(140, new Word("HALT"));
