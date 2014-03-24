@@ -44,11 +44,11 @@ namespace VirtualRealMachine
             cpu.TIMER.setValue("99");
             cpu.PR.setValue(new Word("0010"));
 
-            supervisorMemory.setWordAtAddress(0, new Word("/A08"));
+            supervisorMemory.setWordAtAddress(0, new Word("IN98"));
             supervisorMemory.setWordAtAddress(1, new Word("/A02"));
             supervisorMemory.setWordAtAddress(2, new Word("0003"));
             supervisorMemory.setWordAtAddress(3, new Word("0010"));
-            supervisorMemory.setWordAtAddress(100, new Word("0022"));
+            supervisorMemory.setWordAtAddress(190, new Word("XCHG"));
             supervisorMemory.setWordAtAddress(223, new Word("AAAA"));
         }
     }

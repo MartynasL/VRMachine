@@ -374,11 +374,11 @@ namespace VirtualRealMachine
                 else if(isAddress(ch3, ch4))
                 {
                     cpu.SI.setValue('1');
-                    int address = Convert.ToInt32(new String(ch3, ch4));
+                    int address = Convert.ToInt32(String.Concat(ch3, ch4));
                     address = interpretateAddress(address);
 
                     string addressString = address.ToString();
-                    cpu.getRegister(cpu.MODE);
+                    cpu.A.setValue(new Word(String.Concat("I", cpu.MODE.getValue())));
                     cpu.B.setValue(new Word(addressString));
                     decTimerValue = 3;
                 }
@@ -647,11 +647,11 @@ namespace VirtualRealMachine
                 if (isAddress(ch3, ch4))
                 {
                     cpu.SI.setValue('2');
-                    int address = Convert.ToInt32(new String(ch3, ch4));
+                    int address = Convert.ToInt32(String.Concat(ch3, ch4));
                     address = interpretateAddress(address);
 
                     string addressString = address.ToString();
-                    cpu.getRegister(cpu.MODE);
+                    cpu.A.setValue(new Word(String.Concat("I", cpu.MODE.getValue())));
                     cpu.B.setValue(new Word(addressString));
                     decTimerValue = 3;
                 }
@@ -882,14 +882,13 @@ namespace VirtualRealMachine
         {
             if (ch2 == 'C' && ch3 == 'H' && ch4 == 'G' && isSupervisorMode())
             {
-                int address = Convert.ToInt32(new String(cpu.B.getValue().getWordByte(2),
-                    cpu.B.getValue().getWordByte(3)));
+                int address = cpu.B.getValue().toInt();
 
-                if (cpu.SI.getValue() == '1')
+                if (cpu.A.getValue().getWordByte(3) == 'I')
                 {                    
                     cpu.input(memory, inputDevice, address); 
                 }
-                else if (cpu.SI.getValue() == '2')
+                else if (cpu.A.getValue().getWordByte(3) == 'O')
                 {
                     cpu.output(memory, outputDevice, address); 
                 }
