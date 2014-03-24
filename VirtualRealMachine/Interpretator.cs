@@ -707,7 +707,7 @@ namespace VirtualRealMachine
         private void caseP(char ch2, char ch3, char ch4)
         {
             int machine = cpu.M.getIntValue();
-            if (ch2 == 'U')
+            if ((ch2 == 'U') && !isSupervisorMode())
             {
                 switch (ch3)
                 {
@@ -756,7 +756,7 @@ namespace VirtualRealMachine
                         break;
                 }
             }
-            else if (ch2 == 'O')
+            else if ((ch2 == 'O') && !isSupervisorMode())
             {
                 switch (ch3)
                 {

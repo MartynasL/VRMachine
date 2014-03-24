@@ -69,7 +69,7 @@ namespace VirtualRealMachine
 
             //vykdoma komanda
             supervisorMemory.setWordAtAddress(2, new Word("SLAV"));
-            memory.setWordAtAddress(2, new Word("JE13"));
+            memory.setWordAtAddress(2, new Word("JG13"));
             //------
             supervisorMemory.setWordAtAddress(10, new Word("AAAA"));
             supervisorMemory.setWordAtAddress(140, new Word("HALT"));
