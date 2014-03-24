@@ -885,12 +885,26 @@ namespace VirtualRealMachine
                 int blockNumber = cpu.B.getValue().toInt() / 10;
 
                 if (cpu.A.getValue().getWordByte(3) == 'I')
-                {                    
-                    cpu.input(memory, inputDevice, blockNumber); 
+                {
+                    if (cpu.A.getValue().getWordByte(4) == 'V')
+                    {
+                        cpu.input(ram, inputDevice, blockNumber);
+                    }
+                    else
+                    {
+                        cpu.input(supervisorMemory, inputDevice, blockNumber);
+                    }
                 }
                 else if (cpu.A.getValue().getWordByte(3) == 'O')
                 {
-                    cpu.output(memory, outputDevice, blockNumber); 
+                    if (cpu.A.getValue().getWordByte(4) == 'V')
+                    {
+                        cpu.output(ram, outputDevice, blockNumber);
+                    }
+                    else
+                    {
+                        cpu.output(supervisorMemory, outputDevice, blockNumber);
+                    }
                 }
             }
             else
