@@ -586,13 +586,13 @@ namespace VirtualRealMachine
             register.setValue(ch);
         }
 
-        public void slave(ref Memory memory)
+        public void slave()
         {
-            memory.setWordAtAddress(M.getIntValue() * 10, A.getValue());
-            memory.setWordAtAddress(M.getIntValue() * 10 + 1, B.getValue());
-            memory.setWordAtAddress(M.getIntValue() * 10 + 2, new Word(C.getValue().ToString()));
-            memory.setWordAtAddress(M.getIntValue() * 10 + 3, PR.getValue());
-            memory.setWordAtAddress(M.getIntValue() * 10 + 4, SP.getValue());
+            supervisorMemory.setWordAtAddress(M.getIntValue() * 10, A.getValue());
+            supervisorMemory.setWordAtAddress(M.getIntValue() * 10 + 1, B.getValue());
+            supervisorMemory.setWordAtAddress(M.getIntValue() * 10 + 2, new Word(C.getValue().ToString()));
+            supervisorMemory.setWordAtAddress(M.getIntValue() * 10 + 3, PR.getValue());
+            supervisorMemory.setWordAtAddress(M.getIntValue() * 10 + 4, SP.getValue());
             Word increasedIC = null;
             try
             {
@@ -668,7 +668,7 @@ namespace VirtualRealMachine
             Word tempWord = new Word("0000");
             if (MODE.getValue() != 'S')
             {
-                slave(ref supervisorMemory);
+                slave();
                 MODE.setValue('S');
             }            
             tempWord.setWord(address.ToString());

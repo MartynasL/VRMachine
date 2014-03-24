@@ -623,8 +623,8 @@ namespace VirtualRealMachine
                         break;
                 }
             }
-            else if ((ch2 == 'L') && (ch3 == 'A') && (ch4 == 'V'))
-                cpu.slave(ref memory);
+            else if ((ch2 == 'L') && (ch3 == 'A') && (ch4 == 'V') && !isSupervisorMode())
+                cpu.slave();
             else
                 notFound();
         }
