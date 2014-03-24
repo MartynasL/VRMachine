@@ -28,6 +28,9 @@ namespace VirtualRealMachine
         private Memory supervisorMemory;
         private bool needTest = false;
         public bool stopMachine = false;
+        public char tempK1 = '0';
+        public char tempK2 = '0';
+        public char tempK3 = '0';
 
         public CPU(ref Memory supervisorMemory)
         {
@@ -48,7 +51,8 @@ namespace VirtualRealMachine
             {                
                 if (interpretator.incIC)
                 {
-                    if (IC.getValue().toInt() == 999)
+                    if (((IC.getValue().toInt() == 999) && (MODE.getValue() == 'V')) ||
+                        ((IC.getValue().toInt() == 399) && (MODE.getValue() == 'S')))
                         PI.setValue('5');
                     incRegister(ref IC);
                 }
@@ -56,6 +60,9 @@ namespace VirtualRealMachine
                 {
                     interpretator.incIC = true;
                 }
+                tempK1 = K1.getValue();
+                tempK2 = K1.getValue();
+                tempK3 = K1.getValue();
                 test();
                 needTest = false;
             }
@@ -393,6 +400,7 @@ namespace VirtualRealMachine
                 if (exchange(K1) == true)
                 {
                     K1.setValue('1');
+                    tempK1 = '1';
                     memory.setBlock(blockNumber, inputDevice.getInput());
                     K1.setValue('0');
                 }
@@ -410,6 +418,7 @@ namespace VirtualRealMachine
                 if (exchange(K2) == true)
                 {
                     K2.setValue('1');
+                    tempK2 = '1';
                     outputDevice.setOutput(memory.getBlock(blockNumber));
                     K2.setValue('0');
                 }
@@ -427,6 +436,7 @@ namespace VirtualRealMachine
                 if (exchange(K3) == true)
                 {
                     K3.setValue('1');
+                    tempK3 = '1';
                     memory.setWordAtAddress(memoryWordAddress, hddManager.getWordAtAddress(hddWordAddress));
                     K3.setValue('0');
                 }
@@ -444,6 +454,7 @@ namespace VirtualRealMachine
                 if (exchange(K3) == true)
                 {
                     K3.setValue('1');
+                    tempK3 = '1';
                     hddManager.setWordAtAddress(hddWordAddress, memory.getWordAtAddress(memoryWordAddress));
                     K3.setValue('0');
                 }

@@ -35,9 +35,9 @@ namespace VirtualRealMachine
             TIText.Text = machine.cpu.TI.getValue().ToString();
             MODEText.Text = machine.cpu.MODE.getValue().ToString();
             TIMERText.Text = new string(machine.cpu.TIMER.getValue());
-            K1Text.Text = machine.cpu.K1.getValue().ToString();
-            K2Text.Text = machine.cpu.K2.getValue().ToString();
-            K3Text.Text = machine.cpu.K3.getValue().ToString();
+            K1Text.Text = machine.cpu.tempK1.ToString();
+            K2Text.Text = machine.cpu.tempK2.ToString();
+            K3Text.Text = machine.cpu.tempK3.ToString();
         }
 
         private void initializeListViews()
