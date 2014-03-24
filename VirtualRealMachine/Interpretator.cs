@@ -882,15 +882,15 @@ namespace VirtualRealMachine
         {
             if (ch2 == 'C' && ch3 == 'H' && ch4 == 'G' && isSupervisorMode())
             {
-                int address = cpu.B.getValue().toInt();
+                int blockNumber = cpu.B.getValue().toInt() / 10;
 
                 if (cpu.A.getValue().getWordByte(3) == 'I')
                 {                    
-                    cpu.input(memory, inputDevice, address); 
+                    cpu.input(memory, inputDevice, blockNumber); 
                 }
                 else if (cpu.A.getValue().getWordByte(3) == 'O')
                 {
-                    cpu.output(memory, outputDevice, address); 
+                    cpu.output(memory, outputDevice, blockNumber); 
                 }
             }
             else
