@@ -50,7 +50,7 @@ namespace VirtualRealMachine
             supervisorMemory.setWordAtAddress(3, new Word("0010"));
             supervisorMemory.setWordAtAddress(190, new Word("XCHG"));
             supervisorMemory.setWordAtAddress(200, new Word("XCHG"));
-            supervisorMemory.setWordAtAddress(201, new Word("INCA"));
+            supervisorMemory.setWordAtAddress(201, new Word("HALT"));
         }
     }
 }

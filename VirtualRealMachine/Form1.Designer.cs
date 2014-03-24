@@ -67,6 +67,7 @@
             this.label14 = new System.Windows.Forms.Label();
             this.listView2 = new System.Windows.Forms.ListView();
             this.label19 = new System.Windows.Forms.Label();
+            this.runButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // AText
@@ -402,11 +403,22 @@
             this.label19.TabIndex = 41;
             this.label19.Text = "User Memory";
             // 
+            // runButton
+            // 
+            this.runButton.Location = new System.Drawing.Point(166, 320);
+            this.runButton.Name = "runButton";
+            this.runButton.Size = new System.Drawing.Size(75, 23);
+            this.runButton.TabIndex = 42;
+            this.runButton.Text = "Run";
+            this.runButton.UseVisualStyleBackColor = true;
+            this.runButton.Click += new System.EventHandler(this.runButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(622, 371);
+            this.Controls.Add(this.runButton);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.listView2);
             this.Controls.Add(this.label14);
@@ -495,6 +507,7 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ListView listView2;
         private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Button runButton;
     }
 }
 

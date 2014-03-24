@@ -27,6 +27,7 @@ namespace VirtualRealMachine
         public Register1B C = new Register1B();
         private Memory supervisorMemory;
         private bool needTest = false;
+        public bool stopMachine = false;
 
         public CPU(ref Memory supervisorMemory)
         {
@@ -539,7 +540,14 @@ namespace VirtualRealMachine
 
         public void halt()
         {
-            SI.setValue('3');
+            if (MODE.getValue() == 'S')
+            {
+                stopMachine = true;
+            }
+            else
+            {
+                SI.setValue('3');
+            }
         }
 
         public void changeMode(int address, Memory memory)
