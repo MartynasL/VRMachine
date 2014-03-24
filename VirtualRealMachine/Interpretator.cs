@@ -373,7 +373,7 @@ namespace VirtualRealMachine
                         }
                         else if (ch4 == 'B')
                         {
-                            cpu.A.setValue(new Word((cpu.B.getValue().toInt() + 1).ToString()));
+                            cpu.B.setValue(new Word((cpu.B.getValue().toInt() + 1).ToString()));
                         }
                         else
                         {
@@ -449,7 +449,7 @@ namespace VirtualRealMachine
                 {
                     cpu.loadRegister(ref cpu.B, memory.getWordAtAddress(address));
                 }
-                else if (ch3 == 'I')
+                else if (ch2 == 'I')
                 {
                     cpu.loadRegister(ref cpu.IC, memory.getWordAtAddress(address));
                 }
