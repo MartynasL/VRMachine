@@ -651,7 +651,7 @@ namespace VirtualRealMachine
                     address = interpretateAddress(address);
 
                     string addressString = address.ToString();
-                    cpu.A.setValue(new Word(String.Concat("I", cpu.MODE.getValue())));
+                    cpu.A.setValue(new Word(String.Concat("O", cpu.MODE.getValue())));
                     cpu.B.setValue(new Word(addressString));
                     decTimerValue = 3;
                 }

@@ -31,5 +31,17 @@ namespace VirtualRealMachine
                 throw new InvalidOperationException("Output is empty");
             }
         }
+
+        public bool outputExists()
+        {
+            if (outputQueue.Count() != 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

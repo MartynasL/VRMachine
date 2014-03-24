@@ -590,9 +590,9 @@ namespace VirtualRealMachine
         private void handleInterrupt(int address)
         {
             Word tempWord = new Word("0000");
-            slave(ref supervisorMemory);
             if (MODE.getValue() != 'S')
             {
+                slave(ref supervisorMemory);
                 MODE.setValue('S');
             }            
             tempWord.setWord(address.ToString());
