@@ -47,8 +47,7 @@ namespace VirtualRealMachine
                     int commandAddress;
                     if (MODE.getValue() == 'V')
                     {
-                        commandAddress = Convert.ToInt32(String.Concat(IC.getValue().getWordByte(3),
-                            IC.getValue().getWordByte(4)));
+                        commandAddress = IC.getValue().toInt() % 100;
                         commandAddress = getRealAddress(ref interpretator.memory, commandAddress);
                     }
                     else
@@ -65,7 +64,7 @@ namespace VirtualRealMachine
                 {
                     if (interpretator.incIC)
                     {
-                        if (((IC.getValue().toInt() == 999) && (MODE.getValue() == 'V')) ||
+                        if (((IC.getValue().toInt() % 100 == 99) && (MODE.getValue() == 'V')) ||
                             ((IC.getValue().toInt() == 399) && (MODE.getValue() == 'S')))
                             PI.setValue('5');
                         incRegister(ref IC);

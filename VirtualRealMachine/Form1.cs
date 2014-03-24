@@ -146,8 +146,7 @@ namespace VirtualRealMachine
             else
             {
                 listView = listView3;
-                address = Convert.ToInt32(String.Concat(machine.cpu.IC.getValue().getWordByte(3),
-                    machine.cpu.IC.getValue().getWordByte(4)));
+                address = machine.cpu.IC.getValue().toInt() % 100;
             }
 
             try
