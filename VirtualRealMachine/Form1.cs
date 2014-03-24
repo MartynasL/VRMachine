@@ -78,6 +78,7 @@ namespace VirtualRealMachine
 
             updateTextBox();
             initializeListViews();
+            showIC();
         }
 
         private void getInput()
@@ -121,8 +122,26 @@ namespace VirtualRealMachine
             MessageBox.Show(outputString, "Output", MessageBoxButtons.OK);
         }
 
-        private void executeButton_Click(object sender, EventArgs e)
+        private void showIC()
         {
+            ListView listView;
+
+            if (machine.cpu.MODE.getValue() == 'S')
+            {
+                listView = listView1;
+            }
+            else
+            {
+                listView = listView2;
+            }
+
+            listView.Select();
+            listView.Items[machine.cpu.IC.getValue().toInt()].Selected = true;
+            listView.EnsureVisible(machine.cpu.IC.getValue().toInt());
+        }
+
+        private void executeButton_Click(object sender, EventArgs e)
+        {            
             machine.cpu.execute(machine.interpretator);
 
             if (SIText.Text.ToString() == "1")
@@ -137,6 +156,7 @@ namespace VirtualRealMachine
 
             updateTextBox();
             updateListViews();
+            showIC();
         }
 
         private void runButton_Click(object sender, EventArgs e)
@@ -158,6 +178,7 @@ namespace VirtualRealMachine
 
             updateTextBox();
             updateListViews();
+            showIC();
         }
     }
 }
