@@ -124,8 +124,15 @@ namespace VirtualRealMachine
 
         private bool isAddress(string str)
         {
-            int address = Convert.ToInt32(str);
-
+            int address = 0;
+            try
+            {
+                address = Convert.ToInt32(str);
+            }
+            catch (FormatException)
+            {
+                notFound();
+            }
             if ((address > -1) && (address < 1000))
                 return true;
             else
@@ -905,8 +912,15 @@ namespace VirtualRealMachine
             {
                 if (ch2 == 'C' && ch3 == 'H' && ch4 == 'G' && isSupervisorMode())
                 {
-                    int blockNumber = cpu.B.getValue().toInt() / 10;
-
+                    int blockNumber = 0;
+                    try
+                    {
+                        blockNumber = cpu.B.getValue().toInt() / 10;
+                    }
+                    catch (Exception)
+                    {
+                        notFound();
+                    }
                     if (cpu.A.getValue().getWordByte(3) == 'I')
                     {
                         if (cpu.A.getValue().getWordByte(4) == 'V')

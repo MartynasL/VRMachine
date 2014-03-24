@@ -39,33 +39,41 @@ namespace VirtualRealMachine
 
         public void execute(Interpretator interpretator)
         {
-            if (!needTest)
+            try
             {
-                interpretator.changeInterpretatorMemory();
-                Word command = interpretator.memory.getWordAtAddress(IC.getValue().toInt());
-                int decTimerValue = interpretator.interpretate(command);
-                decTIMER(decTimerValue);
-                needTest = true;
-            }
-            else
-            {                
-                if (interpretator.incIC)
+                if (!needTest)
                 {
-                    if (((IC.getValue().toInt() == 999) && (MODE.getValue() == 'V')) ||
-                        ((IC.getValue().toInt() == 399) && (MODE.getValue() == 'S')))
-                        PI.setValue('5');
-                    incRegister(ref IC);
+                    interpretator.changeInterpretatorMemory();
+                    Word command = interpretator.memory.getWordAtAddress(IC.getValue().toInt());
+                    int decTimerValue = interpretator.interpretate(command);
+                    decTIMER(decTimerValue);
+                    needTest = true;
                 }
                 else
                 {
-                    interpretator.incIC = true;
+                    if (interpretator.incIC)
+                    {
+                        if (((IC.getValue().toInt() == 999) && (MODE.getValue() == 'V')) ||
+                            ((IC.getValue().toInt() == 399) && (MODE.getValue() == 'S')))
+                            PI.setValue('5');
+                        incRegister(ref IC);
+                    }
+                    else
+                    {
+                        interpretator.incIC = true;
+                    }
+                    tempK1 = K1.getValue();
+                    tempK2 = K1.getValue();
+                    tempK3 = K1.getValue();
+                    test();
+                    needTest = false;
                 }
-                tempK1 = K1.getValue();
-                tempK2 = K1.getValue();
-                tempK3 = K1.getValue();
-                test();
-                needTest = false;
             }
+            catch (Exception)
+            {
+                PI.setValue('1');
+            }
+
         }
 
         public void addRegisterMemory(ref Register4B register, Word word)
@@ -467,38 +475,80 @@ namespace VirtualRealMachine
 
         public void push(Register4B register, ref Memory memory)
         {
-            saveRegister(register, ref memory, SP.getValue().toInt());
-            incRegister(ref SP);
+            try
+            {
+                saveRegister(register, ref memory, SP.getValue().toInt());
+                incRegister(ref SP);
+            }
+            catch (Exception)
+            {
+                PI.setValue('1');
+            }
         }
 
         public void push(Register2B register, ref Memory memory)
         {
-            memory.setWordAtAddress(SP.getValue().toInt(), new Word(register.getValue().ToString()));
-            incRegister(ref SP);
+            try
+            {
+                memory.setWordAtAddress(SP.getValue().toInt(), new Word(register.getValue().ToString()));
+                incRegister(ref SP);
+            }
+            catch (Exception)
+            {
+                PI.setValue('1');
+            }
         }
 
         public void push(Register1B register, ref Memory memory)
         {
-            memory.setWordAtAddress(SP.getValue().toInt(), new Word(register.getValue().ToString()));
-            incRegister(ref SP);
+            try
+            {
+                memory.setWordAtAddress(SP.getValue().toInt(), new Word(register.getValue().ToString()));
+                incRegister(ref SP);
+            }
+            catch (Exception)
+            {
+                PI.setValue('1');
+            }
         }
 
         public void pop(ref Register4B register, ref Memory memory)
         {
-            decRegister(ref SP);
-            loadRegister(ref register, memory.getWordAtAddress(SP.getValue().toInt()));
+            try
+            {
+                decRegister(ref SP);
+                loadRegister(ref register, memory.getWordAtAddress(SP.getValue().toInt()));
+            }
+            catch (Exception)
+            {
+                PI.setValue('1');
+            }
         }
 
         public void pop(ref Register2B register, ref Memory memory)
         {
-            decRegister(ref SP);
-            register.setValue(memory.getWordAtAddress(SP.getValue().toInt()).ToString());
+            try
+            {
+                decRegister(ref SP);
+                register.setValue(memory.getWordAtAddress(SP.getValue().toInt()).ToString());
+            }
+            catch (Exception)
+            {
+                PI.setValue('1');
+            }
         }
 
         public void pop(ref Register1B register, ref Memory memory)
         {
-            decRegister(ref SP);
-            register.setValue(memory.getWordAtAddress(SP.getValue().toInt()).getWordByte(4));
+            try
+            {
+                decRegister(ref SP);
+                register.setValue(memory.getWordAtAddress(SP.getValue().toInt()).getWordByte(4));
+            }
+            catch (Exception)
+            {
+                PI.setValue('1');
+            }
         }
 
         public void getRegister(Register4B register)
@@ -543,8 +593,15 @@ namespace VirtualRealMachine
             memory.setWordAtAddress(M.getIntValue() * 10 + 2, new Word(C.getValue().ToString()));
             memory.setWordAtAddress(M.getIntValue() * 10 + 3, PR.getValue());
             memory.setWordAtAddress(M.getIntValue() * 10 + 4, SP.getValue());
-
-            Word increasedIC = new Word((IC.getValue().toInt()).ToString()); 
+            Word increasedIC = null;
+            try
+            {
+                increasedIC = new Word((IC.getValue().toInt()).ToString());
+            }
+            catch (Exception)
+            {
+                PI.setValue('1');
+            }
 
             memory.setWordAtAddress(M.getIntValue() * 10 + 5, increasedIC);
         }
@@ -699,11 +756,21 @@ namespace VirtualRealMachine
 
         public int getRealAddress(ref Memory memory, int virtualAddress)
         {
-            int a3 = PR.getValue().toInt() / 10 % 10;
-            int a4 = PR.getValue().toInt() % 10;
-            int x1 = virtualAddress / 10;
-            int x2 = virtualAddress % 10;
-
+            int x1 = 0;
+            int x2 = 0;
+            int a3 = 0;
+            int a4 = 0;
+            try
+            {
+                a3 = PR.getValue().toInt() / 10 % 10;
+                a4 = PR.getValue().toInt() % 10;
+                x1 = virtualAddress / 10;
+                x2 = virtualAddress % 10;                
+            }
+            catch (Exception)
+            {
+                PI.setValue('1');
+            }
             return 10 * memory.getWordAtAddress(10 * (10 * a3 + a4) + x1).toInt() + x2;
         }
 

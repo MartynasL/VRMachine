@@ -48,18 +48,18 @@ namespace VirtualRealMachine
             supervisorMemory.setWordAtAddress(0, new Word("LA08"));
             supervisorMemory.setWordAtAddress(1, new Word("LB09"));
 
-            supervisorMemory.setWordAtAddress(8, new Word("0010"));
+            supervisorMemory.setWordAtAddress(8, new Word("00A0"));
             supervisorMemory.setWordAtAddress(9, new Word("0009"));
 
             memory.setWordAtAddress(0, new Word("LA08"));
             memory.setWordAtAddress(1, new Word("LB09"));
 
-            memory.setWordAtAddress(8, new Word("0010"));
+            memory.setWordAtAddress(8, new Word("0014"));
             memory.setWordAtAddress(9, new Word("0009"));
 
             //vykdoma komanda
-            supervisorMemory.setWordAtAddress(2, new Word("STC0"));
-            memory.setWordAtAddress(2, new Word("CPYA"));
+            supervisorMemory.setWordAtAddress(2, new Word("STIC"));
+            memory.setWordAtAddress(2, new Word("STC0"));
             //------
             supervisorMemory.setWordAtAddress(10, new Word("AAAA"));
             supervisorMemory.setWordAtAddress(140, new Word("HALT"));
