@@ -634,7 +634,10 @@ namespace VirtualRealMachine
             if (isAddress(ch3, ch4))
             {
                 int address = Convert.ToInt32(String.Concat(ch3, ch4));
-                address = interpretateAddress(address);
+                if (cpu.MODE.getValue() == 'S')
+                {
+                    address = 100 * cpu.RC.getIntValue() + address;
+                }
 
                 switch (ch2)
                 {
