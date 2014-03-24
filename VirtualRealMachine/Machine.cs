@@ -43,12 +43,24 @@ namespace VirtualRealMachine
             cpu.MODE.setValue('S');
             cpu.TIMER.setValue("99");
             cpu.PR.setValue(new Word("0010"));
+            //cpu.A.setValue(new Word("0069");
 
-            supervisorMemory.setWordAtAddress(0, new Word("LA03"));
-            supervisorMemory.setWordAtAddress(1, new Word("LB04"));
-            supervisorMemory.setWordAtAddress(2, new Word("INHA"));
-            supervisorMemory.setWordAtAddress(3, new Word("0010"));
-            supervisorMemory.setWordAtAddress(4, new Word("0009"));
+            supervisorMemory.setWordAtAddress(0, new Word("LA08"));
+            supervisorMemory.setWordAtAddress(1, new Word("LB09"));
+
+            supervisorMemory.setWordAtAddress(8, new Word("0010"));
+            supervisorMemory.setWordAtAddress(9, new Word("0009"));
+
+            memory.setWordAtAddress(0, new Word("LA08"));
+            memory.setWordAtAddress(1, new Word("LB09"));
+
+            memory.setWordAtAddress(8, new Word("0010"));
+            memory.setWordAtAddress(9, new Word("0009"));
+
+            //vykdoma komanda
+            supervisorMemory.setWordAtAddress(2, new Word("STC0"));
+            memory.setWordAtAddress(2, new Word("CPYA"));
+            //------
             supervisorMemory.setWordAtAddress(10, new Word("AAAA"));
             supervisorMemory.setWordAtAddress(140, new Word("HALT"));
         }
