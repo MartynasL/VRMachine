@@ -135,9 +135,16 @@ namespace VirtualRealMachine
                 listView = listView2;
             }
 
-            listView.Select();
-            listView.Items[machine.cpu.IC.getValue().toInt()].Selected = true;
-            listView.EnsureVisible(machine.cpu.IC.getValue().toInt());
+            try
+            {
+                listView.Select();
+                listView.Items[machine.cpu.IC.getValue().toInt()].Selected = true;
+                listView.EnsureVisible(machine.cpu.IC.getValue().toInt());
+            }
+            catch (Exception)
+            {
+                machine.cpu.PI.setValue('1');
+            }
         }
 
         private void executeButton_Click(object sender, EventArgs e)

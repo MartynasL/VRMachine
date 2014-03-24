@@ -40,15 +40,14 @@ namespace VirtualRealMachine
 
         private void initialize()
         {
-            cpu.MODE.setValue('S');
+            cpu.MODE.setValue('V');
             cpu.TIMER.setValue("99");
             cpu.PR.setValue(new Word("0010"));
-            //cpu.A.setValue(new Word("0069");
 
             supervisorMemory.setWordAtAddress(0, new Word("LA08"));
             supervisorMemory.setWordAtAddress(1, new Word("LB09"));
 
-            supervisorMemory.setWordAtAddress(8, new Word("00A0"));
+            supervisorMemory.setWordAtAddress(8, new Word("0388"));
             supervisorMemory.setWordAtAddress(9, new Word("0009"));
 
             memory.setWordAtAddress(0, new Word("LA08"));
@@ -58,8 +57,8 @@ namespace VirtualRealMachine
             memory.setWordAtAddress(9, new Word("0009"));
 
             //vykdoma komanda
-            supervisorMemory.setWordAtAddress(2, new Word("STIC"));
-            memory.setWordAtAddress(2, new Word("STC0"));
+            supervisorMemory.setWordAtAddress(2, new Word("SLAV"));
+            memory.setWordAtAddress(2, new Word("SLAV"));
             //------
             supervisorMemory.setWordAtAddress(10, new Word("AAAA"));
             supervisorMemory.setWordAtAddress(140, new Word("HALT"));

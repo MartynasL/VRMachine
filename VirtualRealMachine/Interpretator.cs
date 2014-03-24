@@ -612,17 +612,19 @@ namespace VirtualRealMachine
                         else
                             notFound();
                         break;
-                    case 'L':
-                        if ((ch3 == 'A') && (ch4 == 'V'))
-                            cpu.slave(ref memory);
-                        else
-                            notFound();
-                        break;
+                    //case 'L':
+                    //    if ((ch3 == 'A') && (ch4 == 'V'))
+                    //        cpu.slave(ref memory);
+                    //    else
+                    //        notFound();
+                    //    break;
                     default:
                         notFound();
                         break;
                 }
             }
+            else if ((ch2 == 'L') && (ch3 == 'A') && (ch4 == 'V'))
+                cpu.slave(ref memory);
             else
                 notFound();
         }

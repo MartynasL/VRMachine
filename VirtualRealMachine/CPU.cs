@@ -596,14 +596,14 @@ namespace VirtualRealMachine
             Word increasedIC = null;
             try
             {
-                increasedIC = new Word((IC.getValue().toInt()).ToString());
+                increasedIC = new Word(IC.getValue().ToString());
             }
             catch (Exception)
             {
                 PI.setValue('1');
             }
 
-            memory.setWordAtAddress(M.getIntValue() * 10 + 5, increasedIC);
+            supervisorMemory.setWordAtAddress(M.getIntValue() * 10 + 5, increasedIC);
         }
 
         public void halt()
