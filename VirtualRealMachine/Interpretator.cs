@@ -358,17 +358,24 @@ namespace VirtualRealMachine
             {
                 if (ch3 == 'C')
                 {
-                    if (ch4 == 'A')
+                    try
                     {
-                        cpu.A.setValue(new Word((cpu.A.getValue().toInt() + 1).ToString()));
+                        if (ch4 == 'A')
+                        {
+                            cpu.A.setValue(new Word((cpu.A.getValue().toInt() + 1).ToString()));
+                        }
+                        else if (ch4 == 'B')
+                        {
+                            cpu.A.setValue(new Word((cpu.B.getValue().toInt() + 1).ToString()));
+                        }
+                        else
+                        {
+                            notFound();
+                        }
                     }
-                    else if (ch4 == 'B')
+                    catch (Exception)
                     {
-                        cpu.A.setValue(new Word((cpu.B.getValue().toInt() + 1).ToString()));
-                    }
-                    else
-                    {
-                        notFound();
+                        cpu.PI.setValue('1');
                     }
                 }
                 else if(isAddress(ch3, ch4))
@@ -384,8 +391,15 @@ namespace VirtualRealMachine
                 }
                 else if (ch3 == 'H' && ch4 == 'A' && isSupervisorMode())
                 {
-                    cpu.input(supervisorMemory, hddManager, cpu.A.getValue().toInt() % 1000, cpu.B.getValue().toInt() % 1000);
-                    decTimerValue = 3;
+                    try
+                    {
+                        cpu.input(supervisorMemory, hddManager, cpu.A.getValue().toInt() % 1000, cpu.B.getValue().toInt() % 1000);
+                        decTimerValue = 3;
+                    }
+                    catch (Exception)
+                    {
+                        cpu.PI.setValue('1');
+                    }
                 }
                 else
                 {
@@ -657,8 +671,15 @@ namespace VirtualRealMachine
                 }
                 else if (ch3 == 'H' && ch4 == 'A' && isSupervisorMode()) 
                 {
-                    cpu.output(supervisorMemory, hddManager, cpu.B.getValue().toInt() % 1000, cpu.A.getValue().toInt() % 1000);
-                    decTimerValue = 3;
+                    try
+                    {
+                        cpu.output(supervisorMemory, hddManager, cpu.B.getValue().toInt() % 1000, cpu.A.getValue().toInt() % 1000);
+                        decTimerValue = 3;
+                    }
+                    catch (Exception)
+                    {
+                        cpu.PI.setValue('1');
+                    }
                 }
                 else
                 {
@@ -880,36 +901,43 @@ namespace VirtualRealMachine
         
         private void caseX(char ch2, char ch3, char ch4)
         {
-            if (ch2 == 'C' && ch3 == 'H' && ch4 == 'G' && isSupervisorMode())
+            try
             {
-                int blockNumber = cpu.B.getValue().toInt() / 10;
-
-                if (cpu.A.getValue().getWordByte(3) == 'I')
+                if (ch2 == 'C' && ch3 == 'H' && ch4 == 'G' && isSupervisorMode())
                 {
-                    if (cpu.A.getValue().getWordByte(4) == 'V')
+                    int blockNumber = cpu.B.getValue().toInt() / 10;
+
+                    if (cpu.A.getValue().getWordByte(3) == 'I')
                     {
-                        cpu.input(ram, inputDevice, blockNumber);
+                        if (cpu.A.getValue().getWordByte(4) == 'V')
+                        {
+                            cpu.input(ram, inputDevice, blockNumber);
+                        }
+                        else
+                        {
+                            cpu.input(supervisorMemory, inputDevice, blockNumber);
+                        }
                     }
-                    else
+                    else if (cpu.A.getValue().getWordByte(3) == 'O')
                     {
-                        cpu.input(supervisorMemory, inputDevice, blockNumber);
+                        if (cpu.A.getValue().getWordByte(4) == 'V')
+                        {
+                            cpu.output(ram, outputDevice, blockNumber);
+                        }
+                        else
+                        {
+                            cpu.output(supervisorMemory, outputDevice, blockNumber);
+                        }
                     }
                 }
-                else if (cpu.A.getValue().getWordByte(3) == 'O')
+                else
                 {
-                    if (cpu.A.getValue().getWordByte(4) == 'V')
-                    {
-                        cpu.output(ram, outputDevice, blockNumber);
-                    }
-                    else
-                    {
-                        cpu.output(supervisorMemory, outputDevice, blockNumber);
-                    }
+                    notFound();
                 }
             }
-            else
+            catch (Exception)
             {
-                notFound();
+                cpu.PI.setValue('1');
             }
         }
 
