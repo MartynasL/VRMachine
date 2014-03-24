@@ -76,7 +76,7 @@ namespace VirtualRealMachine
                     + blockAddress.ToString() + "']/Word[@number = '" 
                     + wordNumber.ToString() + "']");
 
-                wordNode = root.SelectSingleNode("//Block[1]/Word[1]");
+                //wordNode = root.SelectSingleNode("//Block[1]/Word[1]");
 
                 wordNode.InnerText = word.ToString();
 

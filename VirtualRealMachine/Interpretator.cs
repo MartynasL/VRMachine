@@ -393,7 +393,7 @@ namespace VirtualRealMachine
                 {
                     try
                     {
-                        cpu.input(supervisorMemory, hddManager, cpu.A.getValue().toInt() % 1000, cpu.B.getValue().toInt() % 1000);
+                        cpu.input(supervisorMemory, hddManager, cpu.B.getValue().toInt() % 1000, cpu.A.getValue().toInt() % 1000);
                         decTimerValue = 3;
                     }
                     catch (Exception)
@@ -673,7 +673,7 @@ namespace VirtualRealMachine
                 {
                     try
                     {
-                        cpu.output(supervisorMemory, hddManager, cpu.B.getValue().toInt() % 1000, cpu.A.getValue().toInt() % 1000);
+                        cpu.output(supervisorMemory, hddManager, cpu.A.getValue().toInt() % 1000, cpu.B.getValue().toInt() % 1000);
                         decTimerValue = 3;
                     }
                     catch (Exception)
