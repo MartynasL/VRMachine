@@ -68,6 +68,8 @@
             this.listView2 = new System.Windows.Forms.ListView();
             this.label19 = new System.Windows.Forms.Label();
             this.runButton = new System.Windows.Forms.Button();
+            this.listView3 = new System.Windows.Forms.ListView();
+            this.label20 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // AText
@@ -413,11 +415,30 @@
             this.runButton.UseVisualStyleBackColor = true;
             this.runButton.Click += new System.EventHandler(this.runButton_Click);
             // 
+            // listView3
+            // 
+            this.listView3.Location = new System.Drawing.Point(654, 25);
+            this.listView3.Name = "listView3";
+            this.listView3.Size = new System.Drawing.Size(151, 330);
+            this.listView3.TabIndex = 43;
+            this.listView3.UseCompatibleStateImageBehavior = false;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(651, 9);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(76, 13);
+            this.label20.TabIndex = 44;
+            this.label20.Text = "Virtual Memory";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(622, 371);
+            this.ClientSize = new System.Drawing.Size(817, 371);
+            this.Controls.Add(this.label20);
+            this.Controls.Add(this.listView3);
             this.Controls.Add(this.runButton);
             this.Controls.Add(this.label19);
             this.Controls.Add(this.listView2);
@@ -458,6 +479,9 @@
             this.Controls.Add(this.PRText);
             this.Controls.Add(this.ICText);
             this.Controls.Add(this.AText);
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(833, 409);
+            this.MinimumSize = new System.Drawing.Size(833, 409);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -508,6 +532,8 @@
         private System.Windows.Forms.ListView listView2;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Button runButton;
+        private System.Windows.Forms.ListView listView3;
+        private System.Windows.Forms.Label label20;
     }
 }
 

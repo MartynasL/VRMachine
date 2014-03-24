@@ -61,7 +61,7 @@ namespace VirtualRealMachine
             supervisorMemory.setWordAtAddress(8, new Word("0388"));
             supervisorMemory.setWordAtAddress(9, new Word("0009"));
 
-            memory.setWordAtAddress(0, new Word("LA08"));
+            memory.setWordAtAddress(0, new Word("IN20"));
             memory.setWordAtAddress(1, new Word("LB09"));
 
             memory.setWordAtAddress(8, new Word("0014"));
@@ -72,7 +72,8 @@ namespace VirtualRealMachine
             memory.setWordAtAddress(2, new Word("JG13"));
             //------
             supervisorMemory.setWordAtAddress(10, new Word("AAAA"));
-            supervisorMemory.setWordAtAddress(140, new Word("HALT"));
+            supervisorMemory.setWordAtAddress(190, new Word("XCHG"));
+            supervisorMemory.setWordAtAddress(191, new Word("HALT"));
         }
     }
 }

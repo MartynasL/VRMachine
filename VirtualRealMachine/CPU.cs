@@ -44,7 +44,19 @@ namespace VirtualRealMachine
                 if (!needTest)
                 {
                     interpretator.changeInterpretatorMemory();
-                    Word command = interpretator.memory.getWordAtAddress(IC.getValue().toInt());
+                    int commandAddress;
+                    if (MODE.getValue() == 'V')
+                    {
+                        commandAddress = Convert.ToInt32(String.Concat(IC.getValue().getWordByte(3),
+                            IC.getValue().getWordByte(4)));
+                        commandAddress = getRealAddress(ref interpretator.memory, commandAddress);
+                    }
+                    else
+                    {
+                        commandAddress = IC.getValue().toInt();
+                    }
+
+                    Word command = interpretator.memory.getWordAtAddress(commandAddress);
                     int decTimerValue = interpretator.interpretate(command);
                     decTIMER(decTimerValue);
                     needTest = true;
@@ -63,8 +75,8 @@ namespace VirtualRealMachine
                         interpretator.incIC = true;
                     }
                     tempK1 = K1.getValue();
-                    tempK2 = K1.getValue();
-                    tempK3 = K1.getValue();
+                    tempK2 = K2.getValue();
+                    tempK3 = K3.getValue();
                     test();
                     needTest = false;
                 }
@@ -729,7 +741,7 @@ namespace VirtualRealMachine
                     handleInterrupt(220);
                     break;
                 case '2':
-                    handleInterrupt(220);
+                    handleInterrupt(230);
                     break;
                 case '3':
                     handleInterrupt(240);

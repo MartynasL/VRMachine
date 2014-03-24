@@ -44,12 +44,16 @@ namespace VirtualRealMachine
         {
             listView1.View = View.Details;
             listView2.View = View.Details;
+            listView3.View = View.Details;
 
             listView1.Columns.Add("Address");
             listView1.Columns.Add("Value");
 
             listView2.Columns.Add("Address");
             listView2.Columns.Add("Value");
+
+            listView3.Columns.Add("Address");
+            listView3.Columns.Add("Value");
 
             updateListViews();
         }
@@ -58,6 +62,7 @@ namespace VirtualRealMachine
         {
             listView1.Items.Clear();
             listView2.Items.Clear();
+            listView3.Items.Clear();
 
             for (int i = 0; i < machine.supervisorMemory.NUMBER_OF_BLOCKS * 10; i++)
             {
@@ -69,6 +74,12 @@ namespace VirtualRealMachine
             {
                 listView2.Items.Add(new ListViewItem(new string[] {i.ToString(),
                     machine.memory.getWordAtAddress(i).ToString() }));
+            }
+
+            for (int i = 0; i < 100; i++)
+            {
+                listView3.Items.Add(new ListViewItem(new string[] {i.ToString(),
+                    machine.memory.getWordAtAddress(machine.cpu.getRealAddress(ref machine.memory, i)).ToString() }));
             }
         }
 
@@ -125,21 +136,25 @@ namespace VirtualRealMachine
         private void showIC()
         {
             ListView listView;
+            int address;
 
             if (machine.cpu.MODE.getValue() == 'S')
             {
                 listView = listView1;
+                address = machine.cpu.IC.getValue().toInt();
             }
             else
             {
-                listView = listView2;
+                listView = listView3;
+                address = Convert.ToInt32(String.Concat(machine.cpu.IC.getValue().getWordByte(3),
+                    machine.cpu.IC.getValue().getWordByte(4)));
             }
 
             try
             {
                 listView.Select();
-                listView.Items[machine.cpu.IC.getValue().toInt()].Selected = true;
-                listView.EnsureVisible(machine.cpu.IC.getValue().toInt());
+                listView.Items[address].Selected = true;
+                listView.EnsureVisible(address);
             }
             catch (Exception)
             {
@@ -173,6 +188,17 @@ namespace VirtualRealMachine
             while (!machine.cpu.stopMachine && i != 10000)
             {
                 machine.cpu.execute(machine.interpretator);
+
+                if (machine.cpu.SI.getValue() == '1')
+                {
+                    getInput();
+                }
+
+                if (machine.outputDevice.outputExists())
+                {
+                    getOutput();
+                }
+
                 i++;
             }
             if (i == 10000)
