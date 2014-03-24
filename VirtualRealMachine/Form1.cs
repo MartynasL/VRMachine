@@ -80,9 +80,81 @@ namespace VirtualRealMachine
             initializeListViews();
         }
 
+        private void getInput()
+        {
+            string inputString = Microsoft.VisualBasic.Interaction.
+                                    InputBox("Enter the input", "Input");
+            MemoryBlock inputBlock = new MemoryBlock();
+            string tempWordString = "";
+
+            for (int i = 0; i < 40; i = i + 4)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    if (inputString.Length > i + j)
+                    {
+                        tempWordString += inputString[i + j];
+                    }
+                    else
+                    {
+                        tempWordString += "0";
+                    }
+                }
+
+                inputBlock.setBlockWord(i / 4, new Word(tempWordString));
+                tempWordString = "";
+            }
+
+            machine.inputDevice.enqueueInput(inputBlock);
+        }
+
+        private void getOutput()
+        {
+            string outputString = "";
+            MemoryBlock outputBlock = machine.outputDevice.getOutput();
+
+            for (int i = 0; i < 10; i++)
+            {
+                outputString += outputBlock.getBlockWord(i).ToString();
+            }
+
+            MessageBox.Show(outputString, "Output", MessageBoxButtons.OK);
+        }
+
         private void executeButton_Click(object sender, EventArgs e)
         {
             machine.cpu.execute(machine.interpretator);
+
+            if (SIText.Text.ToString() == "1")
+            {
+                getInput();
+            }
+
+            if (machine.outputDevice.outputExists())
+            {
+                getOutput();
+            }
+
+            updateTextBox();
+            updateListViews();
+        }
+
+        private void runButton_Click(object sender, EventArgs e)
+        {
+            int i = 0;
+
+            while (!machine.cpu.stopMachine && i != 10000)
+            {
+                machine.cpu.execute(machine.interpretator);
+                i++;
+            }
+            if (i == 10000)
+            {
+                MessageBox.Show("Maybe your machine has infinite cycle", "Attention",
+                    MessageBoxButtons.OK);
+            }
+
+            machine.cpu.stopMachine = false;
 
             updateTextBox();
             updateListViews();
