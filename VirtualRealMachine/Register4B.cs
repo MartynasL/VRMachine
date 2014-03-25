@@ -17,7 +17,8 @@ namespace VirtualRealMachine
 
         public Word getValue()
         {
-            return value;
+            Word tempWord = new Word(value.ToString());
+            return tempWord;
         }
     }
 }

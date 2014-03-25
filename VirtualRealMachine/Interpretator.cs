@@ -623,6 +623,20 @@ namespace VirtualRealMachine
                         break;
                 }
             }
+            else if((ch2 == 'A' || ch2 == 'B') && isAddress(ch3, ch4))
+            {
+                int address = Convert.ToInt32(String.Concat(ch3, ch4));
+                address = interpretateAddress(address);
+
+                if (ch2 == 'A')
+                {
+                    memory.setWordAtAddress(address, cpu.A.getValue());
+                }
+                else if (ch2 == 'B')
+                {
+                    memory.setWordAtAddress(address, cpu.B.getValue());
+                }
+            }
             else if ((ch2 == 'L') && (ch3 == 'A') && (ch4 == 'V') && !isSupervisorMode())
                 cpu.slave();
             else

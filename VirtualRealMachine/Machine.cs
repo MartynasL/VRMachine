@@ -43,7 +43,7 @@ namespace VirtualRealMachine
             cpu.MODE.setValue('V');
             cpu.TIMER.setValue("99");
             cpu.PR.setValue(new Word("0010"));
-            cpu.C.setValue('1');
+            cpu.IC.setValue(new Word("0020"));
             memory.setWordAtAddress(100, new Word("0000"));
             memory.setWordAtAddress(101, new Word("0001"));
             memory.setWordAtAddress(102, new Word("0002"));
@@ -55,25 +55,24 @@ namespace VirtualRealMachine
             memory.setWordAtAddress(108, new Word("0008"));
             memory.setWordAtAddress(109, new Word("0009"));
 
-            supervisorMemory.setWordAtAddress(0, new Word("LA08"));
-            supervisorMemory.setWordAtAddress(1, new Word("LB09"));
+            memory.setWordAtAddress(0, new Word("0008"));
+            memory.setWordAtAddress(1, new Word("0005"));
 
-            supervisorMemory.setWordAtAddress(8, new Word("0388"));
-            supervisorMemory.setWordAtAddress(9, new Word("0009"));
+            memory.setWordAtAddress(10, new Word("ATSA"));
+            memory.setWordAtAddress(11, new Word("KYMA"));
+            memory.setWordAtAddress(12, new Word("S:  "));
 
-            memory.setWordAtAddress(0, new Word("IN20"));
-            memory.setWordAtAddress(1, new Word("LB09"));
+            memory.setWordAtAddress(20, new Word("LA00"));
+            memory.setWordAtAddress(21, new Word("LB01"));
+            memory.setWordAtAddress(22, new Word("+AB0"));
+            memory.setWordAtAddress(23, new Word("SB13"));
+            memory.setWordAtAddress(24, new Word("OU10"));
+            memory.setWordAtAddress(25, new Word("HALT"));
 
-            memory.setWordAtAddress(8, new Word("0014"));
-            memory.setWordAtAddress(9, new Word("0009"));
+            supervisorMemory.setWordAtAddress(140, new Word("HALT"));
+            supervisorMemory.setWordAtAddress(200, new Word("XCHG"));
+            supervisorMemory.setWordAtAddress(201, new Word("MO25"));
 
-            //vykdoma komanda
-            supervisorMemory.setWordAtAddress(2, new Word("SLAV"));
-            memory.setWordAtAddress(2, new Word("JG13"));
-            //------
-            supervisorMemory.setWordAtAddress(10, new Word("AAAA"));
-            supervisorMemory.setWordAtAddress(190, new Word("XCHG"));
-            supervisorMemory.setWordAtAddress(191, new Word("HALT"));
         }
     }
 }

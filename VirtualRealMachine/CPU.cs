@@ -796,7 +796,14 @@ namespace VirtualRealMachine
                     timer = 0;
                     TI.setValue('1');
                 }
-            TIMER.setValue(timer.ToString());
+            if (timer < 10)
+            {
+                TIMER.setValue(String.Concat('0', timer.ToString()));
+            }
+            else
+            {
+                TIMER.setValue(timer.ToString());
+            }
         }
     }
 }
