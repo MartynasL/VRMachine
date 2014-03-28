@@ -59,6 +59,10 @@ namespace VirtualRealMachine
                     int decTimerValue = interpretator.interpretate(command);
                     decTIMER(decTimerValue);
                     needTest = true;
+                    if (PI.getValue() != '0' || SI.getValue() != '0' || IOI.getValue() != '0' || TI.getValue() != '0')
+                    {
+                        interpretator.incIC = false;
+                    }
                 }
                 else
                 {
@@ -77,6 +81,7 @@ namespace VirtualRealMachine
                     tempK2 = K2.getValue();
                     tempK3 = K3.getValue();
                     test();
+
                     needTest = false;
                 }
             }
@@ -683,7 +688,7 @@ namespace VirtualRealMachine
                 MODE.setValue('S');
             }            
             tempWord.setWord(address.ToString());
-            IC.setValue(tempWord);            
+            IC.setValue(tempWord);  
         }
 
         private void handlePI()
