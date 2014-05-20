@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace VirtualRealMachine
 {
-    class Machine
+    public class Machine
     {
         public CPU cpu;
         public Memory supervisorMemory;
@@ -35,7 +35,7 @@ namespace VirtualRealMachine
             interpretator = new Interpretator(ref cpu, ref memory, ref supervisorMemory, ref inputDevice,
                 ref outputDevice, ref hddManager);
 
-            initialize();
+            //initialize();
         }
 
         private void initialize()
