@@ -408,6 +408,18 @@ namespace VirtualRealMachine
                         cpu.PI.setValue('1');
                     }
                 }
+                else if (ch3 == 'H' && ch4 == 'V' && isSupervisorMode())
+                {
+                    try
+                    {
+                        cpu.input(ram, hddManager, cpu.B.getValue().toInt() % 1000, cpu.A.getValue().toInt() % 1000);
+                        decTimerValue = 3;
+                    }
+                    catch (Exception)
+                    {
+                        cpu.PI.setValue('1');
+                    }
+                }
                 else
                 {
                     notFound();
@@ -703,6 +715,18 @@ namespace VirtualRealMachine
                     try
                     {
                         cpu.output(supervisorMemory, hddManager, cpu.A.getValue().toInt() % 1000, cpu.B.getValue().toInt() % 1000);
+                        decTimerValue = 3;
+                    }
+                    catch (Exception)
+                    {
+                        cpu.PI.setValue('1');
+                    }
+                }
+                else if (ch3 == 'H' && ch4 == 'V' && isSupervisorMode())
+                {
+                    try
+                    {
+                        cpu.output(ram, hddManager, cpu.A.getValue().toInt() % 1000, cpu.B.getValue().toInt() % 1000);
                         decTimerValue = 3;
                     }
                     catch (Exception)
