@@ -37,7 +37,7 @@ namespace VirtualRealMachine
             this.supervisorMemory = supervisorMemory;
         }
 
-        public void execute(Interpretator interpretator)
+        public bool execute(Interpretator interpretator)
         {
             try
             {
@@ -80,9 +80,9 @@ namespace VirtualRealMachine
                     tempK1 = K1.getValue();
                     tempK2 = K2.getValue();
                     tempK3 = K3.getValue();
-                    test();
-
                     needTest = false;
+
+                    return test();                    
                 }
             }
             catch (Exception)
@@ -655,28 +655,33 @@ namespace VirtualRealMachine
             }
         }
 
-        public void test()
+        public bool test()
         {
             if (PI.getValue() != '0')
             {
-                handlePI();
-                PI.setValue('0');
+                return true;
+                //handlePI();
+                //PI.setValue('0');
             }
             if (SI.getValue() != '0')
             {
-                handleSI();
-                SI.setValue('0');
+                return true;
+                //handleSI();
+                //SI.setValue('0');
             }
             if (IOI.getValue() != '0')
             {
-                handleIOI();
-                IOI.setValue('0');
+                return true;
+                //handleIOI();
+                //IOI.setValue('0');
             }
             if (TI.getValue() != '0')
             {
-                handleTI();
-                TI.setValue('0');
+                return true;
+                //handleTI();
+                //TI.setValue('0');
             }
+            return false;
         }
 
         private void handleInterrupt(int address)
