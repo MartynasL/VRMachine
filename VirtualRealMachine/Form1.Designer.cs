@@ -70,6 +70,8 @@
             this.runButton = new System.Windows.Forms.Button();
             this.listView3 = new System.Windows.Forms.ListView();
             this.label20 = new System.Windows.Forms.Label();
+            this.haltOSButton = new System.Windows.Forms.Button();
+            this.jobInputButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // AText
@@ -432,11 +434,33 @@
             this.label20.TabIndex = 44;
             this.label20.Text = "Virtual Memory";
             // 
+            // haltOSButton
+            // 
+            this.haltOSButton.Location = new System.Drawing.Point(216, 256);
+            this.haltOSButton.Name = "haltOSButton";
+            this.haltOSButton.Size = new System.Drawing.Size(75, 23);
+            this.haltOSButton.TabIndex = 45;
+            this.haltOSButton.Text = "HALT OS";
+            this.haltOSButton.UseVisualStyleBackColor = true;
+            this.haltOSButton.Click += new System.EventHandler(this.haltOSButton_Click);
+            // 
+            // jobInputButton
+            // 
+            this.jobInputButton.Location = new System.Drawing.Point(216, 227);
+            this.jobInputButton.Name = "jobInputButton";
+            this.jobInputButton.Size = new System.Drawing.Size(75, 23);
+            this.jobInputButton.TabIndex = 46;
+            this.jobInputButton.Text = "Job Input";
+            this.jobInputButton.UseVisualStyleBackColor = true;
+            this.jobInputButton.Click += new System.EventHandler(this.jobInputButton_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(817, 371);
+            this.Controls.Add(this.jobInputButton);
+            this.Controls.Add(this.haltOSButton);
             this.Controls.Add(this.label20);
             this.Controls.Add(this.listView3);
             this.Controls.Add(this.runButton);
@@ -534,6 +558,8 @@
         private System.Windows.Forms.Button runButton;
         private System.Windows.Forms.ListView listView3;
         private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Button haltOSButton;
+        private System.Windows.Forms.Button jobInputButton;
     }
 }
 

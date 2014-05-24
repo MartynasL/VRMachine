@@ -213,5 +213,17 @@ namespace VirtualRealMachine
             updateListViews();
             showIC();
         }
+
+        private void haltOSButton_Click(object sender, EventArgs e)
+        {
+            machine.cpu.SI.setValue('5');
+            updateTextBox();
+        }
+
+        private void jobInputButton_Click(object sender, EventArgs e)
+        {
+            machine.cpu.SI.setValue('4');
+            updateTextBox();
+        }
     }
 }
