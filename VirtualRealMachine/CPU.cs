@@ -63,6 +63,8 @@ namespace VirtualRealMachine
                     {
                         interpretator.incIC = false;
                     }
+
+                    return false;
                 }
                 else
                 {
@@ -89,6 +91,7 @@ namespace VirtualRealMachine
             {
                 PI.setValue('1');
             }
+            return false;
 
         }
 

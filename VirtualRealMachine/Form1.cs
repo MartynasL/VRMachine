@@ -12,7 +12,7 @@ namespace VirtualRealMachine
 {
     public partial class Form1 : Form
     {
-        private Machine machine;
+        public Machine machine;
 
         public Form1()
         {
@@ -85,8 +85,6 @@ namespace VirtualRealMachine
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            machine = new Machine();
-
             updateTextBox();
             initializeListViews();
             showIC();
@@ -162,18 +160,21 @@ namespace VirtualRealMachine
         }
 
         private void executeButton_Click(object sender, EventArgs e)
-        {            
-            machine.cpu.execute(machine.interpretator);
-
-            if (SIText.Text.ToString() == "1")
+        {
+            if (machine.cpu.execute(machine.interpretator))
             {
-                getInput();
+                this.Close();
             }
 
-            if (machine.outputDevice.outputExists())
-            {
-                getOutput();
-            }
+            //if (SIText.Text.ToString() == "1")
+            //{
+            //    getInput();
+            //}
+
+            //if (machine.outputDevice.outputExists())
+            //{
+            //    getOutput();
+            //}
 
             updateTextBox();
             updateListViews();
