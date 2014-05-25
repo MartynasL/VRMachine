@@ -35,7 +35,7 @@ namespace VirtualRealMachine
             interpretator = new Interpretator(ref cpu, ref memory, ref supervisorMemory, ref inputDevice,
                 ref outputDevice, ref hddManager);
 
-            //initialize();
+            initialize();
         }
 
         private void initialize()
@@ -104,6 +104,73 @@ namespace VirtualRealMachine
             //supervisorMemory.setWordAtAddress(25, new Word("0024"));
             //supervisorMemory.setWordAtAddress(140, new Word("HALT"));
 
+            //---------------------------------------OPERATING SYSTEM-------------------------------------
+            supervisorMemory.setWordAtAddress(140, new Word("COMM"));
+            supervisorMemory.setWordAtAddress(141, new Word("AND "));
+            supervisorMemory.setWordAtAddress(142, new Word("DOES"));
+            supervisorMemory.setWordAtAddress(143, new Word(" NOT"));
+            supervisorMemory.setWordAtAddress(144, new Word(" EXI"));
+            supervisorMemory.setWordAtAddress(145, new Word("ST! "));
+
+            supervisorMemory.setWordAtAddress(150, new Word("DIVI"));
+            supervisorMemory.setWordAtAddress(151, new Word("DE B"));
+            supervisorMemory.setWordAtAddress(152, new Word("Y ZE"));
+            supervisorMemory.setWordAtAddress(153, new Word("RO! "));
+
+            supervisorMemory.setWordAtAddress(160, new Word("OVER"));
+            supervisorMemory.setWordAtAddress(161, new Word("FLOW"));
+            supervisorMemory.setWordAtAddress(162, new Word("!   "));
+
+            supervisorMemory.setWordAtAddress(170, new Word("UNDE"));
+            supervisorMemory.setWordAtAddress(171, new Word("RFLO"));
+            supervisorMemory.setWordAtAddress(172, new Word("W!  "));
+
+            supervisorMemory.setWordAtAddress(180, new Word("MEMO"));
+            supervisorMemory.setWordAtAddress(181, new Word("RY O"));
+            supervisorMemory.setWordAtAddress(182, new Word("UT O"));
+            supervisorMemory.setWordAtAddress(183, new Word("F BO"));
+            supervisorMemory.setWordAtAddress(184, new Word("UNDS"));
+            supervisorMemory.setWordAtAddress(185, new Word("!   "));
+
+            supervisorMemory.setWordAtAddress(190, new Word("INTE"));
+            supervisorMemory.setWordAtAddress(191, new Word("RRUP"));
+            supervisorMemory.setWordAtAddress(192, new Word("T @1"));
+            supervisorMemory.setWordAtAddress(193, new Word("CH! "));
+
+            supervisorMemory.setWordAtAddress(200, new Word("INTE"));
+            supervisorMemory.setWordAtAddress(201, new Word("RRUP"));
+            supervisorMemory.setWordAtAddress(202, new Word("T @2"));
+            supervisorMemory.setWordAtAddress(203, new Word("CH! "));
+
+            supervisorMemory.setWordAtAddress(210, new Word("INTE"));
+            supervisorMemory.setWordAtAddress(211, new Word("RRUP"));
+            supervisorMemory.setWordAtAddress(212, new Word("T @3"));
+            supervisorMemory.setWordAtAddress(213, new Word("CH! "));
+
+            supervisorMemory.setWordAtAddress(220, new Word("INTE"));
+            supervisorMemory.setWordAtAddress(221, new Word("RRUP"));
+            supervisorMemory.setWordAtAddress(222, new Word("T @1"));
+            supervisorMemory.setWordAtAddress(223, new Word(", 2C"));
+            supervisorMemory.setWordAtAddress(224, new Word("H!  "));
+
+            supervisorMemory.setWordAtAddress(230, new Word("INTE"));
+            supervisorMemory.setWordAtAddress(231, new Word("RRUP"));
+            supervisorMemory.setWordAtAddress(232, new Word("T @1"));
+            supervisorMemory.setWordAtAddress(233, new Word(", 3C"));
+            supervisorMemory.setWordAtAddress(234, new Word("H!  "));
+
+            supervisorMemory.setWordAtAddress(240, new Word("INTE"));
+            supervisorMemory.setWordAtAddress(241, new Word("RRUP"));
+            supervisorMemory.setWordAtAddress(242, new Word("T @3"));
+            supervisorMemory.setWordAtAddress(243, new Word(", 3C"));
+            supervisorMemory.setWordAtAddress(244, new Word("H!  "));
+
+            supervisorMemory.setWordAtAddress(250, new Word("INTE"));
+            supervisorMemory.setWordAtAddress(251, new Word("RRUP"));
+            supervisorMemory.setWordAtAddress(252, new Word("T @1"));
+            supervisorMemory.setWordAtAddress(253, new Word(", 2,"));
+            supervisorMemory.setWordAtAddress(254, new Word(" 3CH"));
+            supervisorMemory.setWordAtAddress(254, new Word("!   "));
         }
     }
 }
