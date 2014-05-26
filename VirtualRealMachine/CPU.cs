@@ -59,10 +59,10 @@ namespace VirtualRealMachine
                     int decTimerValue = interpretator.interpretate(command);
                     decTIMER(decTimerValue);
                     needTest = true;
-                    if (PI.getValue() != '0' || SI.getValue() != '0' || IOI.getValue() != '0' || TI.getValue() != '0')
-                    {
-                        interpretator.incIC = false;
-                    }
+                    //if (PI.getValue() != '0' || SI.getValue() != '0' || IOI.getValue() != '0' || TI.getValue() != '0')
+                    //{
+                    //    interpretator.incIC = false;
+                    //}
 
                     return false;
                 }

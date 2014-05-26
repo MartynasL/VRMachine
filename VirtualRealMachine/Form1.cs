@@ -183,35 +183,38 @@ namespace VirtualRealMachine
 
         private void runButton_Click(object sender, EventArgs e)
         {
-            int i = 0;
+            //int i = 0;
 
-            while (!machine.cpu.stopMachine && i != 10000)
-            {
-                machine.cpu.execute(machine.interpretator);
+            //while (!machine.cpu.stopMachine && i != 10000)
+            //{
+            //    machine.cpu.execute(machine.interpretator);
 
-                if (machine.cpu.SI.getValue() == '1')
-                {
-                    getInput();
-                }
+            //    if (machine.cpu.SI.getValue() == '1')
+            //    {
+            //        getInput();
+            //    }
 
-                if (machine.outputDevice.outputExists())
-                {
-                    getOutput();
-                }
+            //    if (machine.outputDevice.outputExists())
+            //    {
+            //        getOutput();
+            //    }
 
-                i++;
-            }
-            if (i == 10000)
-            {
-                MessageBox.Show("Maybe your machine has infinite cycle", "Attention",
-                    MessageBoxButtons.OK);
-            }
+            //    i++;
+            //}
+            //if (i == 10000)
+            //{
+            //    MessageBox.Show("Maybe your machine has infinite cycle", "Attention",
+            //        MessageBoxButtons.OK);
+            //}
 
-            machine.cpu.stopMachine = false;
+            //machine.cpu.stopMachine = false;
+
+            while (!machine.cpu.execute(machine.interpretator));
 
             updateTextBox();
             updateListViews();
             showIC();
+            this.Close();
         }
 
         private void haltOSButton_Click(object sender, EventArgs e)
