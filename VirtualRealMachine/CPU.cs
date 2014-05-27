@@ -275,7 +275,7 @@ namespace VirtualRealMachine
 
                 op1 = register1.getValue().toInt();
                 op2 = register2.getValue().toInt();
-                if (op1 == 0)
+                if (op2 == 0)
                     PI.setValue('2');
                 else
                 {
